@@ -13,6 +13,7 @@ class NoteAppRoomStartup : Application() {
     override fun onCreate() {
         super.onCreate()
         database =
-            Room.databaseBuilder(applicationContext, NotesAppDatabase::class.java, "notes_db").fallbackToDestructiveMigration().build()
+            Room.databaseBuilder(applicationContext, NotesAppDatabase::class.java, "notes_db").fallbackToDestructiveMigration()
+                .allowMainThreadQueries().build()
     }
 }
