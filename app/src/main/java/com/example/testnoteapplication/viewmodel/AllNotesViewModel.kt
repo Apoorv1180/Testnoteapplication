@@ -13,11 +13,11 @@ class AllNotesViewModel : ViewModel() {
         notesRepository = NotesRepository()
     }
 
-    fun getAllNotes(): LiveData<List<NotesModel>> {
+    /*fun getAllNotes(): LiveData<List<NotesModel>> {
         return notesRepository.getAllNotes();
     }
 
     fun getNotes(noteId: Int): LiveData<NotesModel> {
         return notesRepository.getNotes(noteId);
-    }
+    }*/
 }

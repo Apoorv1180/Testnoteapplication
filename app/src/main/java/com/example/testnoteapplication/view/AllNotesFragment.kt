@@ -22,7 +22,7 @@ class AllNotesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.all_note_fragment, container, false)
+        return inflater.inflate(R.layout.all_notes_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

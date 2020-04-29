@@ -7,15 +7,15 @@ import java.sql.Date
 @Entity(tableName = "Notes")
 data class NotesModel(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     var noteId: Int,
-    val noteTitle: String? = null,
-    val noteDescription: String? = null,
+    var noteTitle: String,
+    var noteDescription: String/*,
     var createdOn: Date,
-    var updatedOn: Date,
-    val label: String? = null,
-    val noteColor: String = "#FFFFFF",
-    val isArchived: Boolean = false,
-    val ifReminder: String? = null,
-    val isTrashed: Boolean = false
+    var updatedOn: Date*/
+    /*var label: String? = null,
+    var noteColor: String = "#FFFFFF",
+    var isArchived: Boolean = false,
+    var ifReminder: String? = null,
+    var isTrashed: Boolean = false*/
 )

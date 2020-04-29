@@ -1,4 +1,4 @@
-package com.example.testnoteapplication
+package com.example.testnoteapplication.Base
 
 import android.app.Application
 import androidx.room.Room
@@ -13,7 +13,6 @@ class NoteAppRoomStartup : Application() {
     override fun onCreate() {
         super.onCreate()
         database =
-            Room.databaseBuilder(applicationContext, NotesAppDatabase::class.java, "notes_db")
-                .fallbackToDestructiveMigration().build()
+            Room.databaseBuilder(applicationContext, NotesAppDatabase::class.java, "notes_db").fallbackToDestructiveMigration().build()
     }
 }

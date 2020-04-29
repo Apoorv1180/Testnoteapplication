@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/root_create_note"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:overScrollMode="never"
+android:scrollbars="none"
+tools:context=".view.activity.AddNoteFragment">
+
+<LinearLayout
+    android:id="@+id/child_create_note"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.AddNoteFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_createNote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_short"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/noteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:ems="10"
+        android:hint="@string/hint_title"
+        android:inputType="text"
+        android:padding="@dimen/padding_medium"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/noteDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="@string/hint_note"
+        android:inputType="textMultiLine"
+        android:padding="@dimen/padding_medium" />
+
+    <Button
+        android:id="@+id/savenote"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/savenote" />
+
+</LinearLayout>
+
+</ScrollView>
