@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/note"
+        android:title="@string/note"
+        android:icon="@drawable/ic_note_black_24dp"/>
+    <item
+        android:id="@+id/list"
+        android:title="@string/list"
+        android:icon="@drawable/ic_list_red_24dp"/>
+    <item
+        android:id="@+id/subscription"
+        android:title="@string/subscription"
+        android:icon="@drawable/ic_subscription_black_24dp"/>
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="@string/add" />
+
+</menu>

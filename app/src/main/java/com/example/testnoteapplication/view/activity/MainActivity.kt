@@ -1,4 +1,4 @@
-package com.example.testnoteapplication.View
+package com.example.testnoteapplication.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
