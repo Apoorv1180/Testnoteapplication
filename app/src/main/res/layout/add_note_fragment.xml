@@ -1,70 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/root_create_note"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:overScrollMode="never"
-android:scrollbars="none"
-tools:context=".view.fragment.AddNoteFragment">
-
-<LinearLayout
-    android:id="@+id/child_create_note"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.AddNoteFragment">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_createNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_short"
-        android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        android:background="#E8E49E25"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/child_create_note"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <EditText
-        android:id="@+id/rvNoteTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:ems="10"
-        android:hint="@string/hint_title"
-        android:inputType="text"
-        android:padding="@dimen/padding_medium"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/addNoteBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/addNoteBar"
+            android:ems="5"
+            android:text="@string/addNoteBar"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"/>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/child_create_note"
+        android:layout_width="364dp"
+        android:layout_height="596dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_createNote">
 
-    <EditText
-        android:id="@+id/rvNoteDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:ems="10"
-        android:gravity="start"
-        android:hint="@string/hint_note"
-        android:inputType="textMultiLine"
-        android:padding="@dimen/padding_medium" />
+        <EditText
+            android:id="@+id/noteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/side_margin"
+            android:layout_marginTop="@dimen/side_margin"
+            android:layout_marginRight="@dimen/side_margin"
+            android:autofillHints="@string/hint_title"
+            android:ems="10"
+            android:hint="@string/hint_title"
+            android:inputType="text"
+            android:padding="@dimen/padding_medium"
+            android:textColorHint="#0B0707"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/savenote"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="@string/savenote" />
+        <EditText
+            android:id="@+id/noteDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/side_margin"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/side_margin"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:autofillHints="@string/hint_note"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="@string/hint_note"
+            android:inputType="textMultiLine"
+            android:padding="@dimen/padding_medium"
+            android:textColorHint="#0B0707" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/side_margin"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/side_margin"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:autofillHints="@string/datePicker"
+            android:ems="10"
+            android:hint="@string/datePicker"
+            android:textColorHint="#0B0707" />
 
-</ScrollView>
+        <Button
+            android:id="@+id/addNote"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center|fill"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="100dp"
+            android:autofillHints="@string/add"
+            android:background="#E8E49E25"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="@string/addNote"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

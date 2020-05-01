@@ -10,23 +10,18 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/bottomNavWhite"
+        android:background="#80000000"
+        app:itemRippleColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_options" >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <View
-        android:id="@+id/viewDivider"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"/>
-
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/viewDivider"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

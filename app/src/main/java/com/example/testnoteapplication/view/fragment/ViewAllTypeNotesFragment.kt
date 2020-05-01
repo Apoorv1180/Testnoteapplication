@@ -15,7 +15,7 @@ import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
 import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
 
 class ViewAllTypeNotesFragment : Fragment() {
-    val allNotes = mutableListOf<NotesModel>()
+    var allNotes = mutableListOf<NotesModel>()
     /*init {
         for (i in 0 until 100) {
             var notes = NotesModel(

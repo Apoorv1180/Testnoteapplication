@@ -15,7 +15,7 @@ class NotesRepository {
          return NoteAppRoomStartup.database!!.notesDao().getNotes(noteId)
      }*/
 
-    fun addNote(notesModel: NotesModel): LiveData<Boolean> {
+    fun addNoteRepo(notesModel: NotesModel): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
         NoteAppRoomStartup.database!!.notesDao().addNotes(notesModel)
         data.value = true
