@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.AllNotesFragment">
+    tools:context=".view.fragment.ViewAllTypeNotesFragment">
 
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/viewAllTypeNotesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="all notes " />
-
+        android:layout_height="668dp" />
 </FrameLayout>

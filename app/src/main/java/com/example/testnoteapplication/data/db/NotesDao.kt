@@ -7,11 +7,14 @@ import com.example.testnoteapplication.data.model.NotesModel
 @Dao
 interface NotesDao {
 
-    @Query("SELECT * FROM Notes")
-    fun getAllNotes(): LiveData<List<NotesModel>>
+    @Query("SELECT * FROM Notes where noteType=:noteType")
+    fun getAllNotes(noteType: String): LiveData<List<NotesModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addNotes(notesModel: NotesModel)
+
+    @Query("SELECT * FROM Notes")
+    fun getAllTypeNotes(): LiveData<List<NotesModel>>
 /*
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateNotes(notesModels: List<NotesModel>): Boolean
