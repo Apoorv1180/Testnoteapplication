@@ -46,8 +46,11 @@ class AllNotesFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer<List<AllNotesModel>> { lisOfNotes ->
                 notesList.clear()
                 notesList.addAll(lisOfNotes.toMutableList())
+                lisOfNotes.forEach {
+                    Log.e("ALL_NOTE"," Title " + it.noteTitle)
+                }
+                adapter = AllTypeNotesAdapter(notesList)
             })
-        adapter = AllTypeNotesAdapter(notesList)
         allNotesRecyclerView.adapter = adapter
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.testnoteapplication.R
@@ -17,7 +18,6 @@ import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
 
 class ViewAllTypeNotesFragment : Fragment() {
     var allNotes = mutableListOf<AllNotesModel>()
-
 
     companion object {
         fun newInstance() = ViewAllTypeNotesFragment()
@@ -41,13 +41,16 @@ class ViewAllTypeNotesFragment : Fragment() {
         allNotesRecyclerView =
             view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
         allNotesRecyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            GridLayoutManager(view.context, 2, GridLayoutManager.VERTICAL, false)
         viewModel.getAllTypeNotes()
             .observe(viewLifecycleOwner, Observer<List<AllNotesModel>> { list ->
                 allNotes.clear()
                 allNotes.addAll(list)
+                list.forEach {
+                    Log.e("ALL_TYPE"," Title " + it.noteTitle)
+                }
+                adapter = AllTypeNotesAdapter(allNotes)
             })
-        adapter = AllTypeNotesAdapter(allNotes)
         allNotesRecyclerView.adapter = adapter
     }
 
