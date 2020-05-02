@@ -45,14 +45,13 @@ class ViewAllTypeNotesFragment : Fragment() {
 //            1, "Title " + 2, "Title Description " + 1, "NOTE","99090")
 //        allNotes.add(notes)
         allNotesRecyclerView =
-            view.findViewById(R.id.recyclerView) as RecyclerView
+            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
         linearLayoutManager = LinearLayoutManager(activity)
         allNotesRecyclerView.layoutManager = linearLayoutManager
         adapter = AllTypeNotesAdapter(allNotes)
         allNotesRecyclerView.adapter = adapter
 
-        allNotesRecyclerView.layoutManager =
-            GridLayoutManager(view.context, 2, GridLayoutManager.VERTICAL, false)
+
         viewModel.getAllTypeNotes()
             .observe(viewLifecycleOwner, Observer<List<AllNotesModel>> { list ->
                 allNotes.clear()
