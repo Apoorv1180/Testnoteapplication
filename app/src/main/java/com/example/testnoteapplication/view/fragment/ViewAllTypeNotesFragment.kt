@@ -36,7 +36,7 @@ class ViewAllTypeNotesFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.view_all_type_notes_fragment, container, false)
     }
-
+// on view created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
