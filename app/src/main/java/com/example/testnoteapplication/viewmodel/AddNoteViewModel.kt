@@ -14,7 +14,7 @@ class AddNoteViewModel : ViewModel() {
         notesRepository = NotesRepository()
     }
 
-    fun addNoteVm(notesModel: AllNotesModel): LiveData<Boolean> {
+    fun addNoteVm(notesModel: AllNotesModel): LiveData<Long> {
         return notesRepository.addNoteRepo(notesModel)
     }
 }

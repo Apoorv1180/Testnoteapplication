@@ -6,8 +6,6 @@ import java.util.*
 
 class NoteUtil {
     companion object {
-        val NOTE: String= "NOTE"
-
+        const val NOTE: String = "NOTE"
     }
-
 }

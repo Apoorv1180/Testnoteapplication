@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,6 +25,7 @@ class AddNoteFragment : Fragment() {
         fun newInstance() =
             AddNoteFragment()
     }
+
     var cal = Calendar.getInstance()
     private lateinit var viewModel: AddNoteViewModel
     lateinit var dateTextView: TextView
@@ -42,35 +44,47 @@ class AddNoteFragment : Fragment() {
         initListner()
         observeAddNoteViewModel()
 
-        }
+    }
 
     private fun setUpView(view: View) {
         dateTextView = view.findViewById(R.id.datePicker)
     }
-    private fun initViewModel(){
+
+    private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(AddNoteViewModel::class.java)
     }
-    private fun observeAddNoteViewModel(){
+
+    private fun observeAddNoteViewModel() {
 
     }
-    private fun initListner(){
+
+    private fun initListner() {
         datePicker.setOnClickListener { v ->
-            when(v?.id){
-                R.id.datePicker-> openDatePicker(v)
-            }}
+            when (v?.id) {
+                R.id.datePicker -> openDatePicker(v)
+            }
+        }
 
-        addNote.setOnClickListener{
-            saveNote() }
+        addNote.setOnClickListener {
+            saveNote()
+        }
     }
 
-    private fun saveNote(){
+    private fun saveNote() {
         var notesModel =
-            AllNotesModel(1, noteTitle.text.toString(), noteDescription.text.toString(), NoteUtil.NOTE,dateTextView.text.toString())
+            AllNotesModel(
+                0,
+                noteTitle.text.toString(),
+                noteDescription.text.toString(),
+                NoteUtil.NOTE,
+                dateTextView.text.toString()
+            )
         viewModel.addNoteVm(notesModel)
-            .observe(viewLifecycleOwner, Observer<Boolean> { valueBoolean ->
-                Log.e("NOTE ", valueBoolean.toString())
+            .observe(viewLifecycleOwner, Observer<Long> { noteId ->
+                Toast.makeText(activity, "Note is saved $noteId", Toast.LENGTH_SHORT).show()
             })
     }
+
     private fun openDatePicker(v: View?) {
 
         val dateSetListener =
@@ -80,8 +94,15 @@ class AddNoteFragment : Fragment() {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView()
             }
-        DatePickerDialog(v?.context!!, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+        DatePickerDialog(
+            v?.context!!,
+            dateSetListener,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
+
     private fun updateDateInView() {
         val myFormat = "MM/dd/yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)

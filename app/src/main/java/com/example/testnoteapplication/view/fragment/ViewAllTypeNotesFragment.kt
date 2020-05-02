@@ -27,24 +27,28 @@ class ViewAllTypeNotesFragment : Fragment() {
     private lateinit var allNotesRecyclerView: RecyclerView
     private var adapter: AllTypeNotesAdapter? = null
 
-    private val allTypeNotesViewModel: ViewAllTypeNotesViewModel by lazy {
-        ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.view_all_type_notes_fragment, container, false)
     }
-// on view created
+
+    // on view created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
-        viewModel.getAllTypeNotes().observe(viewLifecycleOwner,Observer<List<AllNotesModel>>{list->
-            for( item in list){
-                Log.e("VALUE",item.createdOn)
-            }
-        })
+        allNotesRecyclerView =
+            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
+        allNotesRecyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        viewModel.getAllTypeNotes()
+            .observe(viewLifecycleOwner, Observer<List<AllNotesModel>> { list ->
+                allNotes.clear()
+                allNotes.addAll(list)
+            })
+        adapter = AllTypeNotesAdapter(allNotes)
+        allNotesRecyclerView.adapter = adapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
