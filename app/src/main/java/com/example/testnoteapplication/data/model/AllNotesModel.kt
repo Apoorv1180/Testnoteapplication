@@ -7,7 +7,7 @@ import java.sql.Date
 @Entity(tableName = "AllNotes")
 data class AllNotesModel(
 
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     var noteId: Int,
     var noteTitle: String,
     var noteDescription: String,
