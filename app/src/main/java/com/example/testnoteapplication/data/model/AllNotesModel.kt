@@ -19,4 +19,6 @@ data class AllNotesModel(
     var isArchived: Boolean = false,
     var ifReminder: String? = null,
     var isTrashed: Boolean = false*/
+
+
 )

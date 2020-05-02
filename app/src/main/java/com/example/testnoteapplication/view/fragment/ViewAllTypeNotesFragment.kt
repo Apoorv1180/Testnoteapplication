@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.testnoteapplication.R
@@ -18,6 +19,7 @@ import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
 
 class ViewAllTypeNotesFragment : Fragment() {
     var allNotes = mutableListOf<AllNotesModel>()
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     companion object {
         fun newInstance() = ViewAllTypeNotesFragment()
@@ -38,8 +40,17 @@ class ViewAllTypeNotesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
+
+//        var notes = AllNotesModel(
+//            1, "Title " + 2, "Title Description " + 1, "NOTE","99090")
+//        allNotes.add(notes)
         allNotesRecyclerView =
-            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
+            view.findViewById(R.id.recyclerView) as RecyclerView
+        linearLayoutManager = LinearLayoutManager(activity)
+        allNotesRecyclerView.layoutManager = linearLayoutManager
+        adapter = AllTypeNotesAdapter(allNotes)
+        allNotesRecyclerView.adapter = adapter
+
         allNotesRecyclerView.layoutManager =
             GridLayoutManager(view.context, 2, GridLayoutManager.VERTICAL, false)
         viewModel.getAllTypeNotes()
@@ -49,9 +60,9 @@ class ViewAllTypeNotesFragment : Fragment() {
                 list.forEach {
                     Log.e("ALL_TYPE"," Title " + it.noteTitle)
                 }
-                adapter = AllTypeNotesAdapter(allNotes)
+           //     adapter = AllTypeNotesAdapter(allNotes)
             })
-        allNotesRecyclerView.adapter = adapter
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
