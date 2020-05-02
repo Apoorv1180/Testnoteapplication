@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.model.NotesModel
 import com.example.testnoteapplication.viewmodel.AddNoteViewModel
-import com.example.testnoteapplication.viewmodel.enum.NoteType
+import com.example.testnoteapplication.viewmodel.constant.Constants
 import kotlinx.android.synthetic.main.add_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,7 +42,7 @@ class AddNoteFragment : Fragment(), View.OnClickListener {
         datePicker.setOnClickListener(this)
         addNote.setOnClickListener{
         var notesModel =
-                NotesModel(1, noteTitle.text.toString(), noteDescription.text.toString(), NoteType.NOTE.toString())
+                NotesModel(1, noteTitle.text.toString(), noteDescription.text.toString(), Constants.NOTE.toString())
             viewModel.addNoteVm(notesModel)
                 .observe(viewLifecycleOwner, Observer<Boolean> { valueBoolean ->
                     Log.e("NOTE ", valueBoolean.toString())

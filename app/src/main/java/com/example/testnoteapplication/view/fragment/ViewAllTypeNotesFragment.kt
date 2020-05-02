@@ -16,14 +16,6 @@ import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
 
 class ViewAllTypeNotesFragment : Fragment() {
     var allNotes = mutableListOf<NotesModel>()
-    /*init {
-        for (i in 0 until 100) {
-            var notes = NotesModel(
-                i, "Title " + i, "Title Description " + i, "NOTE"
-            )
-            allNotes.add(notes)
-        }
-    }*/
 
     companion object {
         fun newInstance() = ViewAllTypeNotesFragment()
@@ -46,10 +38,12 @@ class ViewAllTypeNotesFragment : Fragment() {
             allNotesView.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
         allNotesRecyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        viewModel?.getAllTypeNotes()?.observe(viewLifecycleOwner, Observer<List<NotesModel>> { note ->
-            allNotes.clear()
-            allNotes.addAll(note)
-        })
+        viewModel?.getAllTypeNotes()
+            ?.observe(viewLifecycleOwner, Observer<List<NotesModel>> { note ->
+                allNotes.clear()
+                allNotes.addAll(note)
+            })
+        //allNotes = allTypeNotesViewModel.getAllTypeNotes()
         adapter = AllTypeNotesAdapter(allNotes)
         allNotesRecyclerView.adapter = adapter
         return allNotesView

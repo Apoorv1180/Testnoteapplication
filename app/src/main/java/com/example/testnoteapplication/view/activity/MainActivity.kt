@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 menuItem.itemId == R.id.note -> {
-                    loadFragment(AllNotesFragment())
+                    loadFragment(ViewAllTypeNotesFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {

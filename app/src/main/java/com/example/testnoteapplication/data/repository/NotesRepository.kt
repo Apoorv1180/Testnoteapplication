@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.testnoteapplication.Base.NoteAppRoomStartup
 import com.example.testnoteapplication.data.model.NotesModel
-import com.example.testnoteapplication.viewmodel.enum.NoteType
 
 class NotesRepository {
-    fun getAllNotes(noteType: NoteType): LiveData<List<NotesModel>> {
-        return NoteAppRoomStartup.database!!.notesDao().getAllNotes(noteType.toString())
+    fun getAllNotes(constants: String): LiveData<List<NotesModel>> {
+        return NoteAppRoomStartup.database!!.notesDao().getAllNotes(constants.toString())
     }
 
     /* fun getNotes(noteId: Int): LiveData<NotesModel> {
