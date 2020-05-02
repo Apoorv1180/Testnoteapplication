@@ -7,9 +7,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
-import com.example.testnoteapplication.data.model.NotesModel
+import com.example.testnoteapplication.data.model.AllNotesModel
 
-class AllTypeNotesAdapter(var allNotes: List<NotesModel>) :
+class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
     RecyclerView.Adapter<AllTypesNotesHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllTypesNotesHolder {
         val view =
@@ -29,12 +29,12 @@ class AllTypeNotesAdapter(var allNotes: List<NotesModel>) :
 }
 
 class AllTypesNotesHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-    private lateinit var allTypeNotes: NotesModel
+    private lateinit var allTypeNotes: AllNotesModel
 
     private val noteTitle: TextView = view.findViewById<TextView>(R.id.rvNoteTitle)
     private val noteDescription: TextView = view.findViewById<TextView>(R.id.rvNoteDescription)
 
-    fun bind(allTypeNotesModel: NotesModel) {
+    fun bind(allTypeNotesModel: AllNotesModel) {
         this.allTypeNotes = allTypeNotesModel
         this.noteTitle.text = this.allTypeNotes.noteTitle
         this.noteDescription.text = this.allTypeNotes.noteDescription

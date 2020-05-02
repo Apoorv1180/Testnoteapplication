@@ -4,16 +4,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.sql.Date
 
-@Entity(tableName = "Notes")
-data class NotesModel(
+@Entity(tableName = "AllNotes")
+data class AllNotesModel(
 
     @PrimaryKey()
     var noteId: Int,
     var noteTitle: String,
     var noteDescription: String,
-    var noteType: String/*
-    var createdOn: Date,
-    var updatedOn: Date,
+    var noteType: String,
+    var createdOn: String
+    /*var updatedOn: Date,
     var noteColor: String = "#FFFFFF",
     var label: String? = null,
     var isArchived: Boolean = false,

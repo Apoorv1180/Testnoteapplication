@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
-import com.example.testnoteapplication.data.model.NotesModel
+import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
-import com.example.testnoteapplication.viewmodel.enum.NoteType
 
 class AllNotesFragment : Fragment() {
 
@@ -38,7 +38,7 @@ class AllNotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AllNotesViewModel::class.java)
 
-        viewModel.getAllNotes(NoteType.NOTE).observe(viewLifecycleOwner,Observer<List<NotesModel>>{ list ->
+        viewModel.getAllNotes(NoteUtil.NOTE).observe(viewLifecycleOwner,Observer<List<AllNotesModel>>{ list ->
             Log.e("TAG",list.get(0).noteDescription);
         })
     }

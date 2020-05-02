@@ -2,9 +2,8 @@ package com.example.testnoteapplication.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.testnoteapplication.data.model.NotesModel
+import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.data.repository.NotesRepository
-import com.example.testnoteapplication.viewmodel.enum.NoteType
 
 class AllNotesViewModel : ViewModel() {
 
@@ -14,7 +13,7 @@ class AllNotesViewModel : ViewModel() {
         notesRepository = NotesRepository()
     }
 
-    fun getAllNotes(noteType: NoteType): LiveData<List<NotesModel>> {
+    fun getAllNotes(noteType: String): LiveData<List<AllNotesModel>> {
         return notesRepository.getAllNotes(noteType);
     }
 
