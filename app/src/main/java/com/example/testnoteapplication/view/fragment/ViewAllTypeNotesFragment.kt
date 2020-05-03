@@ -25,7 +25,7 @@ class ViewAllTypeNotesFragment : Fragment() {
         fun newInstance() = ViewAllTypeNotesFragment()
     }
 
-    lateinit var viewModel: ViewAllTypeNotesViewModel
+    private lateinit var viewModel: ViewAllTypeNotesViewModel
     private lateinit var allNotesRecyclerView: RecyclerView
     private var adapter: AllTypeNotesAdapter? = null
 
@@ -33,35 +33,45 @@ class ViewAllTypeNotesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.view_all_type_notes_fragment, container, false)
+        val view : View = inflater.inflate(R.layout.view_all_type_notes_fragment, container, false)
+        allNotesRecyclerView =
+            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
+        linearLayoutManager = LinearLayoutManager(activity)
+        allNotesRecyclerView.layoutManager = linearLayoutManager
+        allNotesRecyclerView.adapter = adapter
+        return view
     }
 
     // on view created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
+    }
 
-//        var notes = AllNotesModel(
-//            1, "Title " + 2, "Title Description " + 1, "NOTE","99090")
-//        allNotes.add(notes)
-        allNotesRecyclerView =
-            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
-        linearLayoutManager = LinearLayoutManager(activity)
-        allNotesRecyclerView.layoutManager = linearLayoutManager
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.getAllTypeNotes().observe(
+            viewLifecycleOwner,
+            Observer { listNotes ->
+                listNotes?.let {
+                    Log.i("All-Notes", "Got crimeLiveData ${listNotes.size}")
+                    updateUI(listNotes)
+                }
+            }
+        )
+
         adapter = AllTypeNotesAdapter(allNotes)
         allNotesRecyclerView.adapter = adapter
+    }
 
-
-        viewModel.getAllTypeNotes()
-            .observe(viewLifecycleOwner, Observer<List<AllNotesModel>> { list ->
-                allNotes.clear()
-                allNotes.addAll(list)
-                list.forEach {
-                    Log.e("ALL_TYPE"," Title " + it.noteTitle)
-                }
-           //     adapter = AllTypeNotesAdapter(allNotes)
-            })
-
+    private fun updateUI(listNotes: List<AllNotesModel>) {
+        adapter?.let {
+            it.allNotes = listNotes
+        } ?: run {
+            adapter = AllTypeNotesAdapter(allNotes)
+        }
+        allNotesRecyclerView.adapter = adapter
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

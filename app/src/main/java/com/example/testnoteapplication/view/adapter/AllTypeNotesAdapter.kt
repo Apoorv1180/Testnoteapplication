@@ -1,5 +1,6 @@
 package com.example.testnoteapplication.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +20,13 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
     }
 
     override fun getItemCount(): Int {
+        Log.e("ADAPTER", allNotes.size.toString())
         return allNotes.size
     }
 
     override fun onBindViewHolder(holder: AllTypesNotesHolder, position: Int) {
         val note = allNotes[position]
+        Log.e("ADAPTER", "Adapter called")
         holder.bind(note)
     }
 }

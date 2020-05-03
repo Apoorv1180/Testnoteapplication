@@ -10,8 +10,8 @@ interface NotesDao {
     @Query("SELECT * FROM AllNotes where noteType=:noteType")
     fun getAllNotes(noteType: String): LiveData<List<AllNotesModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addNotes(notesModel: AllNotesModel) : Long
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addNotes(notesModel: AllNotesModel)
 
     @Query("SELECT * FROM AllNotes")
     fun getAllTypeNotes(): LiveData<List<AllNotesModel>>
