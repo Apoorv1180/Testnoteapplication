@@ -7,5 +7,7 @@ import java.util.*
 class NoteUtil {
     companion object {
         const val NOTE: String = "NOTE"
+        const val LIST = "LIST"
+        const val BILL = "BILL"
     }
 }

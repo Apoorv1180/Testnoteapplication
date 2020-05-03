@@ -25,28 +25,27 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {
-                    loadFragment(ViewAllTypeNotesFragment())
                     return@setOnNavigationItemSelectedListener false
                 }
             }
         }
 
-        val currentFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-
-        if (currentFragment == null) {
-            val fragment = ViewAllTypeNotesFragment.newInstance()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentContainer, fragment)
-                .addToBackStack("ViewAllTypeNotesFragment")
-                .commit()
-        }
+        // On Load
+        loadFragment(ViewAllTypeNotesFragment())
     }
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
             fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+            fragmentTransaction.commit()
+        }
+    }
+
+
+    private fun loadDefaultFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().also { fragmentTransaction ->
+            fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+            fragmentTransaction.addToBackStack("VIEW_ALL_TYPE_NOTES")
             fragmentTransaction.commit()
         }
     }
