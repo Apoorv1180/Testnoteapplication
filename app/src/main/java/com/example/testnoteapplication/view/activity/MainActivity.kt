@@ -10,8 +10,9 @@ import com.example.testnoteapplication.view.fragment.ViewAllTypeNotesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-var addedFragment: Boolean= false
+    var addedFragment: Boolean= false
     var currentFragment : Fragment = ViewAllTypeNotesFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
