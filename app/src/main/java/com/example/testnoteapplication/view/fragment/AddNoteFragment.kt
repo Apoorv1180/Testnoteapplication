@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.add_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class AddNoteFragment : Fragment() {
 
     companion object {
@@ -64,7 +65,12 @@ class AddNoteFragment : Fragment() {
 
         addNote.setOnClickListener {
             saveNote()
+            closeCurrentFragment()
         }
+    }
+
+    private fun closeCurrentFragment() {
+        fragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 
     private fun saveNote() {
@@ -77,9 +83,6 @@ class AddNoteFragment : Fragment() {
                 dateTextView.text.toString()
             )
         viewModel.addNoteVm(notesModel)
-            /*.observe(viewLifecycleOwner, Observer<Long> { noteId ->
-                Toast.makeText(activity, "Note is saved $noteId", Toast.LENGTH_SHORT).show()
-            })*/
     }
 
     private fun openDatePicker(v: View?) {

@@ -9,11 +9,9 @@ class NoteAppRoomStartup : Application() {
     companion object {
         var database: NotesAppDatabase? = null
     }
-
     override fun onCreate() {
         super.onCreate()
-//        database =
-//            Room.databaseBuilder(applicationContext, NotesAppDatabase::class.java, "notes_db")
-//                .fallbackToDestructiveMigration().build()
+        database =
+            Room.databaseBuilder(applicationContext, NotesAppDatabase::class.java, "notes_db").fallbackToDestructiveMigration().build()
     }
 }

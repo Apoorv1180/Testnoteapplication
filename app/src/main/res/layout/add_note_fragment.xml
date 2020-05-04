@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF"
     tools:context=".view.fragment.AddNoteFragment">
 
 
@@ -93,7 +94,6 @@
             android:ems="10"
             android:hint="@string/datePicker"
             android:textSize="18sp"
-            android:inputType="none"
             android:textColorHint="#0B0707" />
 
         <Button

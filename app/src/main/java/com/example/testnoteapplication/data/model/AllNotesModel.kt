@@ -13,12 +13,6 @@ data class AllNotesModel(
     var noteDescription: String,
     var noteType: String,
     var createdOn: String
-    /*var updatedOn: Date,
-    var noteColor: String = "#FFFFFF",
-    var label: String? = null,
-    var isArchived: Boolean = false,
-    var ifReminder: String? = null,
-    var isTrashed: Boolean = false*/
 
 
 )

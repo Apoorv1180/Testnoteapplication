@@ -22,4 +22,16 @@ class NotesRepository(private val notesDao: NotesDao) {
     fun getAllTypeNotes(): LiveData<List<AllNotesModel>> {
         return notesDao.getAllTypeNotes()
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateNoteRepo(notesModel: AllNotesModel) {
+        notesDao.updateNotes(notesModel)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteNoteRepo(notesModel: List<AllNotesModel>) {
+        notesDao.deleteNotes(notesModel)
+    }
 }

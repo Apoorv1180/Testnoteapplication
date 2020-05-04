@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#80000000"
         app:itemIconTint="@color/colorAccent"
-        app:itemTextColor="@color/bottomNavWhite"
+        app:itemTextColor="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_options" >
 

@@ -15,13 +15,13 @@ interface NotesDao {
 
     @Query("SELECT * FROM AllNotes")
     fun getAllTypeNotes(): LiveData<List<AllNotesModel>>
-/*
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateNotes(notesModels: List<NotesModel>): Boolean
+    fun updateNotes(notesModel: AllNotesModel)
 
     @Delete
-    fun deleteNotes(notesModels: List<NotesModel>)
-
+    fun deleteNotes(notesModels: List<AllNotesModel>)
+/*
     @Query("SELECT * FROM Notes where noteId = :noteId")
     fun getNotes(noteId: Int) : LiveData<NotesModel>*/
 }
