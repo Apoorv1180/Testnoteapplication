@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
 import com.example.testnoteapplication.view.fragment.AddNoteFragment
 import com.example.testnoteapplication.view.fragment.AllNotesFragment
 import com.example.testnoteapplication.view.fragment.ViewAllTypeNotesFragment
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 menuItem.itemId == R.id.note -> {
                     loadFragment(AllNotesFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+                menuItem.itemId == R.id.list -> {
+                    loadFragment(ViewAllTypeNotesFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {
