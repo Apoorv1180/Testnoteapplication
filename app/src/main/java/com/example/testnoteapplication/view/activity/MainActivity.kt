@@ -50,17 +50,14 @@ class MainActivity : AppCompatActivity() {
     private fun loadDefaultFragment(fragment: Fragment) {
         currentFragment= fragment
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
-            fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+            fragmentTransaction.add(R.id.fragmentContainer, fragment)
             fragmentTransaction.addToBackStack("VIEW_ALL_TYPE_NOTES")
             fragmentTransaction.commit()
         }
     }
 
     override fun onBackPressed() {
-        if(addedFragment){
-            supportFragmentManager.popBackStack("VIEW_ALL_TYPE_NOTES",0)
-        }
-        else{
-        super.onBackPressed()}
+        if(addedFragment){supportFragmentManager.popBackStack("VIEW_ALL_TYPE_NOTES",0)}
+        super.onBackPressed()
     }
 }

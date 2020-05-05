@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".view.activity.MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#80000000"
+        android:background="#FFFFFF"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="#80000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_options" >
+        app:menu="@menu/bottom_nav_options">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
@@ -23,6 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

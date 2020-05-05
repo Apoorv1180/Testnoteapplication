@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".view.fragment.AddNoteFragment">
-
+    tools:context=".view.fragment.EditNoteFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_createNote"
@@ -18,7 +18,7 @@
         android:layout_marginBottom="20dp"
         android:background="#E8E49E25"
         android:elevation="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/child_create_note"
+        app:layout_constraintBottom_toTopOf="@+id/child_edit_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/child_create_note"
+        android:id="@+id/child_edit_note"
         android:layout_width="364dp"
         android:layout_height="596dp"
         android:layout_marginStart="16dp"
@@ -115,5 +115,5 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
