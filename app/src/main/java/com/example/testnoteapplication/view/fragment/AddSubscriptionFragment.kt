@@ -43,13 +43,13 @@ class AddSubscriptionFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(AddSubscriptionViewModel::class.java)
     }
     private fun initListner() {
-        datePicker.setOnClickListener { v ->
+        expiryDate.setOnClickListener { v ->
             when (v?.id) {
-                R.id.datePicker -> openDatePicker(v)
+                R.id.expiryDate -> openDatePicker(v)
             }
         }
 
-        addNote.setOnClickListener {
+        addSubscription.setOnClickListener {
             saveNote()
             closeCurrentFragment()
         }

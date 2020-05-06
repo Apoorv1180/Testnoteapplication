@@ -37,6 +37,6 @@ class NotesRepository(private val notesDao: NotesDao) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun addSubRepo(notesModel: AllNotesModel){
-        notesDao.addNotes(notesModel)
+        notesDao.addSubscription(notesModel)
     }
 }

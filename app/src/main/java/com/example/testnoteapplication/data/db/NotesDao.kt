@@ -21,7 +21,7 @@ interface NotesDao {
 
     @Delete
     fun deleteNotes(notesModels: List<AllNotesModel>)
-/*
-    @Query("SELECT * FROM Notes where noteId = :noteId")
-    fun getNotes(noteId: Int) : LiveData<NotesModel>*/
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addSubscription(notesModel: AllNotesModel)
 }

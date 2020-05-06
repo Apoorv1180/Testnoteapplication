@@ -16,5 +16,4 @@ data class AllNotesModel(
     var createdOn: String,
     var expiryDate: String
 
-
 )
