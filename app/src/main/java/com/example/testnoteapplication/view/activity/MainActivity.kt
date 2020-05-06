@@ -4,20 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.testnoteapplication.R
-import com.example.testnoteapplication.view.fragment.AddNoteFragment
-import com.example.testnoteapplication.view.fragment.AllNotesFragment
-import com.example.testnoteapplication.view.fragment.ViewAllTypeNotesFragment
+import com.example.testnoteapplication.view.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    var addedFragment: Boolean= false
-    var currentFragment : Fragment = ViewAllTypeNotesFragment()
+    //var addedFragment: Boolean= false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //loading default fragment
-        loadDefaultFragment(currentFragment)
+        loadDefaultFragment(ViewAllTypeNotesFragment())
         //Load fragment on bottom navigation option select
         bottom_nav.setOnNavigationItemSelectedListener { menuItem ->
             when {
@@ -29,6 +26,11 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(AllNotesFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
+                menuItem.itemId ==R.id.list ->{
+                    loadFragment(AddSubscriptionFragment())
+
+                    return@setOnNavigationItemSelectedListener true
+                }
                 else -> {
                     return@setOnNavigationItemSelectedListener false
                 }
@@ -38,8 +40,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadFragment(fragment: Fragment) {
-        addedFragment=true
-        currentFragment= fragment
+        //addedFragment=true
+        //currentFragment= fragment
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
             fragmentTransaction.add(R.id.fragmentContainer, fragment)
             fragmentTransaction.commit()
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun loadDefaultFragment(fragment: Fragment) {
-        currentFragment= fragment
+        //currentFragment= fragment
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
             fragmentTransaction.add(R.id.fragmentContainer, fragment)
             fragmentTransaction.addToBackStack("VIEW_ALL_TYPE_NOTES")
@@ -56,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         if(addedFragment){supportFragmentManager.popBackStack("VIEW_ALL_TYPE_NOTES",0)}
         super.onBackPressed()
-    }
+    }*/
 }

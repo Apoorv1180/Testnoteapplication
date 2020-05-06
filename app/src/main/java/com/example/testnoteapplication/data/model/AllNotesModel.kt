@@ -12,7 +12,8 @@ data class AllNotesModel(
     var noteTitle: String,
     var noteDescription: String,
     var noteType: String,
-    var createdOn: String
+    var createdOn: String,
+    var expiryDate: String
 
 
 )

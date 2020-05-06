@@ -10,6 +10,6 @@ class NoteUtil {
         var cal = Calendar.getInstance()
         const val NOTE: String = "NOTE"
         const val LIST = "LIST"
-        const val BILL = "BILL"
+        const val SUB:String = "SUB"
     }
 }

@@ -77,8 +77,8 @@ class EditNoteFragment : Fragment() {
                 noteTitle.text.toString(),
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
-                dateTextView.text.toString()
-            )
+                dateTextView.text.toString(),
+            "")
         viewModel.updateNoteVm(notesModel)
     }
 

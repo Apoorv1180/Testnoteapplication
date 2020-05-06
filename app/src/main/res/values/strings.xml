@@ -17,6 +17,11 @@
     <string name="viewNoteBar">All Notes</string>
     <!--Add Dialog fragment -->
     <string name="make">Make A..?</string>
+    <!-- Add Subscription fragment-->
+    <string name="addSubscriptionBar">Add Subscription</string>
+    <string name="subTitle">Name</string>
+    <string name="subDescription">Remind me for?</string>
+    <string name="expiryDate">Expires at?</string>
 
 
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name ="subscription_array">
+        <item>Disney</item>
+        <item>Google Play</item>
+        <item>HBO</item>
+        <item>HULU</item>
+        <item>Netflix</item>
+        <item>Prime Video</item>
+        <item>Add Custom</item>>
+    </string-array>
+    <integer-array name="icons_array">
+        <item>@drawable/disney</item>
+        <item>@drawable/googleplay</item>
+        <item>@drawable/hbo</item>
+        <item>@drawable/hulu</item>
+        <item>@drawable/netflix</item>
+        <item>@drawable/primevideo</item>
+        <item>@drawable/disney</item>>
+    </integer-array>
+</resources>
