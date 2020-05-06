@@ -5,6 +5,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.view.fragment.*
+import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
+import com.example.testnoteapplication.view.fragment.AddNoteFragment
+import com.example.testnoteapplication.view.fragment.AllNotesFragment
+import com.example.testnoteapplication.view.fragment.ViewAllTypeNotesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +33,10 @@ class MainActivity : AppCompatActivity() {
                 menuItem.itemId ==R.id.list ->{
                     loadFragment(AddSubscriptionFragment())
 
+                    return@setOnNavigationItemSelectedListener true
+                }
+                menuItem.itemId == R.id.subscription -> {
+                    loadFragment(ViewAllTypeNotesFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> {
