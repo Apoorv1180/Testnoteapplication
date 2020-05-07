@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".view.fragment.AllNotesFragment">
+    tools:context=".view.fragment.AllSubscriptionFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_allNote"
+        android:id="@+id/toolbar_allSubscription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -17,7 +17,7 @@
         android:layout_marginBottom="20dp"
         android:background="#E8E49E25"
         android:elevation="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/noteAllRecycler"
+        app:layout_constraintBottom_toTopOf="@+id/subAllRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,15 +28,15 @@
             android:id="@+id/viewNoteBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autofillHints="@string/viewNoteBar"
-            android:ems="5"
-            android:text="@string/viewNoteBar"
+            android:autofillHints="@string/viewSubBar"
+            android:ems="10"
+            android:text="@string/viewSubBar"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/noteAllRecycler"
+        android:id="@+id/subAllRecycler"
         android:layout_width="355dp"
         android:layout_height="596dp"
         android:layout_marginStart="10dp"

@@ -22,6 +22,7 @@
     <string name="subTitle">Name</string>
     <string name="subDescription">Remind me for?</string>
     <string name="expiryDate">Expires at?</string>
+    <string name="viewSubBar">All Subscriptions</string>
 
 
 </resources>

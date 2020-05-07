@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [(AllNotesModel::class)], version = 1, exportSchema = false)
+@Database(entities = [(AllNotesModel::class)], version = 2, exportSchema = false)
 abstract class NotesAppDatabase : RoomDatabase() {
 
     abstract fun notesDao(): NotesDao
