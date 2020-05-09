@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.add_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditNoteFragment : Fragment() {
+class EditNoteFragment : DialogFragment() {
 
     companion object {
         fun newInstance() = EditNoteFragment()

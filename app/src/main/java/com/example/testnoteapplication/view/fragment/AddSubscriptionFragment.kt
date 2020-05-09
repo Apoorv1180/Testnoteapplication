@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.testnoteapplication.R
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddSubscriptionFragment : Fragment() {
+class AddSubscriptionFragment : DialogFragment() {
 
     companion object {    }
     //Var declaration

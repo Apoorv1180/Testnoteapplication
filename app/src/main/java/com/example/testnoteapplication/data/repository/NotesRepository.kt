@@ -39,4 +39,10 @@ class NotesRepository(private val notesDao: NotesDao) {
     suspend fun addSubRepo(notesModel: AllNotesModel){
         notesDao.addSubscription(notesModel)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun undoNoteRepo(notesModel: AllNotesModel) {
+        notesDao.undoNotes(notesModel)
+    }
 }

@@ -24,4 +24,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addSubscription(notesModel: AllNotesModel)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun undoNotes(notesModel: AllNotesModel)
 }

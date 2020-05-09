@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setOnNavigationItemSelectedListener { menuItem ->
             when {
                 menuItem.itemId == R.id.add -> {
-                    loadFragment(AddNoteFragment())
+                    showAddNoteDialogFragment()
                     return@setOnNavigationItemSelectedListener true
                 }
                 menuItem.itemId == R.id.note -> {
@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 menuItem.itemId ==R.id.list ->{
-                    loadFragment(AddSubscriptionFragment())
-
+                    showAddSubscriptionDialogFragment()
                     return@setOnNavigationItemSelectedListener true
                 }
                 menuItem.itemId == R.id.subscription -> {
@@ -44,18 +43,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    private fun showAddSubscriptionDialogFragment() {
+        val addSubscriptionFragment = AddSubscriptionFragment()
+        addSubscriptionFragment.show(supportFragmentManager, "Add Subscription")
+    }
+
+    private fun showAddNoteDialogFragment() {
+        val addNoteFragment = AddNoteFragment()
+        addNoteFragment.show(supportFragmentManager, "Add Note")
     }
 
     private fun loadFragment(fragment: Fragment) {
-        //addedFragment=true
-        //currentFragment= fragment
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
             fragmentTransaction.add(R.id.fragmentContainer, fragment)
             fragmentTransaction.commit()
         }
     }
-
 
     private fun loadDefaultFragment(fragment: Fragment) {
         //currentFragment= fragment
@@ -65,9 +70,4 @@ class MainActivity : AppCompatActivity() {
             fragmentTransaction.commit()
         }
     }
-
-    /*override fun onBackPressed() {
-        if(addedFragment){supportFragmentManager.popBackStack("VIEW_ALL_TYPE_NOTES",0)}
-        super.onBackPressed()
-    }*/
 }

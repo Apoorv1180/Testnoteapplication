@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.data.db.async.UndoTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -52,7 +53,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
         Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG).setAction("UNDO") {
             /*allNotes.toMutableList().add(removedPosition, removedNote)
             viewModel.addNoteVm(removedNote)*/
-            //InsertTask(context, viewModel, removedNote).execute()
+            UndoTask(context, viewModel, removedNote).execute()
             notifyItemInserted(removedPosition)
         }.show()
     }

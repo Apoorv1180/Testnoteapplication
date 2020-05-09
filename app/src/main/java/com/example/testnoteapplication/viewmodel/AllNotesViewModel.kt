@@ -28,6 +28,13 @@ class AllNotesViewModel (application: Application): AndroidViewModel(application
         notesRepository.deleteNoteRepo(notesModel)
     }
 
+    fun addNoteVm(notesModel: AllNotesModel) = viewModelScope.launch(Dispatchers.IO) {
+        notesRepository.addNoteRepo(notesModel)
+    }
+
+    fun undoNoteVm(notesModel: AllNotesModel) = viewModelScope.launch(Dispatchers.IO) {
+        notesRepository.undoNoteRepo(notesModel)
+    }
     /*  fun getNotes(noteId: Int): LiveData<NotesModel> {
           return notesRepository.getNotes(noteId);
       }*/
