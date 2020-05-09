@@ -1,5 +1,6 @@
 package com.example.testnoteapplication.view.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +10,21 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.viewmodel.AllNotesViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.sdsu.noteapp.data.db.async.DeleteTask
 
 class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
     RecyclerView.Adapter<AllNotesAdapter.AllNotesHolder>() {
+
+    private var removedPosition: Int = 0
+    private lateinit var removedNote: AllNotesModel
+    private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllNotesHolder {
         val view =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.adapter_all_type_notes, parent, false)
+        context = parent.context
         return AllNotesHolder(view)
     }
 
@@ -28,6 +37,24 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
         val note = allNotes[position]
         Log.e("ADAPTER", "Adapter called")
         holder.bind(note)
+    }
+
+    fun removeItem(
+        position: Int,
+        viewHolder: RecyclerView.ViewHolder,
+        viewModel: AllNotesViewModel
+    ) {
+        removedNote = allNotes[position]
+        removedPosition = position
+        DeleteTask(context, viewModel, removedNote).execute()
+        notifyItemRemoved(position)
+
+        Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG).setAction("UNDO") {
+            /*allNotes.toMutableList().add(removedPosition, removedNote)
+            viewModel.addNoteVm(removedNote)*/
+            //InsertTask(context, viewModel, removedNote).execute()
+            notifyItemInserted(removedPosition)
+        }.show()
     }
 
     inner class AllNotesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

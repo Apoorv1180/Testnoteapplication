@@ -13,6 +13,7 @@ import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.EditNoteViewModel
+import com.sdsu.noteapp.data.db.async.UpdateTask
 import kotlinx.android.synthetic.main.add_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,7 +79,8 @@ class EditNoteFragment : Fragment() {
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
                 dateTextView.text.toString(),"")
-        viewModel.updateNoteVm(notesModel)
+        //viewModel.updateNoteVm(notesModel)
+        UpdateTask(this.context, viewModel, notesModel).execute()
     }
 
     private fun openDatePicker(v: View?) {

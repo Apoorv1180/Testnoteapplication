@@ -31,7 +31,7 @@ class NotesRepository(private val notesDao: NotesDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun deleteNoteRepo(notesModel: List<AllNotesModel>) {
+    suspend fun deleteNoteRepo(notesModel: AllNotesModel) {
         notesDao.deleteNotes(notesModel)
     }
     @Suppress("RedundantSuspendModifier")

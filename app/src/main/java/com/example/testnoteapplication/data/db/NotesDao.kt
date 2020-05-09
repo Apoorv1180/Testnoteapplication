@@ -20,7 +20,7 @@ interface NotesDao {
     fun updateNotes(notesModel: AllNotesModel)
 
     @Delete
-    fun deleteNotes(notesModels: List<AllNotesModel>)
+    fun deleteNotes(notesModels: AllNotesModel)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addSubscription(notesModel: AllNotesModel)

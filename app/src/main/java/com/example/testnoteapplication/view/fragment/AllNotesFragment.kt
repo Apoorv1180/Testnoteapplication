@@ -1,13 +1,19 @@
 package com.example.testnoteapplication.view.fragment
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
@@ -18,6 +24,8 @@ import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 
 class AllNotesFragment : Fragment() {
     var allNotes = mutableListOf<AllNotesModel>()
+    private lateinit var colorDrawableBackground: ColorDrawable
+    private lateinit var deleteIcon: Drawable
 
     companion object {
         fun newInstance() =
@@ -39,6 +47,103 @@ class AllNotesFragment : Fragment() {
         allNotesRecyclerView.layoutManager =
             LinearLayoutManager(this.context)
         allNotesRecyclerView.adapter = adapter
+
+        colorDrawableBackground = ColorDrawable(Color.parseColor("#ccb900"))
+        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.ic_list_red_24dp)!!
+
+
+        // CallBack for Swipe
+        val itemTouchHelperCallback = object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDirection: Int) {
+                (adapter as AllNotesAdapter).removeItem(
+                    viewHolder.adapterPosition,
+                    viewHolder,
+                    viewModel
+                )
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val iconMarginVertical =
+                    (viewHolder.itemView.height - deleteIcon.intrinsicHeight) / 2
+
+                if (dX > 0) {
+                    colorDrawableBackground.setBounds(
+                        itemView.left,
+                        itemView.top,
+                        dX.toInt(),
+                        itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                        itemView.left + iconMarginVertical,
+                        itemView.top + iconMarginVertical,
+                        itemView.left + iconMarginVertical + deleteIcon.intrinsicWidth,
+                        itemView.bottom - iconMarginVertical
+                    )
+                } else {
+                    colorDrawableBackground.setBounds(
+                        itemView.right + dX.toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                        itemView.right - iconMarginVertical - deleteIcon.intrinsicWidth,
+                        itemView.top + iconMarginVertical,
+                        itemView.right - iconMarginVertical,
+                        itemView.bottom - iconMarginVertical
+                    )
+                    deleteIcon.level = 0
+                }
+                colorDrawableBackground.draw(c)
+                c.save()
+
+                if (dX > 0)
+                    c.clipRect(itemView.left, itemView.top, dX.toInt(), itemView.bottom)
+                else
+                    c.clipRect(
+                        itemView.right + dX.toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom
+                    )
+
+                deleteIcon.draw(c)
+                c.restore()
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(allNotesRecyclerView)
+
         return view
     }
 
