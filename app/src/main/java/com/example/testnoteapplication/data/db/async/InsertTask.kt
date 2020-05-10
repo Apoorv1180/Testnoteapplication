@@ -16,4 +16,9 @@ class InsertTask(var context: Context?, var viewModel: AddNoteViewModel, var all
             Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
         }
     }
+
+    override fun onPreExecute() {
+        super.onPreExecute()
+        //todo 6 insert progress bar
+    }
 }

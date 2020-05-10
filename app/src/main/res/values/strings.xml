@@ -25,4 +25,7 @@
     <string name="viewSubBar">All Subscriptions</string>
 
 
+    <string name="sub">Subs</string>
+    <string name="home">Home</string>
+
 </resources>

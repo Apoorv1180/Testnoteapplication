@@ -5,12 +5,25 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#E91E63"
     tools:context=".view.fragment.ViewAllTypeNotesFragment">
 
 
+    <TextView
+        android:layout_width="89dp"
+        android:layout_height="104dp"
+        android:layout_marginEnd="411dp"
+        android:layout_marginBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Addggdjhk"
+        android:textColor="#000000">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewAllTypeNotesRecyclerView"
+
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"

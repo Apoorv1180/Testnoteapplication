@@ -4,4 +4,10 @@
     <dimen name="side_margin">16dp</dimen>
     <dimen name="margin_medium">10dp</dimen>
     <dimen name="padding_medium">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="stan_55">55dp</dimen>
+    <dimen name="stan_105">105dp</dimen>
+    <dimen name="stan_155">155dp</dimen>
 </resources>
