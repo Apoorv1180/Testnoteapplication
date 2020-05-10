@@ -3,12 +3,15 @@ package com.example.testnoteapplication.view.fragment
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
@@ -40,7 +43,8 @@ class EditNoteFragment : DialogFragment() {
         setUpView(view)
         initViewModel()
         initListner()
-        observeAddNoteViewModel()
+        observeEditNoteViewModel()
+        observeValidateInputs(view)
     }
 
     private fun setUpView(view: View) {
@@ -51,8 +55,14 @@ class EditNoteFragment : DialogFragment() {
         viewModel = ViewModelProviders.of(this).get(EditNoteViewModel::class.java)
     }
 
-    private fun observeAddNoteViewModel() {
-
+    private fun observeEditNoteViewModel() {
+        viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean>{ value ->
+            if(value){
+                Toast.makeText(context, "Updated to Database", Toast.LENGTH_LONG).show()
+                closeCurrentFragment()
+            }else
+                Log.e("NO ","No");
+        })
     }
 
     private fun initListner() {
@@ -63,8 +73,10 @@ class EditNoteFragment : DialogFragment() {
         }
 
         addNote.setOnClickListener {
-            saveNote()
-            closeCurrentFragment()
+            if(view?.let { it1 -> validateInputs(it1) }!!) {
+                saveNote()
+                //closeCurrentFragment()
+            }
         }
     }
 
@@ -107,5 +119,43 @@ class EditNoteFragment : DialogFragment() {
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         val format = sdf.format(cal.time)
         dateTextView.text = format
+    }
+
+    private fun validateInputs(view: View): Boolean {
+        //Form Validation
+        var noteTitle = view.findViewById<EditText>(R.id.noteTitle)
+        var noteDescription = view.findViewById<EditText>(R.id.noteDescription)
+        if(!NoteUtil.checkInput(noteTitle)) {
+            noteTitle.error = "Title can't be empty!"
+            return false
+        } else if(!NoteUtil.checkInput(noteDescription)) {
+            noteDescription.error = "Note description can't be empty!"
+            return false
+        }
+        return true
+    }
+
+    private fun observeValidateInputs(view: View) {
+        var noteTitle = view.findViewById<EditText>(R.id.noteTitle)
+        noteTitle.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(noteTitle)) {
+                        noteTitle.error = "Title can't be empty!"
+                    }
+                }
+            }
+        }
+
+        var noteDescription = view.findViewById<EditText>(R.id.noteDescription)
+        noteDescription.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(noteDescription)) {
+                        noteDescription.error = "Note description can't be empty!"
+                    }
+                }
+            }
+        }
     }
 }

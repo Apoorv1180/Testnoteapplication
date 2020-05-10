@@ -2,7 +2,7 @@ package com.example.testnoteapplication.view.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +10,14 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
-
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.CustomAdapterSpinnerSub
-import com.example.testnoteapplication.viewmodel.AddNoteViewModel
 import com.example.testnoteapplication.viewmodel.AddSubscriptionViewModel
-import kotlinx.android.synthetic.main.add_note_fragment.*
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +35,17 @@ class AddSubscriptionFragment : DialogFragment() {
         setUpView(view)
         initViewModel()
         initListner()
-        //observeAddNoteViewModel()
+        observeAddSubscriptionViewModel()
+    }
+
+    private fun observeAddSubscriptionViewModel() {
+        viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
+            if(value){
+                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                closeCurrentFragment()
+            }else
+                Log.e("NO ","No");
+        })
     }
 
     private fun initViewModel() {
@@ -52,7 +60,6 @@ class AddSubscriptionFragment : DialogFragment() {
 
         addSubscription.setOnClickListener {
             saveNote()
-            closeCurrentFragment()
         }
     }
     private fun saveNote() {

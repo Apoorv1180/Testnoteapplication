@@ -2,6 +2,7 @@ package com.example.testnoteapplication.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testnoteapplication.data.db.NotesAppDatabase
@@ -13,6 +14,9 @@ import kotlinx.coroutines.launch
 class AddSubscriptionViewModel (application: Application) : AndroidViewModel(application)  {
 
     private val notesRepository: NotesRepository
+    val data: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     init {
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
@@ -21,5 +25,13 @@ class AddSubscriptionViewModel (application: Application) : AndroidViewModel(app
 
     fun addSubscriptionVm(notesModel: AllNotesModel) = viewModelScope.launch(Dispatchers.IO) {
         notesRepository.addSubRepo(notesModel)
+    }
+
+    fun setValue(thisRef: Boolean) {
+        data.value = thisRef
+    }
+
+    fun getValue(): MutableLiveData<Boolean> {
+        return data
     }
 }

@@ -1,15 +1,23 @@
 package com.example.testnoteapplication.Util
 
-import android.app.DatePickerDialog
 import android.view.View
+import android.widget.EditText
+import android.widget.Spinner
+import com.example.testnoteapplication.R
 import java.util.*
+
 
 class NoteUtil {
 
     companion object {
+
         var cal = Calendar.getInstance()
         const val NOTE: String = "NOTE"
         const val LIST = "LIST"
         const val SUB:String = "SUB"
+
+        fun checkInput(editText: EditText): Boolean {
+            return editText.text.isNotEmpty()
+        }
     }
 }
