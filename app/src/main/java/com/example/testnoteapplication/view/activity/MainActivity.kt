@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         //loading default fragment
         loadDefaultFragment(ViewAllTypeNotesFragment())
 
-       // initListner()
+        initListner()
     }
 
     private fun showAddSubscriptionDialogFragment() {
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     //UI Code
-   /* private fun initListner() {
+    private fun initListner() {
         fab.setOnClickListener {
             if (!isOpen) {
                 openMenu()
@@ -111,5 +111,5 @@ class MainActivity : AppCompatActivity() {
         val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.BOTTOM, 0, 325)
         toast.show()
-    }*/
+    }
 }

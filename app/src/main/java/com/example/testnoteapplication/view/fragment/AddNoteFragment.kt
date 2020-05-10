@@ -1,13 +1,19 @@
 package com.example.testnoteapplication.view.fragment
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
@@ -54,7 +60,13 @@ class AddNoteFragment : DialogFragment() {
     }
 
     private fun observeAddNoteViewModel() {
-
+        viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
+            if(value){
+                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                closeCurrentFragment()
+            }else
+                Log.e("NO ","No");
+        })
     }
 
     private fun initListner() {
@@ -66,7 +78,7 @@ class AddNoteFragment : DialogFragment() {
 
         addNote.setOnClickListener {
             saveNote()
-            closeCurrentFragment()
+           // closeCurrentFragment()
         }
     }
 
@@ -87,6 +99,7 @@ class AddNoteFragment : DialogFragment() {
         //todo 5 utils.validate method (pass this.context)
 
         InsertTask(this.context, viewModel, notesModel).execute()
+        //closeCurrentFragment()
     }
 
     private fun openDatePicker(v: View?) {

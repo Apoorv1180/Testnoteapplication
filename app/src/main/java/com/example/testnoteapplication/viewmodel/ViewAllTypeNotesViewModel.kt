@@ -12,6 +12,7 @@ class ViewAllTypeNotesViewModel (application: Application): AndroidViewModel(app
 
     private lateinit var notesRepository: NotesRepository
 
+
     init {
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
         notesRepository = NotesRepository(notesDao)
