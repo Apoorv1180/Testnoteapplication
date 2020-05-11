@@ -86,7 +86,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
                     .show()
                 true
             }*/
-            itemView.card_id.setCardBackgroundColor(context.resources.getColor(allTypeNotes.card_color))
+            itemView.card_id.setBackgroundColor(context.resources.getColor(R.color.colorsubs))
 
         }
         fun bind(notesModel: AllNotesModel) {
@@ -94,7 +94,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
             this.noteTitle.text = this.allTypeNotes.noteTitle
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
-            this.card.setBackgroundColor(context.resources.getColor(allTypeNotes.card_color))
+            this.card.setBackgroundColor(context.resources.getColor(R.color.colorsubs))
         }
     }
 }
