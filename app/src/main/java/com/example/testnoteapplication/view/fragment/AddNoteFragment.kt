@@ -2,17 +2,16 @@ package com.example.testnoteapplication.view.fragment
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
@@ -35,7 +34,6 @@ class AddNoteFragment : DialogFragment() {
     var cal = Calendar.getInstance()
     private lateinit var viewModel: AddNoteViewModel
     lateinit var dateTextView: TextView
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,9 +47,15 @@ class AddNoteFragment : DialogFragment() {
         initViewModel()
         initListener()
         observeAddNoteViewModel()
+        observeValidateInputs(view)
     }
 
     private fun setUpView(view: View) {
+        var noteTitle = view.findViewById<EditText>(R.id.noteTitle)
+        noteTitle.requestFocus()
+        val inputMethodManager: InputMethodManager =
+            context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         dateTextView = view.findViewById(R.id.datePicker)
     }
 
@@ -78,7 +82,9 @@ class AddNoteFragment : DialogFragment() {
         }
         //Add button click listener
         addNote.setOnClickListener {
-            saveNote()
+            if(view?.let { it1 -> validateInputs(it1) }!!) {
+                saveNote()
+            }
 
         }
     }
@@ -128,6 +134,43 @@ class AddNoteFragment : DialogFragment() {
         dateTextView.text = format
     }
 
+    private fun validateInputs(view: View): Boolean {
+        //Form Validation
+        var noteTitle = view.findViewById<EditText>(R.id.noteTitle)
+        var noteDescription = view.findViewById<EditText>(R.id.noteDescription)
+        if(!NoteUtil.checkInput(noteTitle)) {
+            noteTitle.error = "Title can't be empty!"
+            return false
+        } else if(!NoteUtil.checkInput(noteDescription)) {
+            noteDescription.error = "Note description can't be empty!"
+            return false
+        }
+        return true
+    }
+
+    private fun observeValidateInputs(view: View) {
+        var noteTitle = view.findViewById<EditText>(R.id.noteTitle)
+        noteTitle.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(noteTitle)) {
+                        noteTitle.error = "Title can't be empty!"
+                    }
+                }
+            }
+        }
+
+        var noteDescription = view.findViewById<EditText>(R.id.noteDescription)
+        noteDescription.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(noteDescription)) {
+                        noteDescription.error = "Note description can't be empty!"
+                    }
+                }
+            }
+        }
+    }
 }
 
 
