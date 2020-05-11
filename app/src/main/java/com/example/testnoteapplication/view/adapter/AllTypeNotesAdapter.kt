@@ -66,8 +66,14 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
             this.noteTitle.text = this.allTypeNotes.noteTitle
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
-
-            this.card.setBackgroundColor(context.resources.getColor(R.color.colornote))
+            if(allTypeNotesModel.card_color.equals(1)) {
+                this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
+                this.card.radius = 15f
+            }
+            else if(allTypeNotesModel.card_color.equals(2)) {
+                this.card.setCardBackgroundColor(context.resources.getColor(R.color.colorsubs))
+                this.card.radius = 15f
+            }
 
         }
     }

@@ -69,8 +69,7 @@ class AddSubscriptionFragment : DialogFragment() {
                 subName,
                 subDescription.text.toString(),
                 NoteUtil.SUB,"",
-                dateTextView.text.toString(),R.color.colorsubs
-            )
+                dateTextView.text.toString(),2)
         viewModel.addSubscriptionVm(notesModel)
     }
     private fun closeCurrentFragment() {

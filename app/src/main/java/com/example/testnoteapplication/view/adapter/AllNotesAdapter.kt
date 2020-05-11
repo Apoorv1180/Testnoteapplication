@@ -94,7 +94,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
            // if(allTypeNotes.card_color==1)
-                this.card.setBackgroundColor(context.resources.getColor(R.color.colornote))
+                this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
 
         }
     }
