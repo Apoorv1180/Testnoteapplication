@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
@@ -170,6 +171,14 @@ class AddNoteFragment : DialogFragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 }
 

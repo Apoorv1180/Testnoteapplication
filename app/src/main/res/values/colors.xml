@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#E91E63</color>
     <color name="colorPrimaryDark">#030304</color>
-    <color name="colorAccent">#DD5C9AB6</color>
+    <color name="colorAccent">#9E9E9E</color>
     <color name="colorFAB">#03A9F4</color>
-    <color name="bottomNavWhite">#fff</color>
+    <color name="bottomNavWhite">#FBE9E7</color>
     <color name="colorDivider">#BDBDBD</color>
 </resources>
