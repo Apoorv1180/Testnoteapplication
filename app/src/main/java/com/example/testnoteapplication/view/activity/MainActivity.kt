@@ -20,9 +20,10 @@ class MainActivity : AppCompatActivity() {
     //var addedFragment: Boolean= false
     var isOpen = false
     companion object{
-        var isnoteChecked : Boolean = true
+        var isnoteChecked : Boolean = false
         var isSubChecked : Boolean = false
         var isListChecked : Boolean = false
+        var isHomeChecked:Boolean =true
 
 
     }
@@ -31,8 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //loading default fragment
         loadDefaultFragment(ViewAllTypeNotesFragment())
-        note_img.isSelected =true
-        note_img.isFocusable = true
+        setStateValues()
         initListner()
     }
 
@@ -86,68 +86,60 @@ class MainActivity : AppCompatActivity() {
         //home= View All note fragment
         home.setOnClickListener {
             //todo 1 change active inactive state
-
-            isnoteChecked = true
+            isHomeChecked=true
+            isnoteChecked = false
             isSubChecked = false
             isListChecked = false
-            home.isSelected= isnoteChecked
-            list.isSelected = isListChecked
-            subscription.isSelected= isSubChecked
-
+            setStateValues()
             if (home.isSelected) {
-                note_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_enabled)
-                subs_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_disabled)
-                list_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_disabled)
                 loadDefaultFragment(ViewAllTypeNotesFragment())
             }
         }
         //subscription= View All subscriptions
         subscription.setOnClickListener {
-            loadFragment(AllNotesFragment())
-            Toast.makeText(
-                application,
-                "subs" + subs_img.isPressed + "" + home_img.isPressed + "" + home.isPressed,
-                Toast.LENGTH_SHORT
-            )
-                .show()
             //todo 2 change active inactive state
+            isHomeChecked =false
             isnoteChecked = false
             isSubChecked = true
             isListChecked = false
-            home.isSelected= isnoteChecked
-            list.isSelected = isListChecked
-            subscription.isSelected= isSubChecked
+            setStateValues()
             if (subscription.isSelected) {
-                note_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_disabled)
-                subs_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_enabled)
-                list_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_disabled)
+                loadFragment(AllSubscriptionFragment())
+            }
+        }
+
+        //note= View All notes
+        note.setOnClickListener {
+            //todo 2 change active inactive state
+            isHomeChecked =false
+            isnoteChecked = true
+            isSubChecked = false
+            isListChecked = false
+            setStateValues()
+            if (note.isSelected) {
+                loadFragment(AllNotesFragment())
             }
         }
         //todo 3 list= View All Lists fragment
         list.setOnClickListener {
-            loadFragment(AllNotesFragment())
             //todo 4 change active inactive state
             isnoteChecked = false
             isSubChecked = false
             isListChecked = true
-            home.isSelected= isnoteChecked
-            list.isSelected = isListChecked
-            subscription.isSelected= isSubChecked
+            setStateValues()
             if (list.isSelected) {
-                note_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_disabled)
-                subs_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_disabled)
-                list_img.background =
-                    ContextCompat.getDrawable(this, R.drawable.btn_ic_home_enabled)
+              //  loadFragment(AllNotesFragment())
+                Toast.makeText(application, "View List Dialog fragment", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
+    }
+
+    private fun setStateValues() {
+        home.isSelected = isHomeChecked
+        list.isSelected = isListChecked
+        subscription.isSelected = isSubChecked
+        note.isSelected = isnoteChecked
     }
 
 
