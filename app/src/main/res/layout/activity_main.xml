@@ -55,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/home"
                     android:textSize="14dp"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@drawable/text_selector"
+                     />
 
             </LinearLayout>
 
@@ -83,7 +84,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/note"
                     android:textSize="14dp"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@drawable/text_selector"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -110,7 +112,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/list"
                     android:textSize="14dp"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@drawable/text_selector"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -137,7 +140,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sub"
                     android:textSize="14dp"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@drawable/text_selector"
+                    />
 
             </LinearLayout>
         </LinearLayout>
