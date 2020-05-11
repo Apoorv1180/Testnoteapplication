@@ -91,7 +91,7 @@ class EditNoteFragment : DialogFragment() {
                 noteTitle.text.toString(),
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
-                dateTextView.text.toString(),"",R.color.colornote)
+                dateTextView.text.toString(),"",1)
         //viewModel.updateNoteVm(notesModel)
         UpdateTask(this.context, viewModel, notesModel).execute()
     }
