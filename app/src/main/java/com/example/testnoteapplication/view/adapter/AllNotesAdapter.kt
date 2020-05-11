@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.db.async.UndoTask
@@ -64,6 +65,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
         private val noteDescription: TextView = itemView.findViewById<TextView>(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
+        private val card:CardView = itemView.findViewById(R.id.card_id);
 
         init {
             itemView.setOnClickListener {
@@ -89,6 +91,9 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
             this.noteTitle.text = this.allTypeNotes.noteTitle
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
+            this.card.cardBackgroundColor = this.allTypeNotes.card_color
+
+
         }
     }
 }

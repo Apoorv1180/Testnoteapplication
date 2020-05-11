@@ -14,6 +14,6 @@ data class AllNotesModel(
     var noteDescription: String,
     var noteType: String,
     var createdOn: String,
-    var expiryDate: String
-
+    var expiryDate: String,
+    var card_color: Int
 )
