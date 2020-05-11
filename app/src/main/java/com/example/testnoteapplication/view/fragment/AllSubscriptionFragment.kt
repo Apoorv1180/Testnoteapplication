@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
 
 class AllSubscriptionFragment : Fragment() {
 

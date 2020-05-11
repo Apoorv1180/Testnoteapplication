@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".view.fragment.AddNoteFragment">
+    tools:context=".view.fragment.AddSubscriptionFragment">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_subscribtion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
-        android:background="#E8E49E25"
-        android:elevation="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/child_create_sub"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/addSubscribtionBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/addSubscriptionBar"
-            android:ems="10"
-            android:text="@string/addSubscriptionBar"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/child_create_sub"
-        android:layout_width="364dp"
-        android:layout_height="596dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_subscribtion">
-
-        <Spinner
-            android:id="@+id/subTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/side_margin"
-            android:layout_marginTop="@dimen/side_margin"
-            android:layout_marginRight="@dimen/side_margin"
-            android:padding="@dimen/padding_medium"
-            android:ems="10"/>
-
-        <EditText
-            android:id="@+id/subDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/side_margin"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/side_margin"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:autofillHints="@string/subDescription"
-            android:ems="10"
-            android:gravity="start"
-            android:hint="@string/subDescription"
-            android:inputType="textMultiLine"
-            android:padding="@dimen/padding_medium"
-            android:textColorHint="#0B0707" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintVertical_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/expiryDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="                           Subscription                          "
+        android:textColor="#E8E49E25"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        />
+            <LinearLayout
+            android:id="@+id/child_create_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/side_margin"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/side_margin"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:autofillHints="@string/expiryDate"
-            android:ems="10"
-            android:hint="@string/expiryDate"
-            android:padding="@dimen/padding_medium"
-            android:textColorHint="#0B0707"
-            android:textSize="18sp" />
+            android:layout_margin="10dp"
+            android:background="@drawable/border_background"
+            android:orientation="vertical"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/addSubscription"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_gravity="center|fill"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="100dp"
-            android:autofillHints="@string/add"
-            android:background="#E8E49E25"
-            android:gravity="center|center_horizontal|center_vertical"
-            android:text="@string/addNote"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            android:textSize="18sp" />
+            <Spinner
+                android:id="@+id/subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/side_margin"
+                android:layout_marginTop="@dimen/side_margin"
+                android:layout_marginRight="@dimen/side_margin"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:padding="@dimen/padding_medium"
+                android:ems="10"/>
+
+            <EditText
+                android:id="@+id/subDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/side_margin"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/side_margin"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_weight="1"
+                android:autofillHints="@string/description"
+                android:backgroundTint="#E8E49E25"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="@string/description"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/padding_medium"
+                android:textColorHint="#0B0707"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/expiryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/side_margin"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/side_margin"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_weight="1"
+                android:autofillHints="@string/expiryDate"
+                android:background="@drawable/border_background"
+                android:ems="10"
+                android:hint="@string/expiryDate"
+                android:padding="@dimen/padding_medium"
+                android:textColorHint="#0B0707"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/addSubscription"
+                android:layout_marginTop="@dimen/margin_short"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:autofillHints="@string/add"
+                android:background="#E8E49E25"
+                android:gravity="center"
+                android:text="@string/addNote"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

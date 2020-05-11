@@ -32,7 +32,7 @@ class EditNoteFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.add_note_fragment, container, false)
+        return inflater.inflate(R.layout.edit_note_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

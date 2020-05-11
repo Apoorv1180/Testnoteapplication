@@ -70,12 +70,16 @@ class AddSubscriptionFragment : DialogFragment() {
         fragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
     private fun setUpView(view: View) {
+
         dateTextView = view.findViewById(R.id.expiryDate)
         val spin = view.findViewById<View>(R.id.subTitle) as Spinner
+        //getting Subscription array list from string resource
         var subscriptions_array = view.context.resources.getStringArray(R.array.subscription_array)
+        //getting subscription icons array list from string resource
         var icons_array = view.context.resources.getIntArray(R.array.icons_array)
         val customAdapter = CustomAdapterSpinnerSub(view.context,icons_array,subscriptions_array)
         spin.adapter = customAdapter
+        //select listener on spinner
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 subName=subscriptions_array[position]

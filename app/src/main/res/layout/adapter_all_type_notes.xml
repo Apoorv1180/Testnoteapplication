@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="#E8DF9F30">
+    app:cardBackgroundColor="#A6EDE5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/note"
-            android:textColor="#FFFFFF"
+            android:textColor="#B91C1B1B"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -25,8 +25,8 @@
             android:id="@+id/rvNoteDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/viewNoteDescription"
-            android:textColor="#FFFFFF"
+            android:text="@string/description"
+            android:textColor="#B91C1B1B"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/datePicker"
-            android:textColor="#FFFFFF"
+            android:textColor="#B91C1B1B"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>

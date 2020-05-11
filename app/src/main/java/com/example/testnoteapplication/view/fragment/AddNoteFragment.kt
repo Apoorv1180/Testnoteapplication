@@ -47,7 +47,7 @@ class AddNoteFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpView(view)
         initViewModel()
-        initListner()
+        initListener()
         observeAddNoteViewModel()
     }
 
@@ -69,16 +69,17 @@ class AddNoteFragment : DialogFragment() {
         })
     }
 
-    private fun initListner() {
+    private fun initListener() {
+        //reminder date picker text-view listener
         datePicker.setOnClickListener { v ->
             when (v?.id) {
                 R.id.datePicker -> openDatePicker(v)
             }
         }
-
+        //Add button click listener
         addNote.setOnClickListener {
             saveNote()
-           // closeCurrentFragment()
+
         }
     }
 
@@ -96,7 +97,7 @@ class AddNoteFragment : DialogFragment() {
                 dateTextView.text.toString(),
             "")
         //viewModel.addNoteVm(notesModel)
-        //todo 5 utils.validate method (pass this.context)
+        //todo 6 utils.validate method (pass this.context)
 
         InsertTask(this.context, viewModel, notesModel).execute()
         //closeCurrentFragment()

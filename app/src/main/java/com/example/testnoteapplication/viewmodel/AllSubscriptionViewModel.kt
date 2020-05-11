@@ -1,4 +1,4 @@
-package com.example.testnoteapplication.view.fragment
+package com.example.testnoteapplication.viewmodel
 
 import androidx.lifecycle.ViewModel
 
