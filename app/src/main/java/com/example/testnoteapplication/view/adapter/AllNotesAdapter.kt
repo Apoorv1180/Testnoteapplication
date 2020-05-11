@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.db.async.UndoTask
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.view.fragment.AddNoteFragment
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.sdsu.noteapp.data.db.async.DeleteTask
@@ -68,6 +69,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, "Note Single clicked!", Toast.LENGTH_SHORT)
                     .show()
+
             }
 
             itemView.setOnLongClickListener {
