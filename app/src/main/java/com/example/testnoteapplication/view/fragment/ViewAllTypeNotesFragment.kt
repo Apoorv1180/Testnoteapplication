@@ -15,6 +15,7 @@ import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
 import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
+import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
 
 class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
     var allNotes = mutableListOf<AllNotesModel>()
@@ -71,6 +72,7 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
             adapter = AllTypeNotesAdapter(allNotes)
         }
         allNotesRecyclerView.adapter = adapter
+        progress.visibility = View.GONE
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

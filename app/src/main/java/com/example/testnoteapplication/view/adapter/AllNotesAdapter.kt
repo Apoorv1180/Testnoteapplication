@@ -95,7 +95,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
             this.createdOn.text = this.allTypeNotes.createdOn
            // if(allTypeNotes.card_color==1)
                 this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
-
+            this.card.radius = 15f
         }
     }
 }
