@@ -6,4 +6,8 @@
     <color name="colorFAB">#03A9F4</color>
     <color name="bottomNavWhite">#FBE9E7</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colornote">#01579B</color>
+    <color name="colorlist">#BF360C</color>
+    <color name="colorsubs">#004D40</color>
+
 </resources>

@@ -102,7 +102,7 @@ class AddNoteFragment : DialogFragment() {
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
                 dateTextView.text.toString(),
-            "")
+            "",)
         //viewModel.addNoteVm(notesModel)
         //todo 6 utils.validate method (pass this.context)
 
