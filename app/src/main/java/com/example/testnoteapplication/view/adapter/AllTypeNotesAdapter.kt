@@ -66,6 +66,7 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
             this.noteTitle.text = this.allTypeNotes.noteTitle
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
+
             this.card.setBackgroundColor(context.resources.getColor(R.color.colornote))
 
         }
