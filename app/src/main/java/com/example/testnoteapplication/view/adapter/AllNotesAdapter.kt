@@ -16,6 +16,7 @@ import com.example.testnoteapplication.view.fragment.AddNoteFragment
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.sdsu.noteapp.data.db.async.DeleteTask
+import kotlinx.android.synthetic.main.adapter_all_type_notes.view.*
 
 class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
     RecyclerView.Adapter<AllNotesAdapter.AllNotesHolder>() {
@@ -85,15 +86,15 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
                     .show()
                 true
             }*/
+            itemView.card_id.setCardBackgroundColor(context.resources.getColor(allTypeNotes.card_color))
+
         }
         fun bind(notesModel: AllNotesModel) {
             this.allTypeNotes = notesModel
             this.noteTitle.text = this.allTypeNotes.noteTitle
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
-            this.card.cardBackgroundColor = this.allTypeNotes.card_color
-
-
+            this.card.setBackgroundColor(context.resources.getColor(allTypeNotes.card_color))
         }
     }
 }
