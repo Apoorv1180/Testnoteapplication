@@ -1,21 +1,26 @@
 package com.example.testnoteapplication.view.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.model.AllNotesModel
 
 class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
     RecyclerView.Adapter<AllTypeNotesAdapter.AllTypesNotesHolder>() {
+    private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllTypesNotesHolder {
         val view =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.adapter_all_type_notes, parent, false)
+        context = parent.context
         return AllTypesNotesHolder(view)
     }
 
@@ -35,6 +40,8 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
         private val noteDescription: TextView = itemView.findViewById<TextView>(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
+        private val card: CardView = itemView.findViewById(R.id.card_id);
+
 
         init {
             itemView.setOnClickListener {
@@ -59,6 +66,8 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
             this.noteTitle.text = this.allTypeNotes.noteTitle
             this.noteDescription.text = this.allTypeNotes.noteDescription
             this.createdOn.text = this.allTypeNotes.createdOn
+            this.card.setBackgroundColor(context.resources.getColor(R.color.colornote))
+
         }
     }
 }
