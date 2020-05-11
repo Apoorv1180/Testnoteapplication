@@ -86,7 +86,8 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
                     .show()
                 true
             }*/
-            itemView.card_id.setBackgroundColor(context.resources.getColor(R.color.colorsubs))
+            if(R.color.colornote==allTypeNotes.card_color)
+            itemView.card_id.setBackgroundColor(context.resources.getColor(R.color.colornote))
 
         }
         fun bind(notesModel: AllNotesModel) {
