@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDefaultFragment(fragment: Fragment) {
-            supportFragmentManager.beginTransaction().also { fragmentTransaction ->
+        //currentFragment= fragment
+        supportFragmentManager.beginTransaction().also { fragmentTransaction ->
             fragmentTransaction.replace(R.id.fragmentContainer, fragment)
             fragmentTransaction.addToBackStack("VIEW_ALL_TYPE_NOTES")
             fragmentTransaction.commit()
@@ -78,20 +79,15 @@ class MainActivity : AppCompatActivity() {
             loadDefaultFragment(ViewAllTypeNotesFragment())
             //todo 1 change active inactive state
         }
-        //note= View All Notes
-        note.setOnClickListener{
+        //subscription= View All subscriptions
+        subscription.setOnClickListener{
             loadFragment(AllNotesFragment())
             //todo 2 change active inactive state
         }
-        //subscription= View All subscriptions
-        subscription.setOnClickListener{
-            loadFragment(AllSubscriptionFragment())
-            //todo 3 change active inactive state
-        }
-        //todo 4 list= View All Lists fragment
+        //todo 3 list= View All Lists fragment
         list.setOnClickListener{
-            loadFragment(AllNotesFragment())//call All List Fragment
-            //todo 5 change active inactive state
+            loadFragment(AllNotesFragment())
+            //todo 4 change active inactive state
         }
     }
 
