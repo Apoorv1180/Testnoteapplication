@@ -17,6 +17,7 @@ import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.AllSubscriptionAdapter
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
+import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
 
 class AllSubscriptionFragment : Fragment() {
     var allSubscription = mutableListOf<AllNotesModel>()
@@ -79,5 +80,6 @@ class AllSubscriptionFragment : Fragment() {
             adapter = AllSubscriptionAdapter(allSubscription)
         }
         allSubscriptionRecyclerView.adapter = adapter
+        progress.visibility = View.GONE
     }
 }

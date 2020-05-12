@@ -21,6 +21,7 @@ import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
+import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
 
 class AllNotesFragment : Fragment() {
     var allNotes = mutableListOf<AllNotesModel>()
@@ -177,5 +178,6 @@ class AllNotesFragment : Fragment() {
             adapter = AllNotesAdapter(allNotes)
         }
         allNotesRecyclerView.adapter = adapter
+        progress.visibility = View.GONE
     }
 }

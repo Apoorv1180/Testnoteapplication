@@ -74,6 +74,10 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
                 this.card.setCardBackgroundColor(context.resources.getColor(R.color.colorsubs))
                 this.card.radius = 15f
             }
+            else{
+                    this.card.setCardBackgroundColor(context.resources.getColor(R.color.colorlist))
+                    this.card.radius = 15f
+            }
 
         }
     }

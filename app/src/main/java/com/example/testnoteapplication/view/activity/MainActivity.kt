@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         //loading default fragment
         loadDefaultFragment(ViewAllTypeNotesFragment())
         setStateValues()
-        initListner()
+        initListener()
     }
 
     private fun showAddSubscriptionDialogFragment() {
@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity() {
         val addNoteFragment = AddNoteFragment()
         addNoteFragment.show(supportFragmentManager, "Add Note")
     }
+/*
+    private fun showAddListDialogFragment() {
+        val addListFragment = AddListFragment()
+        addListFragment.show(supportFragmentManager, "Add List")
+    }*/
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
@@ -62,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     //UI Code
-    private fun initListner() {
+    private fun initListener() {
         fab.setOnClickListener {
             if (!isOpen) {
                 openMenu()
@@ -76,8 +81,8 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-            Toast.makeText(application, "Add List Dialog fragment", Toast.LENGTH_SHORT)
-                .show()
+            loadFragment(AddListFragment())
+            //showAddListDialogFragment()
         }
         //fab3=Add Subscription
         fab3.setOnClickListener {
@@ -134,6 +139,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun setStateValues() {
         home.isSelected = isHomeChecked

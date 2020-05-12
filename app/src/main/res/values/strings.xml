@@ -25,9 +25,11 @@
     <string name="subDescription">Remind me for?</string>
     <string name="expiryDate">Expires at?</string>
     <string name="viewSubBar">All Subscriptions</string>
-
-
     <string name="sub">Subs</string>
+
+    <!-- Add List fragment-->
+    <string name="addList">Add</string>
+    <string name="addItem">Add an Item</string>
 
 
 </resources>
