@@ -2,7 +2,6 @@ package com.sdsu.noteapp.data.db.async
 
 import android.content.Context
 import android.os.AsyncTask
-import android.widget.Toast
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AddNoteViewModel
 

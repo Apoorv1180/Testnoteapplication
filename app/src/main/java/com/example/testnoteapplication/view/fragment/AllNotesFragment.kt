@@ -165,7 +165,9 @@ class AllNotesFragment : Fragment() {
                 }
             }
         )
-        adapter = AllNotesAdapter(allNotes)
+        adapter = AllNotesAdapter(allNotes) {
+            openEditNoteDialogueFragment(it)
+        }
         allNotesRecyclerView.adapter = adapter
     }
 
@@ -174,8 +176,15 @@ class AllNotesFragment : Fragment() {
         adapter?.let {
             it.allNotes = allNotesRe
         } ?: run {
-            adapter = AllNotesAdapter(allNotes)
+            adapter = AllNotesAdapter(allNotes) {
+                openEditNoteDialogueFragment(it)
+            }
         }
         allNotesRecyclerView.adapter = adapter
+    }
+
+    private fun openEditNoteDialogueFragment(note: AllNotesModel) {
+        Log.e("TAG-ADAPTER", note.noteTitle)
+        viewModel.setValue(note)
     }
 }

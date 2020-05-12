@@ -3,11 +3,11 @@ package com.example.testnoteapplication.data.model
 import android.provider.CalendarContract
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 import java.sql.Date
 
 @Entity(tableName = "AllNotes")
 data class AllNotesModel(
-
     @PrimaryKey(autoGenerate = true)
     var noteId: Int,
     var noteTitle: String,
@@ -16,4 +16,4 @@ data class AllNotesModel(
     var createdOn: String,
     var expiryDate: String,
     var card_color: Int
-)
+) : Serializable

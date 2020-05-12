@@ -18,6 +18,11 @@ class AddNoteViewModel(application: Application) : AndroidViewModel(application)
     val data: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+/*
+    val data: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+*/
 
     init {
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
