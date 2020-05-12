@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(AllNotesViewModel::class.java)
         observeEditNoteViewModel()
     }
-
+//
     private fun observeEditNoteViewModel() {
         viewModel.getValue().observe(this, Observer<AllNotesModel>{ notesModel ->
             if(null != notesModel){
