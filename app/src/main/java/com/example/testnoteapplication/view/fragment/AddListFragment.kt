@@ -125,9 +125,10 @@ class AddListFragment : Fragment() {
         val data = hashMapOf<String,Boolean >()
         for (i in 0 until listView.adapter.count) {
             if (checked[i]) {
-                data.put(itemlist.get(i),true)
+                data.put(itemlist.get(i), true)
+            } else {
+                data.put(itemlist.get(i), false)
             }
-            data.put(itemlist.get(i),false)
         }
         return data
     }

@@ -56,7 +56,14 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
             Observer { listNotes ->
                 listNotes?.let {
                     Log.i("All-Notes", "Got crimeLiveData ${listNotes.size}")
-                    updateUI(listNotes)
+                    if(listNotes.size>0) {
+                        updateUI(listNotes)
+                        //todo make image empty view gone
+                    }
+                    else{
+                        progress.visibility = View.GONE
+                        //todo make empty image view visible
+                    }
                 }
             }
         )

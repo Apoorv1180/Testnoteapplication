@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 
 class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
@@ -64,7 +65,7 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
         fun bind(allTypeNotesModel: AllNotesModel) {
             this.allTypeNotes = allTypeNotesModel
             this.noteTitle.text = this.allTypeNotes.noteTitle
-            this.noteDescription.text = this.allTypeNotes.noteDescription
+
             this.createdOn.text = this.allTypeNotes.createdOn
             if(allTypeNotesModel.card_color.equals(1)) {
                 this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
@@ -78,6 +79,11 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
                     this.card.setCardBackgroundColor(context.resources.getColor(R.color.colorlist))
                     this.card.radius = 15f
             }
+            if(allTypeNotesModel.noteType.equals(NoteUtil.LIST)){
+                this.noteDescription.text = NoteUtil.generateDescription(allTypeNotesModel.noteDescription)
+            }
+            else
+                this.noteDescription.text = this.allTypeNotes.noteDescription
 
         }
     }
