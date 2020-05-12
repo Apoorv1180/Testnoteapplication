@@ -1,9 +1,9 @@
 package com.example.testnoteapplication.viewmodel
 
 import android.app.Application
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.testnoteapplication.data.db.NotesAppDatabase
 import com.example.testnoteapplication.data.model.AllNotesModel
@@ -14,6 +14,9 @@ import kotlinx.coroutines.launch
 class AllNotesViewModel (application: Application): AndroidViewModel(application){
 
     private val notesRepository: NotesRepository
+    val data: MutableLiveData<AllNotesModel> by lazy {
+        MutableLiveData<AllNotesModel>()
+    }
 
     init {
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
@@ -35,7 +38,12 @@ class AllNotesViewModel (application: Application): AndroidViewModel(application
     fun undoNoteVm(notesModel: AllNotesModel) = viewModelScope.launch(Dispatchers.IO) {
         notesRepository.undoNoteRepo(notesModel)
     }
-    /*  fun getNotes(noteId: Int): LiveData<NotesModel> {
-          return notesRepository.getNotes(noteId);
-      }*/
+
+    fun setValue(thisRef: AllNotesModel) {
+        data.value = thisRef
+    }
+
+    fun getValue(): MutableLiveData<AllNotesModel> {
+        return data
+    }
 }

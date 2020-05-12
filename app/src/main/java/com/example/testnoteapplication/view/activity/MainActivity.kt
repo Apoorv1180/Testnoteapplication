@@ -1,31 +1,31 @@
 package com.example.testnoteapplication.view.activity
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.fragment.*
-import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
-import com.example.testnoteapplication.view.fragment.AddNoteFragment
-import com.example.testnoteapplication.view.fragment.AllNotesFragment
-import com.example.testnoteapplication.view.fragment.ViewAllTypeNotesFragment
+import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.minifab.*
 
 class MainActivity : AppCompatActivity() {
     //var addedFragment: Boolean= false
     var isOpen = false
+    private lateinit var viewModel: AllNotesViewModel
+
     companion object{
         var isnoteChecked : Boolean = false
         var isSubChecked : Boolean = false
         var isListChecked : Boolean = false
         var isHomeChecked:Boolean =true
-
-
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +34,25 @@ class MainActivity : AppCompatActivity() {
         loadDefaultFragment(ViewAllTypeNotesFragment())
         setStateValues()
         initListener()
+
+        //Initialize All Notes View Model
+        viewModel = ViewModelProviders.of(this).get(AllNotesViewModel::class.java)
+        observeEditNoteViewModel()
+    }
+
+    private fun observeEditNoteViewModel() {
+        viewModel.getValue().observe(this, Observer<AllNotesModel>{ notesModel ->
+            if(null != notesModel){
+                showEditNoteDialogueFragment(notesModel)
+            }else
+                Log.e("NO ","No");
+        })
+    }
+
+    private fun showEditNoteDialogueFragment(notesModel: AllNotesModel) {
+        // Creating the new Fragment with the name passed in.
+        val editNotesFragment = EditNoteFragment.newInstance(notesModel)
+        editNotesFragment.show(supportFragmentManager, "Edit Note Fragment")
     }
 
     private fun showAddSubscriptionDialogFragment() {

@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.db.async.UndoTask
 import com.example.testnoteapplication.data.model.AllNotesModel
-import com.example.testnoteapplication.view.fragment.AddNoteFragment
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.sdsu.noteapp.data.db.async.DeleteTask
-import kotlinx.android.synthetic.main.adapter_all_type_notes.view.*
 
-class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
+class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (AllNotesModel) -> Unit) :
     RecyclerView.Adapter<AllNotesAdapter.AllNotesHolder>() {
 
     private var removedPosition: Int = 0
@@ -40,7 +38,7 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
     override fun onBindViewHolder(holder: AllNotesHolder, position: Int) {
         val note = allNotes[position]
         Log.e("ADAPTER", "Adapter called")
-        holder.bind(note)
+        holder.bind(note, listener)
     }
 
     fun removeItem(
@@ -53,26 +51,37 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
         DeleteTask(context, viewModel, removedNote).execute()
         notifyItemRemoved(position)
 
-        Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG).setAction("UNDO") {
-            /*allNotes.toMutableList().add(removedPosition, removedNote)
-            viewModel.addNoteVm(removedNote)*/
-            UndoTask(context, viewModel, removedNote).execute()
-            notifyItemInserted(removedPosition)
-        }.show()
+        Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG)
+            .setAction("UNDO") {
+                UndoTask(context, viewModel, removedNote).execute()
+                notifyItemInserted(removedPosition)
+            }.show()
     }
 
     inner class AllNotesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription: TextView = itemView.findViewById<TextView>(R.id.rvNoteDescription)
+        private val noteDescription: TextView =
+            itemView.findViewById<TextView>(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
-        private val card:CardView = itemView.findViewById(R.id.card_id);
+        private val card: CardView = itemView.findViewById(R.id.card_id);
 
-        init {
+        fun bind(
+            notesModel: AllNotesModel,
+            listener: (AllNotesModel) -> Unit
+        ) {
+            this.allTypeNotes = notesModel
+            this.noteTitle.text = this.allTypeNotes.noteTitle
+            this.noteDescription.text = this.allTypeNotes.noteDescription
+            this.createdOn.text = this.allTypeNotes.createdOn
+            this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
+            this.card.radius = 15f
+
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, "Note Single clicked!", Toast.LENGTH_SHORT)
                     .show()
-
+                //callbackInterface.passDataCallback(allTypeNotes)
+                listener(allTypeNotes)
             }
 
             itemView.setOnLongClickListener {
@@ -80,22 +89,11 @@ class AllNotesAdapter (var allNotes: List<AllNotesModel>) :
                     .show()
                 true
             }
-
-            /*itemView.setOnDragListener {
-                Toast.makeText(itemView?.context, "${allTypeNotes.noteTitle} Dragged !", Toast.LENGTH_SHORT)
-                    .show()
-                true
-            }*/
-
         }
-        fun bind(notesModel: AllNotesModel) {
-            this.allTypeNotes = notesModel
-            this.noteTitle.text = this.allTypeNotes.noteTitle
-            this.noteDescription.text = this.allTypeNotes.noteDescription
-            this.createdOn.text = this.allTypeNotes.createdOn
-           // if(allTypeNotes.card_color==1)
-                this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
-            this.card.radius = 15f
-        }
+
+    }
+
+    interface CallbackInterface {
+        fun passDataCallback(notes: AllNotesModel)
     }
 }

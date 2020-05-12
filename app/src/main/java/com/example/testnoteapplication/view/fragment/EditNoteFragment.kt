@@ -22,11 +22,22 @@ import kotlinx.android.synthetic.main.add_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditNoteFragment : DialogFragment() {
+class EditNoteFragment() : DialogFragment() {
+
+    lateinit var allNotesModel: AllNotesModel
 
     companion object {
-        fun newInstance() = EditNoteFragment()
+        fun newInstance(notesModel: AllNotesModel): EditNoteFragment {
+            val fragment = EditNoteFragment()
+
+            val bundle = Bundle().apply {
+                putSerializable("notesModel", notesModel)
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
     }
+
     var cal = Calendar.getInstance()
     lateinit var dateTextView: TextView
     private lateinit var viewModel: EditNoteViewModel
@@ -45,6 +56,9 @@ class EditNoteFragment : DialogFragment() {
         initListner()
         observeEditNoteViewModel()
         observeValidateInputs(view)
+
+        val allNotesModel: AllNotesModel = arguments?.getSerializable("notesModel") as AllNotesModel
+        Toast.makeText(view.context, allNotesModel.noteTitle, Toast.LENGTH_LONG).show()
     }
 
     private fun setUpView(view: View) {
@@ -56,12 +70,12 @@ class EditNoteFragment : DialogFragment() {
     }
 
     private fun observeEditNoteViewModel() {
-        viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean>{ value ->
-            if(value){
+        viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean> { value ->
+            if (value) {
                 Toast.makeText(context, "Updated to Database", Toast.LENGTH_LONG).show()
                 closeCurrentFragment()
-            }else
-                Log.e("NO ","No");
+            } else
+                Log.e("NO ", "No");
         })
     }
 
@@ -73,7 +87,7 @@ class EditNoteFragment : DialogFragment() {
         }
 
         addNote.setOnClickListener {
-            if(view?.let { it1 -> validateInputs(it1) }!!) {
+            if (view?.let { it1 -> validateInputs(it1) }!!) {
                 saveNote()
                 //closeCurrentFragment()
             }
@@ -91,7 +105,8 @@ class EditNoteFragment : DialogFragment() {
                 noteTitle.text.toString(),
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
-                dateTextView.text.toString(),"",1)
+                dateTextView.text.toString(), "", 1
+            )
         //viewModel.updateNoteVm(notesModel)
         UpdateTask(this.context, viewModel, notesModel).execute()
     }
@@ -125,10 +140,10 @@ class EditNoteFragment : DialogFragment() {
         //Form Validation
         var noteTitle = view.findViewById<EditText>(R.id.noteTitle)
         var noteDescription = view.findViewById<EditText>(R.id.noteDescription)
-        if(!NoteUtil.checkInput(noteTitle)) {
+        if (!NoteUtil.checkInput(noteTitle)) {
             noteTitle.error = "Title can't be empty!"
             return false
-        } else if(!NoteUtil.checkInput(noteDescription)) {
+        } else if (!NoteUtil.checkInput(noteDescription)) {
             noteDescription.error = "Note description can't be empty!"
             return false
         }
