@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="15">
+            android:weightSum="16">
 
             <LinearLayout
                 android:id="@+id/home"
@@ -54,9 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home"
-                    android:textSize="14dp"
                     android:textColor="@drawable/text_selector"
-                     />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -83,9 +82,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/note"
-                    android:textSize="14dp"
                     android:textColor="@drawable/text_selector"
-                    />
+                    android:textSize="14sp" />
 
             </LinearLayout>
             <LinearLayout
@@ -111,9 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/list"
-                    android:textSize="14dp"
                     android:textColor="@drawable/text_selector"
-                    />
+                    android:textSize="14sp" />
 
             </LinearLayout>
             <LinearLayout
@@ -139,9 +136,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sub"
-                    android:textSize="14dp"
                     android:textColor="@drawable/text_selector"
-                    />
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </LinearLayout>

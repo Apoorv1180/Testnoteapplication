@@ -14,8 +14,8 @@
 
             <ImageView
                 android:id="@+id/sub_icon"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:srcCompat="@drawable/disney" />
 
             <LinearLayout
