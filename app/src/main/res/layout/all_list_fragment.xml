@@ -26,7 +26,7 @@
         android:id="@+id/emptynote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/emptynote"
+        android:src="@drawable/emptylist"
         app:layout_constraintBottom_toBottomOf="@+id/listAllRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

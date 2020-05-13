@@ -53,13 +53,13 @@ class AllListAdapter(
         removedNote = allLists[position]
         removedPosition = position
         DeleteListTask(context, viewModel, removedNote).execute()
-        notifyItemRemoved(position)
+        /*notifyItemRemoved(position)
 
         Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG)
             .setAction("UNDO") {
                 UndoListTask(context, viewModel, removedNote).execute()
                 notifyItemInserted(removedPosition)
-            }.show()
+            }.show()*/
     }
 
     inner class AllListsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

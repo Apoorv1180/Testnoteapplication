@@ -17,6 +17,9 @@ class AllListViewModel(application: Application) : AndroidViewModel(application)
     val data: MutableLiveData<AllNotesModel> by lazy {
         MutableLiveData<AllNotesModel>()
     }
+    val databoolean: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     init {
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
@@ -42,5 +45,13 @@ class AllListViewModel(application: Application) : AndroidViewModel(application)
 
     fun getValue(): MutableLiveData<AllNotesModel> {
         return data
+    }
+
+    fun setValueDelete(thisRef: Boolean) {
+        databoolean.value = thisRef
+    }
+
+    fun getValueDelete(): MutableLiveData<Boolean> {
+        return databoolean
     }
 }
