@@ -22,6 +22,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/emptyview"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            android:layout_marginBottom="322dp"
+            android:elevation="8dp"
+            android:src="@drawable/emptyview"
+            app:layout_constraintBottom_toBottomOf="@+id/viewAllTypeNotesRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/viewAllTypeNotesRecyclerView"
             android:layout_width="0dp"

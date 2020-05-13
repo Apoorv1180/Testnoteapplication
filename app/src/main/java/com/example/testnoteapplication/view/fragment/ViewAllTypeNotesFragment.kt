@@ -59,9 +59,11 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
                     if(listNotes.size>0) {
                         updateUI(listNotes)
                         //todo make image empty view gone
+                        emptyview.visibility = View.GONE
                     }
                     else{
                         progress.visibility = View.GONE
+                        emptyview.visibility = View.VISIBLE
                         //todo make empty image view visible
                     }
                 }
