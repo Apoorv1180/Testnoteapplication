@@ -7,13 +7,10 @@ import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.fragment.*
-import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.minifab.*
 
@@ -189,6 +186,13 @@ class MainActivity : AppCompatActivity() {
 
         }else{
 
+        }
+    }
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
         }
     }
 }

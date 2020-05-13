@@ -178,7 +178,6 @@ class AddNoteFragment : DialogFragment() {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes

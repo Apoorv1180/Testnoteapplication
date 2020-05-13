@@ -95,4 +95,5 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
         return true
     }
 
+
 }
