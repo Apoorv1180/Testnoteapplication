@@ -4,52 +4,53 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.view.adapter.AllListAdapter
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
-import com.example.testnoteapplication.viewmodel.AllNotesViewModel
+import com.example.testnoteapplication.viewmodel.AllListViewModel
 import kotlinx.android.synthetic.main.all_notes_fragment.*
-import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
-import kotlinx.android.synthetic.main.view_all_type_notes_fragment.progress
+import kotlinx.android.synthetic.main.all_notes_fragment.progress
 
-class AllNotesFragment : Fragment() {
-    var allNotes = mutableListOf<AllNotesModel>()
+class AllListFragment : Fragment() {
+    var allLists = mutableListOf<AllNotesModel>()
     private lateinit var colorDrawableBackground: ColorDrawable
     private lateinit var deleteIcon: Drawable
 
     companion object {
         fun newInstance() =
-            AllNotesFragment()
+            AllListFragment()
     }
 
-    private lateinit var viewModel: AllNotesViewModel
-    private lateinit var allNotesRecyclerView: RecyclerView
-    private var adapter: AllNotesAdapter? = null
+    private lateinit var viewModel: AllListViewModel
+    private lateinit var allListsRecyclerView: RecyclerView
+    private var adapter: AllListAdapter? = null
     private var notesList = mutableListOf<AllNotesModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.all_notes_fragment, container, false)
-        allNotesRecyclerView =
-            view.findViewById(R.id.noteAllRecycler) as RecyclerView
-        allNotesRecyclerView.layoutManager =
+        val view: View = inflater.inflate(R.layout.all_list_fragment, container, false)
+        allListsRecyclerView =
+            view.findViewById(R.id.listAllRecycler) as RecyclerView
+        allListsRecyclerView.layoutManager =
             LinearLayoutManager(this.context)
-        allNotesRecyclerView.adapter = adapter
+        allListsRecyclerView.adapter = adapter
 
         colorDrawableBackground = ColorDrawable(Color.parseColor("#538cc6"))
         deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.ic_list_red_24dp)!!
@@ -67,7 +68,7 @@ class AllNotesFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDirection: Int) {
-                (adapter as AllNotesAdapter).removeItem(
+                (adapter as AllListAdapter).removeItem(
                     viewHolder.adapterPosition,
                     viewHolder,
                     viewModel
@@ -140,55 +141,54 @@ class AllNotesFragment : Fragment() {
                     isCurrentlyActive
                 )
             }
-
         }
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(allNotesRecyclerView)
+        itemTouchHelper.attachToRecyclerView(allListsRecyclerView)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AllNotesViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(AllListViewModel::class.java)
     }
 
 
     override fun onStart() {
         super.onStart()
 
-        viewModel.getAllNotes(NoteUtil.NOTE).observe(
+        viewModel.getAllNotes(NoteUtil.LIST).observe(
             viewLifecycleOwner,
             Observer { listNotes ->
                 listNotes?.let {
                     Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
-                    if(listNotes.size >0) {
+                    if (listNotes.size > 0) {
                         updateUI(listNotes)
                         emptynote.visibility = View.GONE
-                    }else {
+                    } else {
                         progress.visibility = View.GONE
                         emptynote.visibility = View.VISIBLE
                     }
                 }
             }
         )
-        adapter = AllNotesAdapter(allNotes) {
+        adapter = AllListAdapter(allLists) {
             openEditNoteDialogueFragment(it)
         }
-        allNotesRecyclerView.adapter = adapter
+        allListsRecyclerView.adapter = adapter
     }
 
 
     private fun updateUI(allNotesRe: List<AllNotesModel>) {
         adapter?.let {
-            it.allNotes = allNotesRe
+            it.allLists = allNotesRe
         } ?: run {
-            adapter = AllNotesAdapter(allNotes) {
+            adapter = AllListAdapter(allLists) {
                 openEditNoteDialogueFragment(it)
             }
         }
-        allNotesRecyclerView.adapter = adapter
+        allListsRecyclerView.adapter = adapter
         progress.visibility = View.GONE
     }
 
