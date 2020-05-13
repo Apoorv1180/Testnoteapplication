@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -152,27 +153,43 @@ class AllListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AllListViewModel::class.java)
+        viewModel.getValueDelete().observe(viewLifecycleOwner, Observer { value->
+
+            if(value){
+                Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show()
+                emptynote.visibility = View.GONE
+                adapter?.notifyDataSetChanged()
+                allListsRecyclerView.adapter = adapter
+            }
+
+        })
+
+        viewModel.getAllNotes(NoteUtil.LIST).observe(
+                viewLifecycleOwner,
+                Observer { listNotes ->
+                    listNotes?.let {
+                        Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
+                        if (listNotes.size > 0) {
+                            updateUI(listNotes)
+                            emptynote.visibility = View.GONE
+                        } else {
+                            progress.visibility = View.GONE
+                            emptynote.visibility = View.VISIBLE
+                        }
+                    }
+                }
+        )
+        adapter = AllListAdapter(allLists) {
+            openEditNoteDialogueFragment(it)
+        }
+        allListsRecyclerView.adapter = adapter
     }
 
-
+    
     override fun onStart() {
         super.onStart()
 
-        viewModel.getAllNotes(NoteUtil.LIST).observe(
-            viewLifecycleOwner,
-            Observer { listNotes ->
-                listNotes?.let {
-                    Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
-                    if (listNotes.size > 0) {
-                        updateUI(listNotes)
-                        emptynote.visibility = View.GONE
-                    } else {
-                        progress.visibility = View.GONE
-                        emptynote.visibility = View.VISIBLE
-                    }
-                }
-            }
-        )
+
         adapter = AllListAdapter(allLists) {
             openEditNoteDialogueFragment(it)
         }
