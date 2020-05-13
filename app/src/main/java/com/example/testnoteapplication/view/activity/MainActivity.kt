@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.fragment.*
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
@@ -19,7 +20,6 @@ import kotlinx.android.synthetic.main.minifab.*
 class MainActivity : AppCompatActivity() {
     //var addedFragment: Boolean= false
     var isOpen = false
-    private lateinit var viewModel: AllNotesViewModel
 
     companion object{
         var isnoteChecked : Boolean = false
@@ -37,23 +37,14 @@ class MainActivity : AppCompatActivity() {
         initListener()
 
         //Initialize All Notes View Model
-        viewModel = ViewModelProviders.of(this).get(AllNotesViewModel::class.java)
-        observeEditNoteViewModel()
     }
 //
-    private fun observeEditNoteViewModel() {
-        viewModel.getValue().observe(this, Observer<AllNotesModel>{ notesModel ->
-            if(null != notesModel){
-                showEditNoteDialogueFragment(notesModel)
-            }else
-                Log.e("NO ","No");
-        })
-    }
 
     private fun showEditNoteDialogueFragment(notesModel: AllNotesModel) {
         // Creating the new Fragment with the name passed in.
         val editNotesFragment = EditNoteFragment.newInstance(notesModel)
-        editNotesFragment.show(supportFragmentManager, "Edit Note Fragment")
+        supportFragmentManager?.let {editNotesFragment.show(supportFragmentManager, "Edit Note")}
+            // loadFragment(editNotesFragment)
     }
 
     private fun showAddSubscriptionDialogFragment() {
@@ -101,7 +92,8 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-            loadFragment(AddListFragment())
+           // loadFragment(AddListFragment())
+            showAddListDialogFragment()
             //showAddListDialogFragment()
         }
         //fab3=Add Subscription
@@ -187,5 +179,16 @@ class MainActivity : AppCompatActivity() {
         val toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.BOTTOM, 0, 325)
         toast.show()
+    }
+
+    fun callEditFragment(note: AllNotesModel) {
+        Log.e("yes ","YES" + note.noteTitle);
+        if(note.noteType==NoteUtil.NOTE)
+        showEditNoteDialogueFragment(note)
+        else if(note.noteType==NoteUtil.LIST){
+
+        }else{
+
+        }
     }
 }

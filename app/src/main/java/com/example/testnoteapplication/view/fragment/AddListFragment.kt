@@ -1,12 +1,17 @@
 package com.example.testnoteapplication.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -23,15 +28,18 @@ import kotlinx.android.synthetic.main.add_list_fragment.*
 class AddListFragment : DialogFragment() {
 
     companion object {
-        fun newInstance() = AddListFragment()
+        fun newInstance() =
+            AddListFragment()
     }
     lateinit var finalString:String
     var itemlist = arrayListOf<String>()
     lateinit var adapter: ArrayAdapter<String>
     private lateinit var viewModel: AddListViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.add_list_fragment, container, false)
     }
 
@@ -137,7 +145,18 @@ class AddListFragment : DialogFragment() {
                 , itemlist )
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
+
+
 }
+
+
+
+
+

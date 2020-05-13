@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDivider"
-    tools:context=".view.fragment.EditNoteFragment">
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -29,16 +29,16 @@
             android:layout_marginTop="20dp"
             android:background="#ffffff"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=" Reminders were never So Simple!! "
-                android:textSize="18sp"
-                android:textStyle="bold|italic"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_margin="10dp"
-                />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Reminders were never So Simple!! "
+            android:textSize="18sp"
+            android:textStyle="bold|italic"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_margin="10dp"
+            />
 
             <LinearLayout
                 android:id="@+id/child_create_note"
@@ -103,22 +103,22 @@
                         android:layout_margin="10dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_date_range_black_24dp"/>
-                    <TextView
-                        android:id="@+id/datePicker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:layout_marginRight="@dimen/side_margin"
-                        android:layout_marginBottom="@dimen/margin_medium"
-                        android:layout_weight="1"
-                        android:autofillHints="@string/datePicker"
-                        android:background="@drawable/round_background"
-                        android:ems="10"
-                        android:textStyle="italic|bold"
-                        android:hint="@string/datePicker"
-                        android:padding="@dimen/padding_medium"
-                        android:textColorHint="#0B0707"
-                        android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/datePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/side_margin"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/datePicker"
+                    android:background="@drawable/round_background"
+                    android:ems="10"
+                    android:textStyle="italic|bold"
+                    android:hint="@string/datePicker"
+                    android:padding="@dimen/padding_medium"
+                    android:textColorHint="#0B0707"
+                    android:textSize="15sp" />
                 </LinearLayout>
                 <Button
                     android:id="@+id/addNote"

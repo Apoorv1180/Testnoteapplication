@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 
 import com.example.testnoteapplication.R
@@ -19,6 +21,11 @@ import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.EditNoteViewModel
 import com.sdsu.noteapp.data.db.async.UpdateTask
 import kotlinx.android.synthetic.main.add_note_fragment.*
+import kotlinx.android.synthetic.main.add_note_fragment.addNote
+import kotlinx.android.synthetic.main.add_note_fragment.datePicker
+import kotlinx.android.synthetic.main.add_note_fragment.noteDescription
+import kotlinx.android.synthetic.main.add_note_fragment.noteTitle
+import kotlinx.android.synthetic.main.edit_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,10 +33,11 @@ class EditNoteFragment() : DialogFragment() {
 
     lateinit var allNotesModel: AllNotesModel
 
+
     companion object {
         fun newInstance(notesModel: AllNotesModel): EditNoteFragment {
             val fragment = EditNoteFragment()
-
+            var model:AllNotesModel
             val bundle = Bundle().apply {
                 putSerializable("notesModel", notesModel)
             }
@@ -52,13 +60,21 @@ class EditNoteFragment() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpView(view)
+        allNotesModel =arguments?.getSerializable("notesModel") as AllNotesModel
+        setAllValues()
         initViewModel()
         initListner()
         observeEditNoteViewModel()
         observeValidateInputs(view)
 
-        val allNotesModel: AllNotesModel = arguments?.getSerializable("notesModel") as AllNotesModel
+
         Toast.makeText(view.context, allNotesModel.noteTitle, Toast.LENGTH_LONG).show()
+    }
+
+    private fun setAllValues() {
+        noteTitle.setText(allNotesModel.noteTitle.toString())
+        noteDescription.setText(allNotesModel.noteDescription.toString())
+        datePicker.setText(allNotesModel.createdOn.toString())
     }
 
     private fun setUpView(view: View) {
@@ -101,7 +117,7 @@ class EditNoteFragment() : DialogFragment() {
     private fun saveNote() {
         var notesModel =
             AllNotesModel(
-                0,
+                allNotesModel.noteId,
                 noteTitle.text.toString(),
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
@@ -172,5 +188,12 @@ class EditNoteFragment() : DialogFragment() {
                 }
             }
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 }

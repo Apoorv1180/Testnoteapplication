@@ -17,7 +17,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.Util.NotificationUtils
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.view.activity.MainActivity
 import com.example.testnoteapplication.viewmodel.AddNoteViewModel
 import com.sdsu.noteapp.data.db.async.InsertTask
 import kotlinx.android.synthetic.main.add_note_fragment.*
@@ -31,8 +33,10 @@ class AddNoteFragment : DialogFragment() {
         fun newInstance() =
             AddNoteFragment()
     }
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
 
     var cal = Calendar.getInstance()
+    lateinit var model :AllNotesModel
     private lateinit var viewModel: AddNoteViewModel
     lateinit var dateTextView: TextView
     override fun onCreateView(
@@ -68,6 +72,7 @@ class AddNoteFragment : DialogFragment() {
         viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
             if(value){
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             }else
                 Log.e("NO ","No");
@@ -105,7 +110,7 @@ class AddNoteFragment : DialogFragment() {
             "",1)
         //viewModel.addNoteVm(notesModel)
         //todo 6 utils.validate method (pass this.context)
-
+        model = notesModel
         InsertTask(this.context, viewModel, notesModel).execute()
         //closeCurrentFragment()
     }
@@ -172,6 +177,7 @@ class AddNoteFragment : DialogFragment() {
             }
         }
     }
+
 
     override fun onResume() {
         super.onResume()

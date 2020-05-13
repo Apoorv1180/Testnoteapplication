@@ -153,17 +153,6 @@ class AllListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AllListViewModel::class.java)
-        /*viewModel.getValueDelete().observe(viewLifecycleOwner, Observer { value->
-
-            if(value){
-                Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show()
-                emptynote.visibility = View.GONE
-                adapter?.notifyDataSetChanged()
-                allListsRecyclerView.adapter = adapter
-            }
-
-        })*/
-
         viewModel.getAllNotes(NoteUtil.LIST).observe(
                 viewLifecycleOwner,
                 Observer { listNotes ->

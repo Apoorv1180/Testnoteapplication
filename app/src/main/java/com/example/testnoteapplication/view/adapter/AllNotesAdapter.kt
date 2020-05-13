@@ -81,6 +81,7 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
                 Toast.makeText(itemView.context, "Note Single clicked!", Toast.LENGTH_SHORT)
                     .show()
                 //callbackInterface.passDataCallback(allTypeNotes)
+
                 listener(allTypeNotes)
             }
 
@@ -91,9 +92,5 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
             }
         }
 
-    }
-
-    interface CallbackInterface {
-        fun passDataCallback(notes: AllNotesModel)
     }
 }
