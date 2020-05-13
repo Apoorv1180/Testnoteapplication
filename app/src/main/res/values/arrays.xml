@@ -10,6 +10,7 @@
         <item>Prime Video</item>
         <item>Add Custom</item>>
     </string-array>
+
     <integer-array name="icons_array">
         <item>@drawable/disney</item>
         <item>@drawable/googleplay</item>

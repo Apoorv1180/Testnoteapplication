@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class AddSubscriptionFragment : DialogFragment() {
 
     companion object {
@@ -95,7 +96,7 @@ class AddSubscriptionFragment : DialogFragment() {
         //getting Subscription array list from string resource
         var subscriptions_array = view.context.resources.getStringArray(R.array.subscription_array)
         //getting subscription icons array list from string resource
-        var icons_array = view.context.resources.getIntArray(R.array.icons_array)
+        val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
         val customAdapter = CustomAdapterSpinnerSub(view.context, icons_array, subscriptions_array)
         spin.adapter = customAdapter
         //select listener on spinner

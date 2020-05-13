@@ -1,6 +1,7 @@
 package com.example.testnoteapplication.view.adapter
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.testnoteapplication.R
 import com.squareup.picasso.Picasso
+import java.security.AccessController.getContext
 
 class CustomAdapterSpinnerSub(var context: Context, var icons: IntArray, var subscriptions: Array<String>) :
     BaseAdapter() {
@@ -36,11 +38,9 @@ class CustomAdapterSpinnerSub(var context: Context, var icons: IntArray, var sub
         val view = inflter.inflate(R.layout.spinner_custom_subscription,null)
         val icon = view.findViewById<View>(R.id.sub_icon) as ImageView?
         val names = view.findViewById<View>(R.id.sub_name) as TextView?
-        //Picasso.get().load(icons[i]).into(icon)
-
-            //.load(icons[i]).placeholder(R.drawable.disney).into(icon)
-            //(context).load(icons[i]).into(icon)
-        icon!!.setBackgroundColor(Color.BLUE)
+        Picasso.get().load(icons[i])
+            .error(R.drawable.ic_launcher_background)
+            .into(icon);
         names!!.text = subscriptions[i]
         return view
     }

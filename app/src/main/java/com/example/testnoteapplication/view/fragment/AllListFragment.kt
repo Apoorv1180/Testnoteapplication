@@ -175,6 +175,7 @@ class AllListFragment : Fragment() {
                             updateUI(notesList)
                             emptynote.visibility = View.GONE
                         } else {
+                            allListsRecyclerView.visibility=View.INVISIBLE
                             progress.visibility = View.GONE
                             emptynote.visibility = View.VISIBLE
                         }
