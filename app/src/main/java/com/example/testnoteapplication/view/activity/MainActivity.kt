@@ -65,10 +65,10 @@ class MainActivity : AppCompatActivity() {
         addNoteFragment.show(supportFragmentManager, "Add Note")
     }
 
-    private fun showAddListDialogFragment() {
+    /*private fun showAddListDialogFragment() {
         val addListFragment = AddListFragment()
         addListFragment.show(supportFragmentManager, "Add List")
-    }
+    }*/
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-          //  loadFragment(AddListFragment())
-            showAddListDialogFragment()
+             loadFragment(AddListFragment())
+            //showAddListDialogFragment()
         }
         //fab3=Add Subscription
         fab3.setOnClickListener {
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
             isListChecked = true
             setStateValues()
             if (list.isSelected) {
-              //  loadFragment(AllNotesFragment())
+               loadFragment(AllListFragment())
                 Toast.makeText(application, "View List Dialog fragment", Toast.LENGTH_SHORT)
                     .show()
             }

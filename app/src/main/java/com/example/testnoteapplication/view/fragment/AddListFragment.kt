@@ -15,18 +15,15 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
-import com.example.testnoteapplication.viewmodel.AddListViewModel
 import com.example.testnoteapplication.viewmodel.AddNoteViewModel
 import com.google.gson.Gson
-import com.sdsu.noteapp.data.db.async.InsertTask
 import com.sdsu.noteapp.data.db.async.InsertTaskList
 import kotlinx.android.synthetic.main.add_list_fragment.*
-import kotlinx.android.synthetic.main.add_subscription_fragment.*
-import org.json.JSONObject
+import java.util.*
 
 
 
-class AddListFragment : DialogFragment() {
+class AddListFragment : Fragment() {
 
     companion object {
         fun newInstance() = AddListFragment()
@@ -36,8 +33,10 @@ class AddListFragment : DialogFragment() {
     lateinit var adapter: ArrayAdapter<String>
     private lateinit var viewModel: AddNoteViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.add_list_fragment, container, false)
     }
 
@@ -141,10 +140,6 @@ class AddListFragment : DialogFragment() {
         adapter = ArrayAdapter(view.context,
                 android.R.layout.simple_list_item_multiple_choice
                 , itemlist )
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
 }
