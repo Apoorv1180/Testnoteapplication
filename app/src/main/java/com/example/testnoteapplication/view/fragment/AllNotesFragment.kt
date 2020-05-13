@@ -21,7 +21,9 @@ import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
+import kotlinx.android.synthetic.main.all_notes_fragment.*
 import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
+import kotlinx.android.synthetic.main.view_all_type_notes_fragment.progress
 
 class AllNotesFragment : Fragment() {
     var allNotes = mutableListOf<AllNotesModel>()
@@ -162,7 +164,13 @@ class AllNotesFragment : Fragment() {
             Observer { listNotes ->
                 listNotes?.let {
                     Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
-                    updateUI(listNotes)
+                    if(listNotes.size >0) {
+                        updateUI(listNotes)
+                        emptynote.visibility = View.GONE
+                    }else {
+                        progress.visibility = View.GONE
+                        emptynote.visibility = View.VISIBLE
+                    }
                 }
             }
         )

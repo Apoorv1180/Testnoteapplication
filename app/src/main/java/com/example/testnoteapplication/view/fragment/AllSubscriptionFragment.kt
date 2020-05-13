@@ -17,7 +17,9 @@ import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.AllSubscriptionAdapter
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
+import kotlinx.android.synthetic.main.all_subscription_fragment.*
 import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
+import kotlinx.android.synthetic.main.view_all_type_notes_fragment.progress
 
 class AllSubscriptionFragment : Fragment() {
     var allSubscription = mutableListOf<AllNotesModel>()
@@ -58,7 +60,13 @@ class AllSubscriptionFragment : Fragment() {
                 Observer { listSubscription ->
                     listSubscription?.let {
                         Log.i("Notes", "Got Subscriptions ${listSubscription.size}")
-                        updateUI(listSubscription)
+                        if(listSubscription.size >0) {
+                            updateUI(listSubscription)
+                            emptysubs.visibility = View.GONE
+                        }else{
+                            emptysubs.visibility = View.VISIBLE
+                            progress.visibility = View.GONE
+                        }
                     }
                 }
         )
