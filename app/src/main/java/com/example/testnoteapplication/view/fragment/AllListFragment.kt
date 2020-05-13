@@ -64,6 +64,7 @@ class AllListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(AllListViewModel::class.java)
     }
 
+
     override fun onStart() {
         super.onStart()
 
