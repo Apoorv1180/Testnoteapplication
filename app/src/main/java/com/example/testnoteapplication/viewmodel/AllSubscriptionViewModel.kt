@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.testnoteapplication.data.db.NotesAppDatabase
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.data.repository.NotesRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AllSubscriptionViewModel (application: Application): AndroidViewModel(application){
 
@@ -20,5 +22,13 @@ class AllSubscriptionViewModel (application: Application): AndroidViewModel(appl
 
     fun getAllNotes(noteType: String): LiveData<List<AllNotesModel>> {
         return notesRepository.getAllNotes(noteType);
+    }
+
+    fun deleteNote(notesModel: AllNotesModel) = viewModelScope.launch(Dispatchers.IO)  {
+        notesRepository.deleteNoteRepo(notesModel)
+    }
+
+    fun undoNoteVm(notesModel: AllNotesModel) = viewModelScope.launch(Dispatchers.IO) {
+        notesRepository.undoNoteRepo(notesModel)
     }
 }

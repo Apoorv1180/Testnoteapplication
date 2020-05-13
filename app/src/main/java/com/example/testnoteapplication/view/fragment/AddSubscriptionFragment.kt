@@ -66,7 +66,7 @@ class AddSubscriptionFragment : DialogFragment() {
         }
 
         addSubscription.setOnClickListener {
-            if(view?.let { it1 -> validateInputs(it1) }!!) {
+            if (view?.let { it1 -> validateInputs(it1) }!!) {
                 saveNote()
             }
         }

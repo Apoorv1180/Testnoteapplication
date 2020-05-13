@@ -9,21 +9,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.data.db.async.InsertListTask
 import com.example.testnoteapplication.data.model.AllNotesModel
-import com.example.testnoteapplication.viewmodel.AddNoteViewModel
+import com.example.testnoteapplication.viewmodel.AddListViewModel
 import com.google.gson.Gson
-import com.sdsu.noteapp.data.db.async.InsertTaskList
 import kotlinx.android.synthetic.main.add_list_fragment.*
-import java.util.*
 
 
-
-class AddListFragment : Fragment() {
+class AddListFragment : DialogFragment() {
 
     companion object {
         fun newInstance() = AddListFragment()
@@ -31,18 +28,16 @@ class AddListFragment : Fragment() {
     lateinit var finalString:String
     var itemlist = arrayListOf<String>()
     lateinit var adapter: ArrayAdapter<String>
-    private lateinit var viewModel: AddNoteViewModel
+    private lateinit var viewModel: AddListViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.add_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AddNoteViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(AddListViewModel::class.java)
         setUpView(view)
         initListener()
         observeAddListModel()
@@ -111,7 +106,7 @@ class AddListFragment : Fragment() {
                         NoteUtil.LIST,"",
                         "",3)
 
-        InsertTaskList(this.context, viewModel, notesModel).execute()
+        InsertListTask(this.context, viewModel, notesModel).execute()
 
     }
 
@@ -142,4 +137,7 @@ class AddListFragment : Fragment() {
                 , itemlist )
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
 }
