@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-          //  loadFragment(AddListFragment())
+            //loadFragment(AddListFragment())
             showAddListDialogFragment()
         }
         //fab3=Add Subscription
