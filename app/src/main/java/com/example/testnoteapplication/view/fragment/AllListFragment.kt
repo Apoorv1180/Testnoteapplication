@@ -4,31 +4,27 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
-import com.example.testnoteapplication.view.adapter.AllListsAdapter
+import com.example.testnoteapplication.view.adapter.AllListAdapter
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
-import com.example.testnoteapplication.view.adapter.AllSubscriptionAdapter
 import com.example.testnoteapplication.viewmodel.AllListViewModel
-import com.example.testnoteapplication.viewmodel.AllNotesViewModel
-import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
 import kotlinx.android.synthetic.main.all_notes_fragment.*
-import kotlinx.android.synthetic.main.all_subscription_fragment.*
-import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
-import kotlinx.android.synthetic.main.view_all_type_notes_fragment.progress
+import kotlinx.android.synthetic.main.all_notes_fragment.progress
 
 class AllListFragment : Fragment() {
     var allLists = mutableListOf<AllNotesModel>()
@@ -37,24 +33,118 @@ class AllListFragment : Fragment() {
 
     companion object {
         fun newInstance() =
-                AllListFragment()
+            AllListFragment()
     }
 
     private lateinit var viewModel: AllListViewModel
     private lateinit var allListsRecyclerView: RecyclerView
-    private var adapter: AllListsAdapter? = null
-
+    private var adapter: AllListAdapter? = null
+    private var notesList = mutableListOf<AllNotesModel>()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.all_list_fragment, container, false)
         allListsRecyclerView =
-                view.findViewById(R.id.listAllRecycler) as RecyclerView
+            view.findViewById(R.id.listAllRecycler) as RecyclerView
         allListsRecyclerView.layoutManager =
-                LinearLayoutManager(this.context)
+            LinearLayoutManager(this.context)
         allListsRecyclerView.adapter = adapter
+
+        colorDrawableBackground = ColorDrawable(Color.parseColor("#538cc6"))
+        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.ic_list_red_24dp)!!
+
+        // CallBack for Swipe
+        val itemTouchHelperCallback = object :
+            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDirection: Int) {
+                (adapter as AllListAdapter).removeItem(
+                    viewHolder.adapterPosition,
+                    viewHolder,
+                    viewModel
+                )
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+                val iconMarginVertical =
+                    (viewHolder.itemView.height - deleteIcon.intrinsicHeight) / 2
+
+                if (dX > 0) {
+                    colorDrawableBackground.setBounds(
+                        itemView.left,
+                        itemView.top,
+                        dX.toInt(),
+                        itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                        itemView.left + iconMarginVertical,
+                        itemView.top + iconMarginVertical,
+                        itemView.left + iconMarginVertical + deleteIcon.intrinsicWidth,
+                        itemView.bottom - iconMarginVertical
+                    )
+                } else {
+                    colorDrawableBackground.setBounds(
+                        itemView.right + dX.toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom
+                    )
+                    deleteIcon.setBounds(
+                        itemView.right - iconMarginVertical - deleteIcon.intrinsicWidth,
+                        itemView.top + iconMarginVertical,
+                        itemView.right - iconMarginVertical,
+                        itemView.bottom - iconMarginVertical
+                    )
+                    deleteIcon.level = 0
+                }
+                colorDrawableBackground.draw(c)
+                c.save()
+
+                if (dX > 0)
+                    c.clipRect(itemView.left, itemView.top, dX.toInt(), itemView.bottom)
+                else
+                    c.clipRect(
+                        itemView.right + dX.toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom
+                    )
+
+                deleteIcon.draw(c)
+                c.restore()
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(allListsRecyclerView)
 
         return view
     }
@@ -68,32 +158,42 @@ class AllListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        viewModel.getAllNotes(NoteUtil.SUB).observe(
-                viewLifecycleOwner,
-                Observer { listSubscription ->
-                    listSubscription?.let {
-                        Log.i("Notes", "Got Subscriptions ${listSubscription.size}")
-                        if (listSubscription.size > 0) {
-                            updateUI(listSubscription)
-                            emptysubs.visibility = View.GONE
-                        } else {
-                            emptysubs.visibility = View.VISIBLE
-                            progress.visibility = View.GONE
-                        }
+        viewModel.getAllNotes(NoteUtil.LIST).observe(
+            viewLifecycleOwner,
+            Observer { listNotes ->
+                listNotes?.let {
+                    Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
+                    if (listNotes.size > 0) {
+                        updateUI(listNotes)
+                        emptynote.visibility = View.GONE
+                    } else {
+                        progress.visibility = View.GONE
+                        emptynote.visibility = View.VISIBLE
                     }
                 }
+            }
         )
-        adapter = AllListsAdapter(allLists)
+        adapter = AllListAdapter(allLists) {
+            openEditNoteDialogueFragment(it)
+        }
         allListsRecyclerView.adapter = adapter
     }
+
 
     private fun updateUI(allNotesRe: List<AllNotesModel>) {
         adapter?.let {
             it.allLists = allNotesRe
         } ?: run {
-            adapter = AllListsAdapter(allLists)
+            adapter = AllListAdapter(allLists) {
+                openEditNoteDialogueFragment(it)
+            }
         }
         allListsRecyclerView.adapter = adapter
         progress.visibility = View.GONE
+    }
+
+    private fun openEditNoteDialogueFragment(note: AllNotesModel) {
+        Log.e("TAG-ADAPTER", note.noteTitle)
+        viewModel.setValue(note)
     }
 }

@@ -5,44 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    tools:context=".view.fragment.AllSubscriptionFragment">
-       <ProgressBar
-           android:id="@+id/progress"
-           style="?android:attr/progressBarStyleHorizontal"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_centerHorizontal="true"
-           android:layout_centerVertical="true"
-           android:indeterminate="true"
-           android:visibility="visible"
-           android:backgroundTint="@color/colorAccent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
-       <ImageView
-           android:id="@+id/emptylists"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:src="@drawable/emptysubs"
-           app:layout_constraintBottom_toBottomOf="@+id/subAllRecycler"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="1.0"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="@+id/subAllRecycler"
-           app:layout_constraintVertical_bias="0.762" />
+    tools:context=".view.fragment.AllListFragment">
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/listAllRecycler"
-           android:layout_width="0dp"
-           android:layout_height="0dp"
-           android:layout_marginStart="10dp"
-           android:layout_marginTop="10dp"
-           android:layout_marginEnd="10dp"
-           android:layout_marginBottom="10dp"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintVertical_bias="0.0" />
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true"
+        android:visibility="visible"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/emptynote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/emptynote"
+        app:layout_constraintBottom_toBottomOf="@+id/listAllRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listAllRecycler"
+        app:layout_constraintVertical_bias="0.762" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listAllRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

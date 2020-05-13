@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         var isListChecked : Boolean = false
         var isHomeChecked:Boolean =true
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -65,10 +66,10 @@ class MainActivity : AppCompatActivity() {
         addNoteFragment.show(supportFragmentManager, "Add Note")
     }
 
-    /*private fun showAddListDialogFragment() {
+    private fun showAddListDialogFragment() {
         val addListFragment = AddListFragment()
         addListFragment.show(supportFragmentManager, "Add List")
-    }*/
+    }
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-             loadFragment(AddListFragment())
+            loadFragment(AddListFragment())
             //showAddListDialogFragment()
         }
         //fab3=Add Subscription
@@ -147,14 +148,15 @@ class MainActivity : AppCompatActivity() {
         //todo 3 list= View All Lists fragment
         list.setOnClickListener {
             //todo 4 change active inactive state
+            isHomeChecked =false
             isnoteChecked = false
             isSubChecked = false
             isListChecked = true
             setStateValues()
             if (list.isSelected) {
-               loadFragment(AllListFragment())
-                Toast.makeText(application, "View List Dialog fragment", Toast.LENGTH_SHORT)
-                    .show()
+                loadFragment(AllListFragment())
+                /*Toast.makeText(application, "View List Dialog fragment", Toast.LENGTH_SHORT)
+                    .show()*/
             }
         }
     }

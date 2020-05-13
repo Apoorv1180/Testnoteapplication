@@ -22,7 +22,6 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
     private var removedPosition: Int = 0
     private lateinit var removedNote: AllNotesModel
     private lateinit var context: Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllNotesHolder {
         val view =
             LayoutInflater.from(parent.context)
