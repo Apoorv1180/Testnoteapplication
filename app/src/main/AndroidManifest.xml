@@ -12,13 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.example.testnoteapplication.view.activity.MainActivity" android:windowSoftInputMode="stateHidden">
+        <activity android:name=".view.activity.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
         <receiver
             android:name=".Util.AlarmReceiver"
             android:enabled="true" />
@@ -26,7 +32,6 @@
         <service
             android:name=".Util.NotificationService"
             android:enabled="true" />
-
     </application>
 
 </manifest>
