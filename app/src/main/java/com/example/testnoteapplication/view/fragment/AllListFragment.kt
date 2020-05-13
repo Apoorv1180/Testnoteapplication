@@ -40,7 +40,7 @@ class AllListFragment : Fragment() {
     private lateinit var viewModel: AllListViewModel
     private lateinit var allListsRecyclerView: RecyclerView
     private var adapter: AllListAdapter? = null
-    private var notesList = mutableListOf<AllNotesModel>()
+    lateinit var notesList: List<AllNotesModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -153,7 +153,7 @@ class AllListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AllListViewModel::class.java)
-        viewModel.getValueDelete().observe(viewLifecycleOwner, Observer { value->
+        /*viewModel.getValueDelete().observe(viewLifecycleOwner, Observer { value->
 
             if(value){
                 Toast.makeText(context, "deleted", Toast.LENGTH_LONG).show()
@@ -162,15 +162,17 @@ class AllListFragment : Fragment() {
                 allListsRecyclerView.adapter = adapter
             }
 
-        })
+        })*/
 
         viewModel.getAllNotes(NoteUtil.LIST).observe(
                 viewLifecycleOwner,
                 Observer { listNotes ->
                     listNotes?.let {
                         Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
-                        if (listNotes.size > 0) {
-                            updateUI(listNotes)
+                        notesList= emptyList()
+                        notesList=listNotes
+                        if (notesList.size > 0) {
+                            updateUI(notesList)
                             emptynote.visibility = View.GONE
                         } else {
                             progress.visibility = View.GONE
@@ -188,7 +190,6 @@ class AllListFragment : Fragment() {
     
     override fun onStart() {
         super.onStart()
-
 
         adapter = AllListAdapter(allLists) {
             openEditNoteDialogueFragment(it)
