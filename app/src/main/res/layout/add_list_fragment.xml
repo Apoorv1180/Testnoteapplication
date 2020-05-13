@@ -5,8 +5,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:layout_height="wrap_content"
     tools:context=".view.fragment.AddListFragment">
 
     <androidx.cardview.widget.CardView
@@ -19,70 +18,76 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        card_view:cardCornerRadius="5dp"
+        card_view:cardCornerRadius="15dp"
         card_view:cardElevation="4dp"
+        app:cardBackgroundColor="@color/colorlist"
         card_view:cardUseCompatPadding="true">
         <!--app:fontFamily="@font/amaranth"-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/border_background">
+            android:layout_marginTop="10dp"
+            android:background="#ffffff">
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="List"
-                android:textColor="#000000"
-                android:textSize="26dp" />
+                android:layout_margin="5dp"
+                android:text="Make Your Own Todo list Here !!!"
+                android:textStyle="italic|bold"
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listTitle"
+                android:hint=" I will be known by this Name !!"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                />
 
             <LinearLayout
                 android:id="@+id/child_create_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/border_background"
-                android:weightSum="4"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.466"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent">
 
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/addItem"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="#000000"
-                    android:textColorHint="#000000" />
-
-
                 <ImageButton
                     android:id="@+id/add"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_below="@+id/textView"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_toEndOf="@+id/editText"
-
-                    app:srcCompat="@android:drawable/ic_input_add" />
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/round_background"
+                    app:srcCompat="@drawable/ic_add_black_24dp" />
 
                 <ImageButton
                     android:id="@+id/delete"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/round_background"
                     app:srcCompat="@android:drawable/ic_delete" />
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/addItem"
+                    android:layout_marginStart="10dp"
+                    />
 
                 <!--app:fontFamily="@font/amaranth"-->
 
@@ -92,24 +97,24 @@
                 android:id="@+id/listView"
                 android:layout_width="wrap_content"
                 android:layout_height="206dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_background"
                 android:choiceMode="multipleChoice" >
 
             </ListView>
 
             <Button
                 android:id="@+id/addList"
-                android:layout_marginTop="@dimen/margin_short"
-                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
-                android:autofillHints="@string/addList"
-                android:background="#C2185B"
                 android:gravity="center"
                 android:text="@string/addList"
+                android:background="@color/colorlist"
+                android:backgroundTint="@color/colorlist"
+                android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:textColorHint="#FFFFFF"
                 android:textSize="15sp" />
 
         </LinearLayout>

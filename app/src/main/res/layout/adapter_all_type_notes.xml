@@ -47,6 +47,7 @@
             android:text="@string/datePicker"
             android:textColor="#B91C1B1B"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:gravity="end"
              />
     </LinearLayout>

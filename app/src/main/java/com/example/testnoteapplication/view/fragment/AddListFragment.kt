@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,7 +26,7 @@ import org.json.JSONObject
 
 
 
-class AddListFragment : Fragment() {
+class AddListFragment : DialogFragment() {
 
     companion object {
         fun newInstance() = AddListFragment()
@@ -101,10 +102,12 @@ class AddListFragment : Fragment() {
     }
 
     private fun saveList() {
+        var title :String
+        title = listTitle.text.toString()
         var notesModel =
                 AllNotesModel(
                         0,
-                        "firstList",
+                        title,
                         finalString,
                         NoteUtil.LIST,"",
                         "",3)

@@ -64,11 +64,11 @@ class MainActivity : AppCompatActivity() {
         val addNoteFragment = AddNoteFragment()
         addNoteFragment.show(supportFragmentManager, "Add Note")
     }
-/*
+
     private fun showAddListDialogFragment() {
         val addListFragment = AddListFragment()
         addListFragment.show(supportFragmentManager, "Add List")
-    }*/
+    }
 
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-            loadFragment(AddListFragment())
-            //showAddListDialogFragment()
+          //  loadFragment(AddListFragment())
+            showAddListDialogFragment()
         }
         //fab3=Add Subscription
         fab3.setOnClickListener {
