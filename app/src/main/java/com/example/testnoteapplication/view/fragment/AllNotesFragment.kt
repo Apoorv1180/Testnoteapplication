@@ -165,6 +165,7 @@ class AllNotesFragment : Fragment() {
                         if(noteList.size >0) {
                             updateUI(noteList)
                             emptynote.visibility = View.GONE
+                            allNotesRecyclerView.visibility=View.VISIBLE
                         }else {
                             allNotesRecyclerView.visibility=View.INVISIBLE
                             progress.visibility = View.GONE

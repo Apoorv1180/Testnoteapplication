@@ -165,7 +165,7 @@ class AllSubscriptionFragment : Fragment() {
                         subList= emptyList()
                         subList=listSubscription
                         if(subList.size >0) {
-
+                            allSubscriptionRecyclerView.visibility =View.VISIBLE
                             updateUI(subList)
                             emptysubs.visibility = View.GONE
                         }else{
