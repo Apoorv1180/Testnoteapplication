@@ -25,17 +25,17 @@ class NotificationUtils {
                 else -> model.createdOn
             }
 
-            val reminderDateTimeMilliSeconds = NoteUtil.getReminderDateTime(dateString)
+          //  val reminderDateTimeMilliSeconds = NoteUtil.getReminderDateTime(dateString)
 
             alarmIntent.putExtra("reason", "notification")
-            alarmIntent.putExtra("timestamp", reminderDateTimeMilliSeconds)
+            alarmIntent.putExtra("timestamp", timeInMilliSeconds)
             alarmIntent.putExtra("title", model.noteTitle)
             alarmIntent.putExtra("description", model.noteDescription)
             alarmIntent.putExtra("type", model.noteType.toString())
             //todo put all your note model extras here
 
             val calendar = Calendar.getInstance()
-            calendar.timeInMillis = reminderDateTimeMilliSeconds
+            calendar.timeInMillis = timeInMilliSeconds
 
             val pendingIntent = PendingIntent.getBroadcast(activity, 0, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)

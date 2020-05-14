@@ -72,16 +72,16 @@ class NoteUtil {
         /**
          * Get reminder date time in milliseconds
          */
-        fun getReminderDateTime(reminderDateTimeString: String): Long {
-            val dateCharSequence: CharSequence = reminderDateTimeString
-            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM/d/yyyy")
-            val expiryDateTime = LocalDateTime.of(
-                LocalDate.parse(dateCharSequence, formatter),
-                randomTimeBetween(LocalTime.MIDNIGHT, LocalTime.of(20, 30))
-            )
-            val zdt: ZonedDateTime = expiryDateTime.atZone(ZoneId.of("America/Los_Angeles"))
-            return zdt.toInstant().toEpochMilli()
-        }
+//        fun getReminderDateTime(reminderDateTimeString: String): Long {
+//            val dateCharSequence: CharSequence = reminderDateTimeString
+//            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM/d/yyyy")
+//            val expiryDateTime = LocalDateTime.of(
+//                LocalDate.parse(dateCharSequence, formatter),
+//                randomTimeBetween(LocalTime.MIDNIGHT, LocalTime.of(20, 30))
+//            )
+//            val zdt: ZonedDateTime = expiryDateTime.atZone(ZoneId.of("America/Los_Angeles"))
+//            return zdt.toInstant().toEpochMilli()
+//        }
 
         fun convertDateToString(toString: Calendar): String {
             val dueDateStr:String
