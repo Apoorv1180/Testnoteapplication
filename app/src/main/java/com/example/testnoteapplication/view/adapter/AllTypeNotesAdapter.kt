@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.ms.square.android.expandabletextview.ExpandableTextView
 
 class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
     RecyclerView.Adapter<AllTypeNotesAdapter.AllTypesNotesHolder>() {
@@ -39,10 +40,9 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
     inner class AllTypesNotesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription: TextView = itemView.findViewById<TextView>(R.id.rvNoteDescription)
+        private val noteDescription: ExpandableTextView = itemView.findViewById(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
         private val card: CardView = itemView.findViewById(R.id.card_id);
-
 
         init {
             itemView.setOnClickListener {

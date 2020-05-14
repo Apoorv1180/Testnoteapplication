@@ -14,6 +14,7 @@ import com.example.testnoteapplication.data.db.async.UndoSubscriptionTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.ms.square.android.expandabletextview.ExpandableTextView
 
 class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>) :
     RecyclerView.Adapter<AllSubscriptionAdapter.AllSubscriptionHolder>() {
@@ -36,7 +37,7 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>) :
     inner class AllSubscriptionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.cv_sub_title)
-        private val noteDescription: TextView = itemView.findViewById<TextView>(R.id.cv_sub_des)
+        private val noteDescription: ExpandableTextView = itemView.findViewById(R.id.cv_sub_des)
         private val expiryDate: TextView = itemView.findViewById<TextView>(R.id.cv_expire_date)
 
         init {
