@@ -16,6 +16,7 @@ import com.example.testnoteapplication.data.db.async.UndoListTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllListViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.ms.square.android.expandabletextview.ExpandableTextView
 
 class AllListAdapter(
     var allLists: List<AllNotesModel>,
@@ -65,8 +66,8 @@ class AllListAdapter(
     inner class AllListsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription: TextView =
-            itemView.findViewById<TextView>(R.id.rvNoteDescription)
+        private val noteDescription: ExpandableTextView =
+            itemView.findViewById(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
         private val card: CardView = itemView.findViewById(R.id.card_id);
 

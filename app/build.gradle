@@ -38,6 +38,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
+    //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:28.0.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -72,5 +73,8 @@ dependencies {
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Expandable Text View
+    implementation 'com.ms-square:expandableTextView:0.1.4'
 
 }
