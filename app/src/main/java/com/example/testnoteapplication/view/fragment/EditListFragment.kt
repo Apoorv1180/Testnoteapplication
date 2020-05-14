@@ -153,7 +153,6 @@ class EditListFragment : DialogFragment() {
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 
-
 }
 
 
