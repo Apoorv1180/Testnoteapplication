@@ -57,32 +57,6 @@ class NoteUtil {
             return arrayString
         }
 
-        /**
-         * Method to generate random time
-         */
-        private fun randomTimeBetween(startTime: LocalTime, endTime: LocalTime): LocalTime? {
-            val startSeconds: Int = startTime.toSecondOfDay()
-            val endSeconds: Int = endTime.toSecondOfDay()
-            val randomTime: Long = ThreadLocalRandom
-                .current()
-                .nextInt(startSeconds, endSeconds).toLong()
-            return LocalTime.ofSecondOfDay(randomTime)
-        }
-
-        /**
-         * Get reminder date time in milliseconds
-         */
-//        fun getReminderDateTime(reminderDateTimeString: String): Long {
-//            val dateCharSequence: CharSequence = reminderDateTimeString
-//            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM/d/yyyy")
-//            val expiryDateTime = LocalDateTime.of(
-//                LocalDate.parse(dateCharSequence, formatter),
-//                randomTimeBetween(LocalTime.MIDNIGHT, LocalTime.of(20, 30))
-//            )
-//            val zdt: ZonedDateTime = expiryDateTime.atZone(ZoneId.of("America/Los_Angeles"))
-//            return zdt.toInstant().toEpochMilli()
-//        }
-
         fun convertDateToString(toString: Calendar): String {
             val dueDateStr:String
             val dateFormat = SimpleDateFormat("MM/dd/yyyy")
