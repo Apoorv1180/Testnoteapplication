@@ -7,36 +7,67 @@ import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.CustomAdapterSpinnerSub
-import com.example.testnoteapplication.viewmodel.AddSubscriptionViewModel
 import com.example.testnoteapplication.viewmodel.EditSubscriptionViewModel
+import com.sdsu.noteapp.data.db.async.UpdateTask
+import com.sdsu.noteapp.data.db.async.UpdateTaskSub
+import kotlinx.android.synthetic.main.add_note_fragment.*
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
+
 
 class EditSubscriptionFragment : DialogFragment() {
-
+    lateinit var allNotesModel: AllNotesModel
     companion object {
-        fun newInstance() = EditSubscriptionFragment()
+        fun newInstance(notesModel: AllNotesModel) : EditSubscriptionFragment{
+            val fragment = EditSubscriptionFragment()
+            var model:AllNotesModel
+            val bundle = Bundle().apply {
+                putSerializable("notesModel", notesModel)
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
     }
     //Var declaration
     private lateinit var viewModel: EditSubscriptionViewModel
     lateinit var dateTextView: TextView
     var cal = Calendar.getInstance()
     lateinit var subName : String
+    var subicons by Delegates.notNull<Int>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.edit_subscription_fragment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpView(view)
+        allNotesModel =arguments?.getSerializable("notesModel") as AllNotesModel
+        setAllValues()
+        initViewModel()
+        initListener()
+        observeEditSubscriptionViewModel()
+    }
+
+    private fun setAllValues() {
+        var subname=allNotesModel.noteTitle
+        //subTitle.prompt()
+        subDescription.setText(allNotesModel.noteDescription)
+        expiryDate.text = allNotesModel.createdOn
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -45,23 +76,15 @@ class EditSubscriptionFragment : DialogFragment() {
 
     }
 
-     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        setUpView(view)
-        initViewModel()
-        initListener()
-        observeEditSubscriptionViewModel()
-    }
     private fun observeEditSubscriptionViewModel() {
         //todo temp : wirte seter and complete
-        /*viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
-            if(value){
+        viewModel.getValue().observe(viewLifecycleOwner, Observer { value ->
+            if (value) {
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
                 closeCurrentFragment()
-            }else
-                Log.e("NO ","No");
-        })*/
+            } else
+                Log.e("NO ", "No");
+        })
     }
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(EditSubscriptionViewModel::class.java)
@@ -88,6 +111,7 @@ class EditSubscriptionFragment : DialogFragment() {
                         dateTextView.text.toString(),2)
         //update task call
         //viewModel.addSubscriptionVm(notesModel)
+        UpdateTaskSub(this.context, viewModel, notesModel).execute()
 
     }
     private fun closeCurrentFragment() {
@@ -107,6 +131,7 @@ class EditSubscriptionFragment : DialogFragment() {
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 subName=subscriptions_array[position]
+                subicons =icons_array[position]
                 if(subscriptions_array[position]=="Add Custom"){
                     Toast.makeText(
                             view.context,
@@ -149,6 +174,12 @@ class EditSubscriptionFragment : DialogFragment() {
         val format = sdf.format(cal.time)
         dateTextView.text = format
     }
-
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
+    }
 
 }

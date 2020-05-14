@@ -64,7 +64,7 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
         private val noteDescription: TextView =
             itemView.findViewById<TextView>(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
-        private val card: CardView = itemView.findViewById(R.id.card_id);
+        private val card: CardView = itemView.findViewById(R.id.card_id)
 
         fun bind(
             notesModel: AllNotesModel,

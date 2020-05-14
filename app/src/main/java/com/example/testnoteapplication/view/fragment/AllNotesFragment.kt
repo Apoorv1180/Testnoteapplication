@@ -52,8 +52,8 @@ class AllNotesFragment : Fragment() {
             LinearLayoutManager(this.context)
         allNotesRecyclerView.adapter = adapter
 
-        colorDrawableBackground = ColorDrawable(Color.parseColor("#538cc6"))
-        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.ic_list_red_24dp)!!
+        colorDrawableBackground = ColorDrawable(Color.parseColor("#9E9E9E"))
+        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.btn_ic_note_enabled)!!
 
         // CallBack for Swipe
         val itemTouchHelperCallback = object :
@@ -63,7 +63,7 @@ class AllNotesFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                TODO("Not yet implemented")
+
                 return false
             }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.db.async.DeleteSubscriptionTask
@@ -15,7 +16,7 @@ import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>) :
+class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private val listenerSub: (AllNotesModel) -> Unit) :
     RecyclerView.Adapter<AllSubscriptionAdapter.AllSubscriptionHolder>() {
     private var removedPosition: Int = 0
     private lateinit var removedNote: AllNotesModel
@@ -35,30 +36,36 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>) :
 
     inner class AllSubscriptionHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
-        private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.cv_sub_title)
-        private val noteDescription: TextView = itemView.findViewById<TextView>(R.id.cv_sub_des)
+        private val subTitle: TextView = itemView.findViewById<TextView>(R.id.cv_sub_title)
+       // private val subIcon:
+        private val subDescription: TextView = itemView.findViewById<TextView>(R.id.cv_sub_des)
         private val expiryDate: TextView = itemView.findViewById<TextView>(R.id.cv_expire_date)
+        private val card: CardView = itemView.findViewById(R.id.card_sub)
 
-        init {
+        fun bind(notesModel: AllNotesModel,
+                 listenerSub: (AllNotesModel) -> Unit) {
+            this.allTypeNotes = notesModel
+            this.subTitle.text = this.allTypeNotes.noteTitle
+            this.subDescription.text = this.allTypeNotes.noteDescription
+            this.expiryDate.text = this.allTypeNotes.createdOn
+            this.card.setCardBackgroundColor(context.resources.getColor(R.color.colorsubs))
+            this.card.radius = 15f
+
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, "Note Single clicked!", Toast.LENGTH_SHORT)
-                    .show()
+                        .show()
+                //callbackInterface.passDataCallback(allTypeNotes)
 
+                listenerSub(allTypeNotes)
             }
 
             itemView.setOnLongClickListener {
                 Toast.makeText(itemView?.context, "Note Long Press clicked!", Toast.LENGTH_SHORT)
-                    .show()
+                        .show()
                 true
             }
         }
 
-        fun bind(notesModel: AllNotesModel) {
-            this.allTypeNotes = notesModel
-            this.noteTitle.text = this.allTypeNotes.noteTitle
-            this.noteDescription.text = this.allTypeNotes.noteDescription
-            this.expiryDate.text = this.allTypeNotes.createdOn
-        }
     }
 
     fun removeItem(
@@ -79,12 +86,12 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>) :
     }
 
     override fun onBindViewHolder(
-        holder: AllSubscriptionAdapter.AllSubscriptionHolder,
+        holder: AllSubscriptionHolder,
         position: Int
     ) {
         val note = allSubscription[position]
         Log.e("ADAPTER", "Adapter called")
-        holder.bind(note)
+        holder.bind(note,listenerSub)
     }
 }
 

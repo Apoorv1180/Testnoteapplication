@@ -30,6 +30,7 @@
     <!-- Add List fragment-->
     <string name="addList">Add</string>
     <string name="addItem">Add an Item</string>
+    <string name="update">Update</string>
 
 
 </resources>

@@ -12,7 +12,7 @@ import com.example.testnoteapplication.data.repository.NotesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EditSubscriptionViewModel  (application: Application): AndroidViewModel(application) {
+class EditListViewModel  (application: Application): AndroidViewModel(application) {
     private val notesRepository: NotesRepository
 
     val datasub: MutableLiveData<Boolean> by lazy {
@@ -23,8 +23,8 @@ class EditSubscriptionViewModel  (application: Application): AndroidViewModel(ap
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
         notesRepository = NotesRepository(notesDao)
     }
-    fun updateSubVm(notesModel: AllNotesModel)=viewModelScope.launch (Dispatchers.IO){
-        notesRepository.updateSubRepo(notesModel)
+    fun updateListVm(notesModel: AllNotesModel)=viewModelScope.launch (Dispatchers.IO){
+        notesRepository.updateListRepo(notesModel)
     }
 
     fun setValue(thisRef: Boolean) {

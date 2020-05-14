@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
             // loadFragment(editNotesFragment)
     }
 
+    private fun showEditSubDialogueFragment(notesModel: AllNotesModel) {
+        val editSubFragment = EditSubscriptionFragment.newInstance(notesModel)
+        supportFragmentManager?.let {editSubFragment.show(supportFragmentManager, "Edit Note")}
+
+    }
+
     private fun showAddSubscriptionDialogFragment() {
         val addSubscriptionFragment = AddSubscriptionFragment()
         addSubscriptionFragment.show(supportFragmentManager, "Add Subscription")
@@ -150,7 +156,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setStateValues() {
         home.isSelected = isHomeChecked
         list.isSelected = isListChecked
@@ -179,15 +184,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun callEditFragment(note: AllNotesModel) {
-        Log.e("yes ","YES" + note.noteTitle);
-        if(note.noteType==NoteUtil.NOTE)
-        showEditNoteDialogueFragment(note)
+        Log.e("yes ","YES" + note.noteTitle)
+        if(note.noteType==NoteUtil.NOTE) {
+            showEditNoteDialogueFragment(note)
+        }
         else if(note.noteType==NoteUtil.LIST){
 
-        }else{
-
+        }else if(note.noteType==NoteUtil.SUB){
+            showEditSubDialogueFragment(note)
         }
     }
+
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             finish()

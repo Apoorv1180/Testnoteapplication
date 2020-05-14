@@ -44,6 +44,17 @@ class NotesRepository(private val notesDao: NotesDao) {
     suspend fun addSubRepo(notesModel: AllNotesModel){
         notesDao.addSubscription(notesModel)
     }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateSubRepo(notesModel: AllNotesModel) {
+        notesDao.updateSub(notesModel)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateListRepo(notesModel: AllNotesModel) {
+        notesDao.updateList(notesModel)
+    }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

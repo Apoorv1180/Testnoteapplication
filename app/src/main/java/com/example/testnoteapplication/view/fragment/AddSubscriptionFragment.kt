@@ -23,6 +23,7 @@ import com.example.testnoteapplication.viewmodel.AddSubscriptionViewModel
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class AddSubscriptionFragment : DialogFragment() {
@@ -37,6 +38,7 @@ class AddSubscriptionFragment : DialogFragment() {
     lateinit var dateTextView: TextView
     var cal = Calendar.getInstance()
     lateinit var subName: String
+   // var subicons by Delegates.notNull<Int>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView(view)
@@ -81,8 +83,7 @@ class AddSubscriptionFragment : DialogFragment() {
                 subName,
                 subDescription.text.toString(),
                 NoteUtil.SUB, "",
-                dateTextView.text.toString(), 2
-            )
+                dateTextView.text.toString(), 2)
         InsertSubscriptionTask(this.context, viewModel, notesModel).execute()
     }
 
@@ -99,6 +100,7 @@ class AddSubscriptionFragment : DialogFragment() {
         //getting subscription icons array list from string resource
         val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
         val customAdapter = CustomAdapterSpinnerSub(view.context, icons_array, subscriptions_array)
+        spin.prompt = "Select Subscription"
         spin.adapter = customAdapter
         //select listener on spinner
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -109,6 +111,8 @@ class AddSubscriptionFragment : DialogFragment() {
                 id: Long
             ) {
                 subName = subscriptions_array[position]
+                //subicons =icons_array[position]
+
                 if (subscriptions_array[position] == "Add Custom") {
                     Toast.makeText(
                         view.context,
@@ -174,15 +178,6 @@ class AddSubscriptionFragment : DialogFragment() {
             }
         }
 
-        /*subTitle.setOnFocusChangeListener { v, hasFocus ->
-            run {
-                if (!hasFocus) {
-                    if (subTitle.selectedItem.toString().equals("Choose Subscription")) {
-                        subError.error = "Select subscription title!"
-                    }
-                }
-            }
-        }*/
     }
 
     private fun validateInputs(view: View): Boolean {

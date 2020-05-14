@@ -16,4 +16,6 @@ data class AllNotesModel(
     var createdOn: String,
     var expiryDate: String,
     var card_color: Int
+    //var sub_icon : Int
+
 ) : Serializable

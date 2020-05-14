@@ -12,24 +12,20 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.EditNoteViewModel
 import com.sdsu.noteapp.data.db.async.UpdateTask
-import kotlinx.android.synthetic.main.add_note_fragment.*
 import kotlinx.android.synthetic.main.add_note_fragment.addNote
 import kotlinx.android.synthetic.main.add_note_fragment.datePicker
 import kotlinx.android.synthetic.main.add_note_fragment.noteDescription
 import kotlinx.android.synthetic.main.add_note_fragment.noteTitle
-import kotlinx.android.synthetic.main.edit_note_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditNoteFragment() : DialogFragment() {
+class EditNoteFragment : DialogFragment() {
 
     lateinit var allNotesModel: AllNotesModel
 
@@ -63,10 +59,9 @@ class EditNoteFragment() : DialogFragment() {
         allNotesModel =arguments?.getSerializable("notesModel") as AllNotesModel
         setAllValues()
         initViewModel()
-        initListner()
+        initListener()
         observeEditNoteViewModel()
         observeValidateInputs(view)
-
 
         Toast.makeText(view.context, allNotesModel.noteTitle, Toast.LENGTH_LONG).show()
     }
@@ -95,7 +90,7 @@ class EditNoteFragment() : DialogFragment() {
         })
     }
 
-    private fun initListner() {
+    private fun initListener() {
         datePicker.setOnClickListener { v ->
             when (v?.id) {
                 R.id.datePicker -> openDatePicker(v)
@@ -121,8 +116,7 @@ class EditNoteFragment() : DialogFragment() {
                 noteTitle.text.toString(),
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
-                dateTextView.text.toString(), "", 1
-            )
+                dateTextView.text.toString(), "", 1)
         //viewModel.updateNoteVm(notesModel)
         UpdateTask(this.context, viewModel, notesModel).execute()
     }

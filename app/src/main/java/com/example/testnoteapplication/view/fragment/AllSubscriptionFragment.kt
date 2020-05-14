@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.view.activity.MainActivity
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
 import com.example.testnoteapplication.view.adapter.AllSubscriptionAdapter
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
@@ -175,8 +176,16 @@ class AllSubscriptionFragment : Fragment() {
                     }
                 }
         )
-        adapter = AllSubscriptionAdapter(allSubscription)
+
+        adapter = AllSubscriptionAdapter(allSubscription){
+            openEditSubDialogueFragment(it)
+        }
         allSubscriptionRecyclerView.adapter = adapter
+    }
+
+    private fun openEditSubDialogueFragment(sub: AllNotesModel) {
+        Log.e("TAG-ADAPTER", sub.noteTitle)
+        (activity as MainActivity?)?.callEditFragment(sub)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -190,7 +199,9 @@ class AllSubscriptionFragment : Fragment() {
         adapter?.let {
             it.allSubscription = allNotesRe
         } ?: run {
-            adapter = AllSubscriptionAdapter(allSubscription)
+            adapter = AllSubscriptionAdapter(allSubscription){
+                openEditSubDialogueFragment(it)
+            }
         }
         allSubscriptionRecyclerView.adapter = adapter
         progress.visibility = View.GONE
