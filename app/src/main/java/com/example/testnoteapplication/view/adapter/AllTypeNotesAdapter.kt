@@ -52,6 +52,10 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>,private val listener
             this.allTypeNotes = allTypeNotesModel
             this.noteTitle.text = this.allTypeNotes.noteTitle
 
+            if(allTypeNotesModel.noteType.equals(NoteUtil.SUB)){
+                this.createdOn.text = this.allTypeNotes.expiryDate
+
+            }else
             this.createdOn.text = this.allTypeNotes.createdOn
 
             itemView.eyeview.setOnClickListener {

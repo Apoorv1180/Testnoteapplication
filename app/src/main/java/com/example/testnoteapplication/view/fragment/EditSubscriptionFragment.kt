@@ -64,7 +64,7 @@ class EditSubscriptionFragment : DialogFragment() {
         var subname=allNotesModel.noteTitle
         //subTitle.prompt()
         subDescription.setText(allNotesModel.noteDescription)
-        expiryDate.text = allNotesModel.createdOn
+        expiryDate.text = allNotesModel.expiryDate
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

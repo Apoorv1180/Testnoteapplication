@@ -51,7 +51,7 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private va
             this.allTypeNotes = notesModel
             this.subTitle.text = this.allTypeNotes.noteTitle
             this.subDescription.text = this.allTypeNotes.noteDescription
-            this.expiryDate.text = this.allTypeNotes.createdOn
+            this.expiryDate.text = this.allTypeNotes.expiryDate
             this.card.setCardBackgroundColor(context.resources.getColor(R.color.colorsubs))
             this.card.radius = 15f
 
