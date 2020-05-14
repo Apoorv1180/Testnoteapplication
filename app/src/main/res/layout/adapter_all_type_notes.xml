@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <!-- This is the actual mandatory library attributes that must be used -->
-        <com.ms.square.android.expandabletextview.ExpandableTextView
+        <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rvNoteDescription"
@@ -40,29 +40,8 @@
             android:text="@string/description"
             android:textStyle="italic"
             android:textColor="#B91C1B1B"
-            android:textSize="15sp"
-            expandableTextView:animDuration="200"
-            expandableTextView:maxCollapsedLines="3">
+            android:textSize="15sp"/>
 
-            <TextView
-                android:id="@+id/expandable_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/description"
-                android:textColor="#B91C1B1B"
-                android:textSize="15sp"
-                android:textStyle="italic" />
-
-            <ImageButton
-                android:id="@id/expand_collapse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:background="@android:color/transparent"
-                android:padding="16dp" />
-
-        </com.ms.square.android.expandabletextview.ExpandableTextView>
 
         <TextView
             android:id="@+id/rvCreatedOn"
