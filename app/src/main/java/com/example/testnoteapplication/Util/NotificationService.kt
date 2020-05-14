@@ -21,7 +21,6 @@ class NotificationService : IntentService("NotificationService") {
     @SuppressLint("NewApi")
     private fun createChannel() {
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             // Create the NotificationChannel, but only on API 26+ because
@@ -69,18 +68,28 @@ class NotificationService : IntentService("NotificationService") {
             var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val notifyIntent = Intent(this, MainActivity::class.java)
 
-            val title = "Sample Notification"
-            val message = "You have received a sample notification. This notification will take you to the details page."
+            val title = intent?.getStringExtra("title")
+            val message = intent?.getStringExtra("description")
+            val smallIconDrawer = when(intent?.getStringExtra("type")) {
+                NoteUtil.LIST.toString() -> {
+                    R.drawable.btn_ic_list_enabled
+                }
+                NoteUtil.SUB.toString() -> {
+                    R.drawable.btn_ic_subs_enabled
+                }
+                else -> {
+                    R.drawable.btn_ic_note_enabled
+                }
+            }
 
-            notifyIntent.putExtra("title", title)
-            notifyIntent.putExtra("message", message)
+            notifyIntent.putExtra("title", intent?.getStringExtra("title"))
+            notifyIntent.putExtra("message", intent?.getStringExtra("description"))
             notifyIntent.putExtra("notification", true)
-
+            notifyIntent.putExtra("type", intent?.getStringExtra("type"))
             notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = timestamp
-
 
             val pendingIntent = PendingIntent.getActivity(context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             val res = this.resources
@@ -88,11 +97,10 @@ class NotificationService : IntentService("NotificationService") {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-
                 mNotification = Notification.Builder(this, CHANNEL_ID)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
-                        .setSmallIcon(R.drawable.btn_ic_note_enabled)
+                        .setSmallIcon(smallIconDrawer)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                         .setAutoCancel(true)
                         .setContentTitle(title)
@@ -104,7 +112,7 @@ class NotificationService : IntentService("NotificationService") {
                 mNotification = Notification.Builder(this)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
-                        .setSmallIcon(R.drawable.btn_ic_note_enabled)
+                        .setSmallIcon(smallIconDrawer)
                         .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                         .setAutoCancel(true)
                         .setPriority(Notification.PRIORITY_MAX)
@@ -113,16 +121,11 @@ class NotificationService : IntentService("NotificationService") {
                                 .bigText(message))
                         .setSound(uri)
                         .setContentText(message).build()
-
             }
-
-
 
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             // mNotificationId is a unique int for each notification that you must define
             notificationManager.notify(mNotificationId, mNotification)
         }
-
-
     }
 }

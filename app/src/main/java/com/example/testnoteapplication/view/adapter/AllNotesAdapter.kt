@@ -15,7 +15,7 @@ import com.example.testnoteapplication.data.db.async.UndoTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.google.android.material.snackbar.Snackbar
-
+import com.ms.square.android.expandabletextview.ExpandableTextView
 
 class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (AllNotesModel) -> Unit) :
     RecyclerView.Adapter<AllNotesAdapter.AllNotesHolder>() {
@@ -55,7 +55,7 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
     inner class AllNotesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription:TextView =
+        private val noteDescription: ExpandableTextView =
             itemView.findViewById(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
         private val card: CardView = itemView.findViewById(R.id.card_id)
