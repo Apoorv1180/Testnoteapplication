@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.Util.NotificationUtils
 import com.example.testnoteapplication.data.db.async.InsertSubscriptionTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.CustomAdapterSpinnerSub
@@ -23,7 +24,6 @@ import com.example.testnoteapplication.viewmodel.AddSubscriptionViewModel
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.properties.Delegates
 
 
 class AddSubscriptionFragment : DialogFragment() {
@@ -33,12 +33,14 @@ class AddSubscriptionFragment : DialogFragment() {
             AddSubscriptionFragment()
     }
 
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+
     //Var declaration
     private lateinit var viewModel: AddSubscriptionViewModel
+    lateinit var model :AllNotesModel
     lateinit var dateTextView: TextView
     var cal = Calendar.getInstance()
     lateinit var subName: String
-   // var subicons by Delegates.notNull<Int>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView(view)
@@ -52,6 +54,7 @@ class AddSubscriptionFragment : DialogFragment() {
         viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean> { value ->
             if (value) {
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             } else
                 Log.e("NO ", "No");
@@ -83,7 +86,9 @@ class AddSubscriptionFragment : DialogFragment() {
                 subName,
                 subDescription.text.toString(),
                 NoteUtil.SUB, "",
-                dateTextView.text.toString(), 2)
+                dateTextView.text.toString(), 2
+            )
+        model = notesModel
         InsertSubscriptionTask(this.context, viewModel, notesModel).execute()
     }
 
@@ -100,7 +105,6 @@ class AddSubscriptionFragment : DialogFragment() {
         //getting subscription icons array list from string resource
         val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
         val customAdapter = CustomAdapterSpinnerSub(view.context, icons_array, subscriptions_array)
-        spin.prompt = "Select Subscription"
         spin.adapter = customAdapter
         //select listener on spinner
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -111,8 +115,6 @@ class AddSubscriptionFragment : DialogFragment() {
                 id: Long
             ) {
                 subName = subscriptions_array[position]
-                //subicons =icons_array[position]
-
                 if (subscriptions_array[position] == "Add Custom") {
                     Toast.makeText(
                         view.context,
@@ -178,6 +180,15 @@ class AddSubscriptionFragment : DialogFragment() {
             }
         }
 
+        /*subTitle.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (subTitle.selectedItem.toString().equals("Choose Subscription")) {
+                        subError.error = "Select subscription title!"
+                    }
+                }
+            }
+        }*/
     }
 
     private fun validateInputs(view: View): Boolean {
