@@ -8,10 +8,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
-import java.util.*
-import android.app.NotificationChannel
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.view.activity.MainActivity
+import java.util.*
 
 
 class NotificationService : IntentService("NotificationService") {

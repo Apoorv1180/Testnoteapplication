@@ -2,8 +2,6 @@ package com.example.testnoteapplication.Util
 
 import android.widget.EditText
 import android.widget.TextView
-import com.example.testnoteapplication.data.model.ListModel
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.time.*
