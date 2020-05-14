@@ -46,7 +46,7 @@ class EditNoteFragment : DialogFragment() {
         }
     }
 
-    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
     lateinit var model :AllNotesModel
     var cal = Calendar.getInstance()
     lateinit var dateTextView: TextView
@@ -101,7 +101,7 @@ class EditNoteFragment : DialogFragment() {
     private fun initListener() {
         datePicker.setOnClickListener { v ->
             when (v?.id) {
-                R.id.datePicker -> openDatePicker(v)
+                R.id.datePicker -> pickDateTime()
             }
         }
 
@@ -116,6 +116,8 @@ class EditNoteFragment : DialogFragment() {
     private fun closeCurrentFragment() {
         fragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
+
+
     private fun pickDateTime() {
         val currentDateTime = Calendar.getInstance()
         val startYear = currentDateTime.get(Calendar.YEAR)
@@ -124,17 +126,19 @@ class EditNoteFragment : DialogFragment() {
         val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
         val startMinute = currentDateTime.get(Calendar.MINUTE)
         val imm =
-            context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
         DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
             val imm =
-                context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                    context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view!!.windowToken, 0)
             TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 val pickedDateTime = Calendar.getInstance()
                 pickedDateTime.set(year, month, day, hour, minute)
                 Log.i("TIME", pickedDateTime.toString())
                 dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
+                mNotificationTime = NoteUtil.convertDateToTimeInMilli(pickedDateTime)
+                // NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 // doSomethingWith(pickedDateTime)
             }, startHour, startMinute, false).show()
         }, startYear, startMonth, startDay).show()

@@ -18,7 +18,7 @@ import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
 import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
 import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
 
-class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
+class ViewAllTypeNotesFragment : Fragment(){
     var allNotes = mutableListOf<AllNotesModel>()
     private lateinit var staggeredLayoutManager: StaggeredGridLayoutManager
 
@@ -29,12 +29,17 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
     private lateinit var viewModel: ViewAllTypeNotesViewModel
     private lateinit var allNotesRecyclerView: RecyclerView
     private var adapter: AllTypeNotesAdapter? = null
-
+    lateinit var notesList: List<AllNotesModel>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view : View = inflater.inflate(R.layout.view_all_type_notes_fragment, container, false)
+        allNotesRecyclerView =
+                view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
+        staggeredLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        allNotesRecyclerView.layoutManager = staggeredLayoutManager
+        allNotesRecyclerView.adapter = adapter
         return view
     }
 
@@ -42,27 +47,23 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
-        allNotesRecyclerView =
-            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
-        staggeredLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        allNotesRecyclerView.layoutManager = staggeredLayoutManager
-        allNotesRecyclerView.adapter = adapter
         viewModel.getAllTypeNotes().observe(
             viewLifecycleOwner,
             Observer { listNotes ->
                 listNotes?.let {
                     Log.i("All-Notes", "Got crimeLiveData ${listNotes.size}")
-                    if(listNotes.size>0) {
-                        updateUI(listNotes)
+                    notesList= emptyList()
+                    notesList=listNotes
+                    if(notesList.size>0) {
+                        updateUI(notesList)
                         //todo make image empty view gone
                         emptyview.visibility = View.GONE
-                        progress.visibility = View.GONE
                         allNotesRecyclerView.visibility=View.VISIBLE
                     }
                     else{
                         progress.visibility = View.GONE
                         emptyview.visibility = View.VISIBLE
-                        allNotesRecyclerView.visibility=View.GONE
+                        allNotesRecyclerView.visibility=View.INVISIBLE
                         //todo make empty image view visible
                     }
                 }
@@ -77,12 +78,15 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
 
     override fun onStart() {
         super.onStart()
-
+        //Todo
+        adapter = AllTypeNotesAdapter(allNotes){
+            openEditSubDialogueFragment(it)
+        }
+        allNotesRecyclerView.adapter = adapter
     }
 
     private fun updateUI(listNotes: List<AllNotesModel>) {
         adapter?.let {
-            it.allNotes= emptyList()
             it.allNotes = listNotes
         } ?: run {
             adapter = AllTypeNotesAdapter(allNotes){
@@ -96,16 +100,6 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
     private fun openEditSubDialogueFragment(sub: AllNotesModel) {
         Log.e("TAG-ADAPTER", sub.noteTitle)
         (activity as MainActivity?)?.callEditFragment(sub)
-    }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-    override fun onLongClick(v: View?): Boolean {
-        Toast.makeText(v?.context, "Long clicked from view all note fragment!", Toast.LENGTH_SHORT).show()
-        return true
     }
 
 
