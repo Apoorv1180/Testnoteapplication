@@ -34,7 +34,7 @@ class AddNoteFragment : DialogFragment() {
         fun newInstance() =
             AddNoteFragment()
     }
-    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
 
     var cal = Calendar.getInstance()
     lateinit var model :AllNotesModel
@@ -73,7 +73,7 @@ class AddNoteFragment : DialogFragment() {
         viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
             if(value){
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
-                if(NoteUtil.checkInput(model.createdOn))
+                //if(NoteUtil.checkInput(model.createdOn))
                     NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             }else
@@ -155,6 +155,8 @@ class AddNoteFragment : DialogFragment() {
                 pickedDateTime.set(year, month, day, hour, minute)
                 Log.i("TIME", pickedDateTime.toString())
                 dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
+                mNotificationTime = NoteUtil.convertDateToTimeInMilli(pickedDateTime)
+               // NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                // doSomethingWith(pickedDateTime)
             }, startHour, startMinute, false).show()
         }, startYear, startMonth, startDay).show()

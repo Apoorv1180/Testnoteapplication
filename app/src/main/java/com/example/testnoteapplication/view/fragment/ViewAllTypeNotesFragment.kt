@@ -35,11 +35,6 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view : View = inflater.inflate(R.layout.view_all_type_notes_fragment, container, false)
-        allNotesRecyclerView =
-            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
-        staggeredLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        allNotesRecyclerView.layoutManager = staggeredLayoutManager
-        allNotesRecyclerView.adapter = adapter
         return view
     }
 
@@ -47,6 +42,11 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
+        allNotesRecyclerView =
+            view.findViewById(R.id.viewAllTypeNotesRecyclerView) as RecyclerView
+        staggeredLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        allNotesRecyclerView.layoutManager = staggeredLayoutManager
+        allNotesRecyclerView.adapter = adapter
         viewModel.getAllTypeNotes().observe(
             viewLifecycleOwner,
             Observer { listNotes ->
@@ -56,17 +56,19 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
                         updateUI(listNotes)
                         //todo make image empty view gone
                         emptyview.visibility = View.GONE
+                        progress.visibility = View.GONE
                         allNotesRecyclerView.visibility=View.VISIBLE
                     }
                     else{
                         progress.visibility = View.GONE
                         emptyview.visibility = View.VISIBLE
-                        allNotesRecyclerView.visibility=View.INVISIBLE
+                        allNotesRecyclerView.visibility=View.GONE
                         //todo make empty image view visible
                     }
                 }
             }
         )
+
         adapter = AllTypeNotesAdapter(allNotes){
             openEditSubDialogueFragment(it)
         }
@@ -80,6 +82,7 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
 
     private fun updateUI(listNotes: List<AllNotesModel>) {
         adapter?.let {
+            it.allNotes= emptyList()
             it.allNotes = listNotes
         } ?: run {
             adapter = AllTypeNotesAdapter(allNotes){

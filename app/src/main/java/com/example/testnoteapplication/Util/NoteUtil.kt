@@ -89,5 +89,11 @@ class NoteUtil {
             dueDateStr = dateFormat.format(toString.time)
         return  dueDateStr
         }
+
+        fun convertDateToTimeInMilli(toString: Calendar): Long {
+            val dueDateStr:Long
+            dueDateStr = toString.timeInMillis
+            return  dueDateStr
+        }
     }
 }
