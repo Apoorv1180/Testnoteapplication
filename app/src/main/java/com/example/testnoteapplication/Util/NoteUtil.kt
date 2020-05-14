@@ -28,6 +28,10 @@ class NoteUtil {
             return editText.text.isNotEmpty()
         }
 
+        fun checkInput(editText: String): Boolean {
+            return editText.isNotEmpty()
+        }
+
         fun generateDescription(noteDescription: String): String? {
             var testModel :String =""
             var jsonObject : JsonObject

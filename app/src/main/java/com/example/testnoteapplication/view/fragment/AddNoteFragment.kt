@@ -73,7 +73,8 @@ class AddNoteFragment : DialogFragment() {
         viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
             if(value){
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
-                NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
+                if(NoteUtil.checkInput(model.createdOn))
+                    NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             }else
                 Log.e("NO ","No");

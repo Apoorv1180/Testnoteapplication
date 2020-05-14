@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
@@ -59,6 +56,7 @@ class EditSubscriptionFragment : DialogFragment() {
         setAllValues()
         initViewModel()
         initListener()
+        observeValidateInputs(view)
         observeEditSubscriptionViewModel()
     }
 
@@ -97,7 +95,9 @@ class EditSubscriptionFragment : DialogFragment() {
         }
 
         addSubscription.setOnClickListener {
-            saveNote()
+            if (view?.let { it1 -> validateInputs(it1) }!!) {
+                saveNote()
+            }
         }
     }
     private fun saveNote() {
@@ -179,6 +179,44 @@ class EditSubscriptionFragment : DialogFragment() {
         params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
+    }
+
+    private fun observeValidateInputs(view: View) {
+        var expiryDate = view.findViewById<TextView>(R.id.expiryDate)
+        var subDescription = view.findViewById<EditText>(R.id.subDescription)
+        expiryDate.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(expiryDate)) {
+                        expiryDate.error = "Expiry date can't be empty!"
+                    }
+                }
+            }
+        }
+        subDescription.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(subDescription)) {
+                        subDescription.error = "Description can't be empty!"
+                    }
+                }
+            }
+        }
+    }
+
+    private fun validateInputs(view: View): Boolean {
+        //Form Validation
+        var expiryDate = view.findViewById<TextView>(R.id.expiryDate)
+        var subDescription = view.findViewById<EditText>(R.id.subDescription)
+        if (!NoteUtil.checkInput(subDescription)) {
+            subDescription.error = "Description can't be empty!"
+            return false
+        }
+        if (!NoteUtil.checkInput(expiryDate)) {
+            expiryDate.error = "Expiry date can't be empty!"
+            return false
+        }
+        return true
     }
 
 }

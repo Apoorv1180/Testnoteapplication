@@ -76,17 +76,6 @@
                     android:foregroundTint="@color/colorAccent"
                     android:padding="@dimen/padding_medium" />
 
-                <TextView
-                    android:id="@+id/subError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/side_margin"
-                    android:layout_marginTop="@dimen/side_margin"
-                    android:layout_marginRight="@dimen/side_margin"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:ems="10"
-                    android:textSize="15sp" />
-
                 <EditText
                     android:id="@+id/subDescription"
                     android:layout_width="match_parent"

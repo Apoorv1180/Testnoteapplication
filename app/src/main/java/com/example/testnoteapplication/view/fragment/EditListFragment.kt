@@ -9,10 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -62,6 +59,7 @@ class EditListFragment : DialogFragment() {
         setUpView(view)
         initListener()
         observeAddListModel()
+        observeValidateInputs(view)
     }
 
     private fun createItemList() {
@@ -110,13 +108,15 @@ class EditListFragment : DialogFragment() {
             Toast.makeText(context, "You Selected the item --> "+ itemlist.get(i), Toast.LENGTH_LONG).show()
         }
         addList.setOnClickListener{
-            if(itemlist!= null) {
+            if (view?.let { it1 ->  validateInputs(it1) }!!) {
+                if (itemlist != null) {
 
-                finalString = convertHashMapToGson(makeListHashMap())
-           //     val finalString = convertGsonToString()
-            }
-            if(itemlist.size > 0){
-                saveList()
+                    finalString = convertHashMapToGson(makeListHashMap())
+                    //     val finalString = convertGsonToString()
+                }
+                if (itemlist.size > 0) {
+                    saveList()
+                }
             }
         }
     }
@@ -171,6 +171,45 @@ class EditListFragment : DialogFragment() {
         params.width = WindowManager.LayoutParams.MATCH_PARENT
         params.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
+    }
+
+    private fun validateInputs(view: View): Boolean {
+        //Form Validation
+        var listTitle = view.findViewById<EditText>(R.id.listTitle)
+        var listItemView = view.findViewById<ListView>(R.id.listView)
+        if(!NoteUtil.checkInput(listTitle)) {
+            listTitle.error = "Title can't be empty!"
+            return false
+        } else if(listItemView.count <= 0) {
+            //Toast.makeText(context, "List is empty..", Toast.LENGTH_SHORT).show()
+            editText.error = "List is empty.."
+            return false
+        }
+        return true
+    }
+
+    private fun observeValidateInputs(view: View) {
+        var listTitle = view.findViewById<EditText>(R.id.listTitle)
+        listTitle.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (!NoteUtil.checkInput(listTitle)) {
+                        listTitle.error = "Title can't be empty!"
+                    }
+                }
+            }
+        }
+
+        var listItemView = view.findViewById<ListView>(R.id.listView)
+        listItemView.setOnFocusChangeListener { v, hasFocus ->
+            run {
+                if (!hasFocus) {
+                    if (listItemView.adapter.count <= 0) {
+                        Toast.makeText(context, "List is empty..", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 }
 
