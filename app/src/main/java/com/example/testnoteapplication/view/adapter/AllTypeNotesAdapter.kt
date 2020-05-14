@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -13,15 +14,16 @@ import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.ms.square.android.expandabletextview.ExpandableTextView
+import kotlinx.android.synthetic.main.adapter_all_type_expandable_notes.view.*
 
-class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
+class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>,private val listenerSub: (AllNotesModel) -> Unit) :
     RecyclerView.Adapter<AllTypeNotesAdapter.AllTypesNotesHolder>() {
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllTypesNotesHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.adapter_all_type_notes, parent, false)
+                .inflate(R.layout.adapter_all_type_expandable_notes, parent, false)
         context = parent.context
         return AllTypesNotesHolder(view)
     }
@@ -34,39 +36,30 @@ class AllTypeNotesAdapter(var allNotes: List<AllNotesModel>) :
     override fun onBindViewHolder(holder: AllTypesNotesHolder, position: Int) {
         val note = allNotes[position]
         Log.e("ADAPTER", "Adapter called")
-        holder.bind(note)
+        holder.bind(note,listenerSub)
     }
 
     inner class AllTypesNotesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription: TextView = itemView.findViewById(R.id.rvNoteDescription)
+        private val noteDescription: ExpandableTextView = itemView.findViewById(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
-        private val card: CardView = itemView.findViewById(R.id.card_id);
+        private val card: CardView = itemView.findViewById(R.id.card_id)
+        private val eyeview: ImageView =itemView.findViewById(R.id.eyeview)
 
-        init {
-            itemView.setOnClickListener {
-                Toast.makeText(itemView.context, "All Type Single clicked!", Toast.LENGTH_SHORT)
-                    .show()
-            }
 
-            itemView.setOnLongClickListener {
-                Toast.makeText(itemView?.context, "All Type Long Press clicked!", Toast.LENGTH_SHORT)
-                    .show()
-                true
-            }
-
-            /*itemView.setOnDragListener {
-                Toast.makeText(itemView?.context, "${allTypeNotes.noteTitle} Dragged !", Toast.LENGTH_SHORT)
-                    .show()
-                true
-            }*/
-        }
-        fun bind(allTypeNotesModel: AllNotesModel) {
+        fun bind(allTypeNotesModel: AllNotesModel,listenerSub: (AllNotesModel) -> Unit) {
             this.allTypeNotes = allTypeNotesModel
             this.noteTitle.text = this.allTypeNotes.noteTitle
 
             this.createdOn.text = this.allTypeNotes.createdOn
+
+            itemView.eyeview.setOnClickListener {
+
+                listenerSub(allTypeNotes)
+            }
+
+
             if(allTypeNotesModel.card_color.equals(1)) {
                 this.card.setCardBackgroundColor(context.resources.getColor(R.color.colornote))
                 this.card.radius = 15f

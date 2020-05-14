@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.view.activity.MainActivity
 import com.example.testnoteapplication.view.adapter.AllTypeNotesAdapter
 import com.example.testnoteapplication.viewmodel.ViewAllTypeNotesViewModel
 import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
@@ -70,7 +71,9 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
             }
         )
 
-        adapter = AllTypeNotesAdapter(allNotes)
+        adapter = AllTypeNotesAdapter(allNotes){
+            openEditSubDialogueFragment(it)
+        }
         allNotesRecyclerView.adapter = adapter
     }
 
@@ -78,12 +81,18 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
         adapter?.let {
             it.allNotes = listNotes
         } ?: run {
-            adapter = AllTypeNotesAdapter(allNotes)
+            adapter = AllTypeNotesAdapter(allNotes){
+                openEditSubDialogueFragment(it)
+            }
         }
         allNotesRecyclerView.adapter = adapter
         progress.visibility = View.GONE
     }
 
+    private fun openEditSubDialogueFragment(sub: AllNotesModel) {
+        Log.e("TAG-ADAPTER", sub.noteTitle)
+        (activity as MainActivity?)?.callEditFragment(sub)
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)

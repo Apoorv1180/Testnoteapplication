@@ -76,13 +76,7 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private va
         removedNote = allSubscription[position]
         removedPosition = position
         DeleteSubscriptionTask(context, viewModel, removedNote).execute()
-        notifyItemRemoved(position)
 
-        Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG)
-            .setAction("UNDO") {
-                UndoSubscriptionTask(context, viewModel, removedNote).execute()
-                notifyItemInserted(removedPosition)
-            }.show()
     }
 
     override fun onBindViewHolder(
