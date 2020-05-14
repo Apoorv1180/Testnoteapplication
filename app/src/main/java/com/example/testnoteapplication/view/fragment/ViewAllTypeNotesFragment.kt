@@ -47,11 +47,6 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ViewAllTypeNotesViewModel::class.java)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         viewModel.getAllTypeNotes().observe(
             viewLifecycleOwner,
             Observer { listNotes ->
@@ -61,20 +56,26 @@ class ViewAllTypeNotesFragment : Fragment(), View.OnLongClickListener {
                         updateUI(listNotes)
                         //todo make image empty view gone
                         emptyview.visibility = View.GONE
+                        allNotesRecyclerView.visibility=View.VISIBLE
                     }
                     else{
                         progress.visibility = View.GONE
                         emptyview.visibility = View.VISIBLE
+                        allNotesRecyclerView.visibility=View.INVISIBLE
                         //todo make empty image view visible
                     }
                 }
             }
         )
-
         adapter = AllTypeNotesAdapter(allNotes){
             openEditSubDialogueFragment(it)
         }
         allNotesRecyclerView.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     private fun updateUI(listNotes: List<AllNotesModel>) {

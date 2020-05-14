@@ -119,6 +119,8 @@ class MainActivity : AppCompatActivity() {
             isListChecked = false
             setStateValues()
             if (home.isSelected) {
+                if(isOpen)
+                closeMenu()
                 loadDefaultFragment(ViewAllTypeNotesFragment())
             }
         }
@@ -131,6 +133,8 @@ class MainActivity : AppCompatActivity() {
             isListChecked = false
             setStateValues()
             if (subscription.isSelected) {
+                if(isOpen)
+                    closeMenu()
                 loadFragment(AllSubscriptionFragment())
             }
         }
@@ -144,6 +148,8 @@ class MainActivity : AppCompatActivity() {
             isListChecked = false
             setStateValues()
             if (note.isSelected) {
+                if(isOpen)
+                    closeMenu()
                 loadFragment(AllNotesFragment())
             }
         }
@@ -156,6 +162,8 @@ class MainActivity : AppCompatActivity() {
             isListChecked = true
             setStateValues()
             if (list.isSelected) {
+                if(isOpen)
+                    closeMenu()
                 loadFragment(AllListFragment())
                 /*Toast.makeText(application, "View List Dialog fragment", Toast.LENGTH_SHORT)
                     .show()*/

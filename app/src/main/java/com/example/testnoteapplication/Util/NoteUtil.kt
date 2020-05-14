@@ -4,6 +4,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import java.text.SimpleDateFormat
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -76,6 +77,13 @@ class NoteUtil {
             )
             val zdt: ZonedDateTime = expiryDateTime.atZone(ZoneId.of("America/Los_Angeles"))
             return zdt.toInstant().toEpochMilli()
+        }
+
+        fun convertDateToString(toString: Calendar): String {
+            val dueDateStr:String
+            val dateFormat = SimpleDateFormat("MM/dd/yyyy")
+            dueDateStr = dateFormat.format(toString.time)
+        return  dueDateStr
         }
     }
 }

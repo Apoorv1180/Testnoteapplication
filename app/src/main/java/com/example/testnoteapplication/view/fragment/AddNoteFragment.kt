@@ -1,6 +1,8 @@
 package com.example.testnoteapplication.view.fragment
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +22,6 @@ import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.Util.NotificationUtils
 import com.example.testnoteapplication.data.db.async.InsertTask
 import com.example.testnoteapplication.data.model.AllNotesModel
-import com.example.testnoteapplication.view.activity.MainActivity
 import com.example.testnoteapplication.viewmodel.AddNoteViewModel
 import kotlinx.android.synthetic.main.add_note_fragment.*
 import java.text.SimpleDateFormat
@@ -83,7 +84,7 @@ class AddNoteFragment : DialogFragment() {
         //reminder date picker text-view listener
         datePicker.setOnClickListener { v ->
             when (v?.id) {
-                R.id.datePicker -> openDatePicker(v)
+                R.id.datePicker -> pickDateTime()
             }
         }
         //Add button click listener
@@ -134,6 +135,29 @@ class AddNoteFragment : DialogFragment() {
         ).show()
     }
 
+    private fun pickDateTime() {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+        val imm =
+            context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            val imm =
+                context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day, hour, minute)
+                Log.i("TIME", pickedDateTime.toString())
+                dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
+               // doSomethingWith(pickedDateTime)
+            }, startHour, startMinute, false).show()
+        }, startYear, startMonth, startDay).show()
+    }
     private fun updateDateInView() {
         val myFormat = "MM/dd/yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)

@@ -1,6 +1,8 @@
 package com.example.testnoteapplication.view.fragment
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -108,7 +111,29 @@ class EditNoteFragment : DialogFragment() {
     private fun closeCurrentFragment() {
         fragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
-
+    private fun pickDateTime() {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+        val imm =
+            context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            val imm =
+                context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day, hour, minute)
+                Log.i("TIME", pickedDateTime.toString())
+                dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
+                // doSomethingWith(pickedDateTime)
+            }, startHour, startMinute, false).show()
+        }, startYear, startMonth, startDay).show()
+    }
     private fun saveNote() {
         var notesModel =
             AllNotesModel(
