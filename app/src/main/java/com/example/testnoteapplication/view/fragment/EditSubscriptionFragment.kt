@@ -16,11 +16,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.data.db.async.UpdateTaskSub
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.CustomAdapterSpinnerSub
 import com.example.testnoteapplication.viewmodel.EditSubscriptionViewModel
-import com.sdsu.noteapp.data.db.async.UpdateTask
-import com.sdsu.noteapp.data.db.async.UpdateTaskSub
 import kotlinx.android.synthetic.main.add_note_fragment.*
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat

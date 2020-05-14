@@ -24,7 +24,7 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private va
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllSubscriptionHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.subscription_card_view, parent, false)
+                .inflate(R.layout.adapter_subscription_card_view, parent, false)
         context = parent.context
         return AllSubscriptionHolder(view)
     }

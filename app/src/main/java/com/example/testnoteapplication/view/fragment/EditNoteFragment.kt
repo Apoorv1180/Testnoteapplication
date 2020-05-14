@@ -15,9 +15,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.data.db.async.UpdateTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.EditNoteViewModel
-import com.sdsu.noteapp.data.db.async.UpdateTask
 import kotlinx.android.synthetic.main.add_note_fragment.addNote
 import kotlinx.android.synthetic.main.add_note_fragment.datePicker
 import kotlinx.android.synthetic.main.add_note_fragment.noteDescription

@@ -1,4 +1,4 @@
-package com.sdsu.noteapp.data.db.async
+package com.example.testnoteapplication.data.db.async
 
 import android.content.Context
 import android.os.AsyncTask

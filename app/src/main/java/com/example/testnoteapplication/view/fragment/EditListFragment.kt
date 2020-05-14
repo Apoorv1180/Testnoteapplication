@@ -19,22 +19,33 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.db.async.InsertListTask
+import com.example.testnoteapplication.data.db.async.UpdateTaskList
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AddListViewModel
+import com.example.testnoteapplication.viewmodel.EditListViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.add_list_fragment.*
 
 
 class EditListFragment : DialogFragment() {
 
+    lateinit var allNotesModel: AllNotesModel
+
     companion object {
-        fun newInstance() =
-            EditListFragment()
+        fun newInstance(notesModel: AllNotesModel): EditListFragment {
+            val fragment = EditListFragment()
+            var model:AllNotesModel
+            val bundle = Bundle().apply {
+                putSerializable("notesModel", notesModel)
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
     }
     lateinit var finalString:String
     var itemlist = arrayListOf<String>()
     lateinit var adapter: ArrayAdapter<String>
-    private lateinit var viewModel: AddListViewModel
+    private lateinit var viewModel: EditListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,14 +56,21 @@ class EditListFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AddListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(EditListViewModel::class.java)
+        allNotesModel =arguments?.getSerializable("notesModel") as AllNotesModel
+        createItemList()
         setUpView(view)
         initListener()
         observeAddListModel()
     }
 
+    private fun createItemList() {
+        itemlist.clear()
+        itemlist.addAll(NoteUtil.generateDescriptionStringList(allNotesModel.noteDescription))
+    }
+
     private fun observeAddListModel() {
-        viewModel.getValueList().observe(viewLifecycleOwner, Observer<Boolean>{ value ->
+        viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean>{ value ->
             if(value){
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
                 closeCurrentFragment()
@@ -108,13 +126,13 @@ class EditListFragment : DialogFragment() {
         title = listTitle.text.toString()
         var notesModel =
                 AllNotesModel(
-                        0,
+                        allNotesModel.noteId,
                         title,
                         finalString,
                         NoteUtil.LIST,"",
                         "",3)
 
-        InsertListTask(this.context, viewModel, notesModel).execute()
+        UpdateTaskList(this.context, viewModel, notesModel).execute()
 
     }
 
@@ -143,6 +161,8 @@ class EditListFragment : DialogFragment() {
         adapter = ArrayAdapter(view.context,
                 android.R.layout.simple_list_item_multiple_choice
                 , itemlist )
+        listView.adapter = adapter
+        listTitle.setText(allNotesModel.noteTitle.toString())
     }
 
     override fun onResume() {
@@ -152,7 +172,6 @@ class EditListFragment : DialogFragment() {
         params.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
-
 }
 
 

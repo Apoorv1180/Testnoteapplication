@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <!-- This is the actual mandatory library attributes that must be used -->
-        <TextView
+        <om.ms.square.android.expandabletextview.ExpandableTextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rvNoteDescription"

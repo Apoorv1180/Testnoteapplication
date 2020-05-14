@@ -10,12 +10,12 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
+import com.example.testnoteapplication.data.db.async.DeleteTask
 import com.example.testnoteapplication.data.db.async.UndoTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.ms.square.android.expandabletextview.ExpandableTextView
-import com.sdsu.noteapp.data.db.async.DeleteTask
+
 
 class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (AllNotesModel) -> Unit) :
     RecyclerView.Adapter<AllNotesAdapter.AllNotesHolder>() {
@@ -50,19 +50,12 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
         removedNote = allNotes[position]
         removedPosition = position
         DeleteTask(context, viewModel, removedNote).execute()
-        notifyItemRemoved(position)
-
-        Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG)
-            .setAction("UNDO") {
-                UndoTask(context, viewModel, removedNote).execute()
-                notifyItemInserted(removedPosition)
-            }.show()
     }
 
     inner class AllNotesHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription: ExpandableTextView =
+        private val noteDescription:TextView =
             itemView.findViewById(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
         private val card: CardView = itemView.findViewById(R.id.card_id)
@@ -82,7 +75,6 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
                 Toast.makeText(itemView.context, "Note Single clicked!", Toast.LENGTH_SHORT)
                     .show()
                 //callbackInterface.passDataCallback(allTypeNotes)
-
                 listener(allTypeNotes)
             }
 

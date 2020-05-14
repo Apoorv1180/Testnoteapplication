@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.model.AllNotesModel
+import com.example.testnoteapplication.view.activity.MainActivity
 import com.example.testnoteapplication.view.adapter.AllListAdapter
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
 import com.example.testnoteapplication.viewmodel.AllListViewModel
@@ -201,7 +202,7 @@ class AllListFragment : Fragment() {
     }
 
     private fun openEditNoteDialogueFragment(note: AllNotesModel) {
-        Log.e("TAG-ADAPTER", note.noteTitle)
-        viewModel.setValue(note)
+        Log.e("TAG-ADAPTER_LIST", note.noteTitle)
+        (activity as MainActivity?)?.callEditFragment(note)
     }
 }

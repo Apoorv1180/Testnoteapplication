@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
 import com.example.testnoteapplication.data.db.async.DeleteListTask
-import com.example.testnoteapplication.data.db.async.UndoListTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllListViewModel
-import com.google.android.material.snackbar.Snackbar
-import com.ms.square.android.expandabletextview.ExpandableTextView
 
 class AllListAdapter(
     var allLists: List<AllNotesModel>,
@@ -30,7 +27,7 @@ class AllListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllListsHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_card_view, parent, false)
+                .inflate(R.layout.adapter_list_card_view, parent, false)
         context = parent.context
         return AllListsHolder(view)
     }
@@ -66,7 +63,7 @@ class AllListAdapter(
     inner class AllListsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var allTypeNotes: AllNotesModel
         private val noteTitle: TextView = itemView.findViewById<TextView>(R.id.rvNoteTitle)
-        private val noteDescription: ExpandableTextView =
+        private val noteDescription:TextView =
             itemView.findViewById(R.id.rvNoteDescription)
         private val createdOn: TextView = itemView.findViewById<TextView>(R.id.rvCreatedOn)
         private val card: CardView = itemView.findViewById(R.id.card_id);

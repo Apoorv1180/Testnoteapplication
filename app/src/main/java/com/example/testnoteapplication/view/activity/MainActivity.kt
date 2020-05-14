@@ -44,6 +44,13 @@ class MainActivity : AppCompatActivity() {
             // loadFragment(editNotesFragment)
     }
 
+    private fun showEditListDialogueFragment(notesModel: AllNotesModel) {
+        // Creating the new Fragment with the name passed in.
+        val editListFragment = EditListFragment.newInstance(notesModel)
+        supportFragmentManager?.let {editListFragment.show(supportFragmentManager, "Edit Note")}
+        // loadFragment(editNotesFragment)
+    }
+
     private fun showEditSubDialogueFragment(notesModel: AllNotesModel) {
         val editSubFragment = EditSubscriptionFragment.newInstance(notesModel)
         supportFragmentManager?.let {editSubFragment.show(supportFragmentManager, "Edit Note")}
@@ -189,7 +196,7 @@ class MainActivity : AppCompatActivity() {
             showEditNoteDialogueFragment(note)
         }
         else if(note.noteType==NoteUtil.LIST){
-
+        showEditListDialogueFragment(note)
         }else if(note.noteType==NoteUtil.SUB){
             showEditSubDialogueFragment(note)
         }
