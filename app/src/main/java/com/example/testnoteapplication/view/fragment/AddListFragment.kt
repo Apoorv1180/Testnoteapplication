@@ -117,7 +117,7 @@ class AddListFragment : DialogFragment() {
                         title,
                         finalString,
                         NoteUtil.LIST,"",
-                        "",3)
+                        "",3,0)
 
         InsertListTask(this.context, viewModel, notesModel).execute()
 

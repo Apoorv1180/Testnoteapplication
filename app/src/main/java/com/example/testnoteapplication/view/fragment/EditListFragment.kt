@@ -130,7 +130,7 @@ class EditListFragment : DialogFragment() {
                         title,
                         finalString,
                         NoteUtil.LIST,"",
-                        "",3)
+                        "",3,0)
 
         UpdateTaskList(this.context, viewModel, notesModel).execute()
 

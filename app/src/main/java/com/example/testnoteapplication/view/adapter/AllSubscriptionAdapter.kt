@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -15,12 +16,14 @@ import com.example.testnoteapplication.data.db.async.UndoSubscriptionTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.AllSubscriptionViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
 class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private val listenerSub: (AllNotesModel) -> Unit) :
     RecyclerView.Adapter<AllSubscriptionAdapter.AllSubscriptionHolder>() {
     private var removedPosition: Int = 0
     private lateinit var removedNote: AllNotesModel
     private lateinit var context: Context
+    val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllSubscriptionHolder {
         val view =
             LayoutInflater.from(parent.context)
@@ -41,6 +44,7 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private va
         private val subDescription: TextView = itemView.findViewById<TextView>(R.id.cv_sub_des)
         private val expiryDate: TextView = itemView.findViewById<TextView>(R.id.cv_expire_date)
         private val card: CardView = itemView.findViewById(R.id.card_sub)
+        private val icon: ImageView = itemView.findViewById(R.id.sub_icon)
 
         fun bind(notesModel: AllNotesModel,
                  listenerSub: (AllNotesModel) -> Unit) {
@@ -59,11 +63,9 @@ class AllSubscriptionAdapter(var allSubscription: List<AllNotesModel>,private va
                 listenerSub(allTypeNotes)
             }
 
-            itemView.setOnLongClickListener {
-                Toast.makeText(itemView?.context, "Note Long Press clicked!", Toast.LENGTH_SHORT)
-                        .show()
-                true
-            }
+            Picasso.get().load(icons_array[notesModel.sub_icon])
+                    .error(R.drawable.ic_launcher_background)
+                    .into(icon)
         }
 
     }

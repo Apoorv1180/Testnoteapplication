@@ -43,7 +43,7 @@ class EditSubscriptionFragment : DialogFragment() {
     var cal = Calendar.getInstance()
     lateinit var subName : String
     var subicons by Delegates.notNull<Int>()
-
+    var subicon : Int = 0
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.edit_subscription_fragment, container, false)
@@ -107,7 +107,7 @@ class EditSubscriptionFragment : DialogFragment() {
                         subName,
                         subDescription.text.toString(),
                         NoteUtil.SUB,"",
-                        dateTextView.text.toString(),2)
+                        dateTextView.text.toString(),2,subicon)
         //update task call
         //viewModel.addSubscriptionVm(notesModel)
         UpdateTaskSub(this.context, viewModel, notesModel).execute()
@@ -131,6 +131,7 @@ class EditSubscriptionFragment : DialogFragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 subName=subscriptions_array[position]
                 subicons =icons_array[position]
+                subicon =position
                 if(subscriptions_array[position]=="Add Custom"){
                     Toast.makeText(
                             view.context,

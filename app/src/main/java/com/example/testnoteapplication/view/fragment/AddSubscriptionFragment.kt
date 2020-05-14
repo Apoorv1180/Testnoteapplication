@@ -21,6 +21,7 @@ import com.example.testnoteapplication.viewmodel.AddSubscriptionViewModel
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class AddSubscriptionFragment : DialogFragment() {
@@ -38,6 +39,8 @@ class AddSubscriptionFragment : DialogFragment() {
     lateinit var dateTextView: TextView
     var cal = Calendar.getInstance()
     lateinit var subName: String
+    var subicon : Int = 0
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setUpView(view)
@@ -83,7 +86,7 @@ class AddSubscriptionFragment : DialogFragment() {
                 subName,
                 subDescription.text.toString(),
                 NoteUtil.SUB, "",
-                dateTextView.text.toString(), 2
+                dateTextView.text.toString(), 2,subicon
             )
         model = notesModel
         InsertSubscriptionTask(this.context, viewModel, notesModel).execute()
@@ -112,6 +115,7 @@ class AddSubscriptionFragment : DialogFragment() {
                 id: Long
             ) {
                 subName = subscriptions_array[position]
+                subicon =position
                 if (subscriptions_array[position] == "Add Custom") {
                     Toast.makeText(
                         view.context,

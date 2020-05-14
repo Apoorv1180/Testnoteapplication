@@ -146,7 +146,7 @@ class EditNoteFragment : DialogFragment() {
                 noteTitle.text.toString(),
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
-                dateTextView.text.toString(), "", 1)
+                dateTextView.text.toString(), "", 1,0)
         //viewModel.updateNoteVm(notesModel)
         model = notesModel
         UpdateTask(this.context, viewModel, notesModel).execute()
