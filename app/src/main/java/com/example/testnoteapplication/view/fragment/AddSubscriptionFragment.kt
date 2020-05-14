@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -168,8 +165,7 @@ class AddSubscriptionFragment : DialogFragment() {
 
     private fun observeValidateInputs(view: View) {
         var expiryDate = view.findViewById<TextView>(R.id.expiryDate)
-        /*var subTitle = view.findViewById<View>(R.id.subTitle) as Spinner
-        var subError = view.findViewById<TextView>(R.id.subError)*/
+        var subDescription = view.findViewById<EditText>(R.id.subDescription)
         expiryDate.setOnFocusChangeListener { v, hasFocus ->
             run {
                 if (!hasFocus) {
@@ -179,32 +175,29 @@ class AddSubscriptionFragment : DialogFragment() {
                 }
             }
         }
-
-        /*subTitle.setOnFocusChangeListener { v, hasFocus ->
+        subDescription.setOnFocusChangeListener { v, hasFocus ->
             run {
                 if (!hasFocus) {
-                    if (subTitle.selectedItem.toString().equals("Choose Subscription")) {
-                        subError.error = "Select subscription title!"
+                    if (!NoteUtil.checkInput(subDescription)) {
+                        subDescription.error = "Description can't be empty!"
                     }
                 }
             }
-        }*/
+        }
     }
 
     private fun validateInputs(view: View): Boolean {
         //Form Validation
         var expiryDate = view.findViewById<TextView>(R.id.expiryDate)
-        /*var subTitle = view.findViewById<View>(R.id.subTitle) as Spinner
-        var subError = view.findViewById<TextView>(R.id.subError)
-        val subTitleSelectedView = subTitle.selectedView*/
+        var subDescription = view.findViewById<EditText>(R.id.subDescription)
+        if (!NoteUtil.checkInput(subDescription)) {
+            subDescription.error = "Description can't be empty!"
+            return false
+        }
         if (!NoteUtil.checkInput(expiryDate)) {
             expiryDate.error = "Expiry date can't be empty!"
             return false
-        } /*else if(subTitle.selectedItem == "Choose Subscription") {
-            subError.error = "Select subscription title!"
-            return false
-        }*/
-
+        }
         return true
     }
 

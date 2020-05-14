@@ -84,8 +84,6 @@
             android:gravity="end"
             android:layout_gravity="end"
             android:src="@drawable/ic_edit_black_24dp"/>
-
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

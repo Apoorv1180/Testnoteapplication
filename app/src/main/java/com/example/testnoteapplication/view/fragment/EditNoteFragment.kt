@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.Util.NotificationUtils
 import com.example.testnoteapplication.data.db.async.UpdateTask
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.viewmodel.EditNoteViewModel
@@ -42,6 +43,8 @@ class EditNoteFragment : DialogFragment() {
         }
     }
 
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    lateinit var model :AllNotesModel
     var cal = Calendar.getInstance()
     lateinit var dateTextView: TextView
     private lateinit var viewModel: EditNoteViewModel
@@ -84,6 +87,8 @@ class EditNoteFragment : DialogFragment() {
         viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean> { value ->
             if (value) {
                 Toast.makeText(context, "Updated to Database", Toast.LENGTH_LONG).show()
+                if(NoteUtil.checkInput(model.createdOn))
+                    NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             } else
                 Log.e("NO ", "No");
@@ -118,6 +123,7 @@ class EditNoteFragment : DialogFragment() {
                 NoteUtil.NOTE,
                 dateTextView.text.toString(), "", 1)
         //viewModel.updateNoteVm(notesModel)
+        model = notesModel
         UpdateTask(this.context, viewModel, notesModel).execute()
     }
 
