@@ -41,6 +41,7 @@ class AllSubscriptionFragment : Fragment() {
     private lateinit var viewModel: AllSubscriptionViewModel
     private lateinit var allSubscriptionRecyclerView: RecyclerView
     private var adapter: AllSubscriptionAdapter? = null
+    lateinit var subList: List<AllNotesModel>
 
 
     override fun onCreateView(
@@ -156,26 +157,36 @@ class AllSubscriptionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AllSubscriptionViewModel::class.java)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
         viewModel.getAllNotes(NoteUtil.SUB).observe(
                 viewLifecycleOwner,
                 Observer { listSubscription ->
                     listSubscription?.let {
                         Log.i("Notes", "Got Subscriptions ${listSubscription.size}")
-                        if(listSubscription.size >0) {
-                            updateUI(listSubscription)
+                        subList= emptyList()
+                        subList=listSubscription
+                        if(subList.size >0) {
+
+                            updateUI(subList)
                             emptysubs.visibility = View.GONE
                         }else{
+                            allSubscriptionRecyclerView.visibility=View.INVISIBLE
                             emptysubs.visibility = View.VISIBLE
                             progress.visibility = View.GONE
                         }
                     }
                 }
         )
+        adapter = AllSubscriptionAdapter(allSubscription){
+            openEditSubDialogueFragment(it)
+        }
+        allSubscriptionRecyclerView.adapter = adapter
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+
 
         adapter = AllSubscriptionAdapter(allSubscription){
             openEditSubDialogueFragment(it)

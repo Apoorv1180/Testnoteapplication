@@ -40,6 +40,7 @@ class AllNotesFragment : Fragment() {
     private lateinit var allNotesRecyclerView: RecyclerView
     private var adapter: AllNotesAdapter? = null
     private var notesList = mutableListOf<AllNotesModel>()
+    lateinit var noteList: List<AllNotesModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -153,6 +154,29 @@ class AllNotesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AllNotesViewModel::class.java)
+
+        viewModel.getAllNotes(NoteUtil.NOTE).observe(
+                viewLifecycleOwner,
+                Observer { listNotes ->
+                    listNotes?.let {
+                        Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
+                        noteList= emptyList()
+                        noteList=listNotes
+                        if(noteList.size >0) {
+                            updateUI(noteList)
+                            emptynote.visibility = View.GONE
+                        }else {
+                            allNotesRecyclerView.visibility=View.INVISIBLE
+                            progress.visibility = View.GONE
+                            emptynote.visibility = View.VISIBLE
+                        }
+                    }
+                }
+        )
+        adapter = AllNotesAdapter(allNotes) {
+            openEditNoteDialogueFragment(it)
+        }
+        allNotesRecyclerView.adapter = adapter
     }
 
 
@@ -164,10 +188,13 @@ class AllNotesFragment : Fragment() {
             Observer { listNotes ->
                 listNotes?.let {
                     Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
-                    if(listNotes.size >0) {
-                        updateUI(listNotes)
+                    noteList= emptyList()
+                    noteList=listNotes
+                    if(noteList.size >0) {
+                        updateUI(noteList)
                         emptynote.visibility = View.GONE
                     }else {
+                        allNotesRecyclerView.visibility=View.INVISIBLE
                         progress.visibility = View.GONE
                         emptynote.visibility = View.VISIBLE
                     }

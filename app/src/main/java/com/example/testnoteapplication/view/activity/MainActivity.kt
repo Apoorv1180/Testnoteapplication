@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
             showEditNoteDialogueFragment(note)
         }
         else if(note.noteType==NoteUtil.LIST){
-        showEditListDialogueFragment(note)
+            showEditListDialogueFragment(note)
         }else if(note.noteType==NoteUtil.SUB){
             showEditSubDialogueFragment(note)
         }
