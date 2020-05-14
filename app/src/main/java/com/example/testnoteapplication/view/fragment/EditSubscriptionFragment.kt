@@ -219,5 +219,8 @@ class EditSubscriptionFragment : DialogFragment() {
         }
         return true
     }
+    override fun getTheme(): Int {
+        return R.style.AppTheme_NoActionBar_FullScreenDialog
+    }
 
 }

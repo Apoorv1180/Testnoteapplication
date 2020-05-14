@@ -165,13 +165,7 @@ class EditListFragment : DialogFragment() {
         listTitle.setText(allNotesModel.noteTitle.toString())
     }
 
-    override fun onResume() {
-        super.onResume()
-        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
-        params.width = WindowManager.LayoutParams.MATCH_PARENT
-        params.height = WindowManager.LayoutParams.MATCH_PARENT
-        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
-    }
+
 
     private fun validateInputs(view: View): Boolean {
         //Form Validation
@@ -210,6 +204,9 @@ class EditListFragment : DialogFragment() {
                 }
             }
         }
+    }
+    override fun getTheme(): Int {
+        return R.style.AppTheme_NoActionBar_FullScreenDialog
     }
 }
 

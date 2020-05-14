@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
-import androidx.core.view.size
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -195,6 +194,9 @@ class AddListFragment : DialogFragment() {
                 }
             }
         }
+    }
+    override fun getTheme(): Int {
+        return R.style.AppTheme_NoActionBar_FullScreenDialog
     }
 }
 

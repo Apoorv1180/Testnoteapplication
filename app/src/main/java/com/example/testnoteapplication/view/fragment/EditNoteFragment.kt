@@ -221,4 +221,7 @@ class EditNoteFragment : DialogFragment() {
         params.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
+    override fun getTheme(): Int {
+        return R.style.AppTheme_NoActionBar_FullScreenDialog
+    }
 }
