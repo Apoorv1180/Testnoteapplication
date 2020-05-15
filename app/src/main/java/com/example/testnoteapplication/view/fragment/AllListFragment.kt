@@ -54,8 +54,8 @@ class AllListFragment : Fragment() {
             LinearLayoutManager(this.context)
         allListsRecyclerView.adapter = adapter
 
-        colorDrawableBackground = ColorDrawable(Color.parseColor("#538cc6"))
-        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.ic_list_red_24dp)!!
+        colorDrawableBackground = ColorDrawable(Color.parseColor("#9E9E9E"))
+        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.btn_ic_list_enabled)!!
 
         // CallBack for Swipe
         val itemTouchHelperCallback = object :
@@ -158,7 +158,6 @@ class AllListFragment : Fragment() {
                 viewLifecycleOwner,
                 Observer { listNotes ->
                     listNotes?.let {
-                        Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
                         notesList= emptyList()
                         notesList=listNotes
                         if (notesList.size > 0) {

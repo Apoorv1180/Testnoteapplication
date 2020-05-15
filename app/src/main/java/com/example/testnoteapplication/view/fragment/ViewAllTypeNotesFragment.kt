@@ -53,7 +53,6 @@ class ViewAllTypeNotesFragment : Fragment() {
             viewLifecycleOwner,
             Observer { listNotes ->
                 listNotes?.let {
-                    Log.i("All-Notes", "Got crimeLiveData ${listNotes.size}")
                     if(listNotes.size>0) {
                         updateUI(listNotes)
                         //todo make image empty view gone

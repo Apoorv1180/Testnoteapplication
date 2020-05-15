@@ -18,7 +18,7 @@ class DeleteSubscriptionTask(
 
     override fun onPostExecute(bool: Boolean?) {
         if (bool!!) {
-            Toast.makeText(context, "Updated to Database", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Deleted", Toast.LENGTH_LONG).show()
         }
     }
 }

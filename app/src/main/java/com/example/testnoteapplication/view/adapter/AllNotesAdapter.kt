@@ -77,12 +77,6 @@ class AllNotesAdapter(var allNotes: List<AllNotesModel>, private val listener: (
                 //callbackInterface.passDataCallback(allTypeNotes)
                 listener(allTypeNotes)
             }
-
-            itemView.setOnLongClickListener {
-                Toast.makeText(itemView?.context, "Note Long Press clicked!", Toast.LENGTH_SHORT)
-                    .show()
-                true
-            }
         }
 
     }

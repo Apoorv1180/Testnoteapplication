@@ -18,9 +18,9 @@ class AddNoteViewModel(application: Application) : AndroidViewModel(application)
     val data: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
-    val datalist: MutableLiveData<Boolean> by lazy {
+    /*val datalist: MutableLiveData<Boolean> by lazy {
             MutableLiveData<Boolean>()
-    }
+    }*/
 
     init {
         val notesDao = NotesAppDatabase.getDatabase(application, viewModelScope).notesDao()
@@ -39,11 +39,11 @@ class AddNoteViewModel(application: Application) : AndroidViewModel(application)
         return data
     }
 
-    fun setValueList(bool: Boolean) {
+    /*fun setValueList(bool: Boolean) {
         datalist.value= bool
     }
     fun getValueList(): MutableLiveData<Boolean>{
         return datalist
-    }
+    }*/
 
 }

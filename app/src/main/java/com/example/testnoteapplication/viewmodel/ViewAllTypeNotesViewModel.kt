@@ -10,7 +10,7 @@ import com.example.testnoteapplication.data.repository.NotesRepository
 
 class ViewAllTypeNotesViewModel (application: Application): AndroidViewModel(application) {
 
-    private lateinit var notesRepository: NotesRepository
+    private var notesRepository: NotesRepository
 
 
     init {

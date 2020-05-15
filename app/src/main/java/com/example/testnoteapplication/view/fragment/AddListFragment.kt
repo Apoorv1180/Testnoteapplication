@@ -53,7 +53,7 @@ class AddListFragment : DialogFragment() {
     private fun observeAddListModel() {
         viewModel.getValueList().observe(viewLifecycleOwner, Observer<Boolean>{ value ->
             if(value){
-                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Added", Toast.LENGTH_LONG).show()
                 closeCurrentFragment()
             }else
                 Log.e("NO ","No");
@@ -88,11 +88,7 @@ class AddListFragment : DialogFragment() {
         }
 
         listView.setOnItemClickListener { adapterView, view, i, l ->
-            Toast.makeText(
-                context,
-                "You Selected the item --> " + itemlist.get(i),
-                Toast.LENGTH_LONG
-            ).show()
+
         }
         addList.setOnClickListener {
             if (view?.let { it1 ->  validateInputs(it1) }!!) {
@@ -125,7 +121,6 @@ class AddListFragment : DialogFragment() {
     private fun convertHashMapToGson(makeListHashMap: HashMap<String, Boolean>): String {
         val gson = Gson()
         var jsonString: String = gson.toJson(makeListHashMap)
-        //Toast.makeText(context,"string"+ jsonString,Toast.LENGTH_SHORT).show()
         return jsonString
     }
 
@@ -165,7 +160,6 @@ class AddListFragment : DialogFragment() {
             listTitle.error = "Title can't be empty!"
             return false
         } else if(listItemView.count <= 0) {
-            //Toast.makeText(context, "List is empty..", Toast.LENGTH_SHORT).show()
             editText.error = "List is empty.."
             return false
         }

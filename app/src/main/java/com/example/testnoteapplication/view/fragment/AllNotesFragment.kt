@@ -23,7 +23,6 @@ import com.example.testnoteapplication.view.activity.MainActivity
 import com.example.testnoteapplication.view.adapter.AllNotesAdapter
 import com.example.testnoteapplication.viewmodel.AllNotesViewModel
 import kotlinx.android.synthetic.main.all_notes_fragment.*
-import kotlinx.android.synthetic.main.view_all_type_notes_fragment.*
 import kotlinx.android.synthetic.main.view_all_type_notes_fragment.progress
 
 class AllNotesFragment : Fragment() {
@@ -159,7 +158,6 @@ class AllNotesFragment : Fragment() {
                 viewLifecycleOwner,
                 Observer { listNotes ->
                     listNotes?.let {
-                        Log.i("Notes", "Got crimeLiveData ${listNotes.size}")
                         noteList= emptyList()
                         noteList=listNotes
                         if(noteList.size >0) {

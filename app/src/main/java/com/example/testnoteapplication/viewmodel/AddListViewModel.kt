@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 
 class AddListViewModel(application: Application) : AndroidViewModel(application)  {
-    // TODO: Implement the ViewModel
+
     private val notesRepository: NotesRepository
     val datalist: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()

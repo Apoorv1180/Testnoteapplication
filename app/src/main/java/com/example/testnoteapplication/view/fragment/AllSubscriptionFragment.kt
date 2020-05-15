@@ -58,8 +58,8 @@ class AllSubscriptionFragment : Fragment() {
 
         allSubscriptionRecyclerView.adapter = adapter
 
-        colorDrawableBackground = ColorDrawable(Color.parseColor("#538cc6"))
-        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.ic_list_red_24dp)!!
+        colorDrawableBackground = ColorDrawable(Color.parseColor("#9E9E9E"))
+        deleteIcon = ContextCompat.getDrawable(this.context!!, R.drawable.btn_ic_subs_enabled)!!
 
         // CallBack for Swipe
         val itemTouchHelperCallback = object :
@@ -200,13 +200,6 @@ class AllSubscriptionFragment : Fragment() {
         Log.e("TAG-ADAPTER", sub.noteTitle)
         (activity as MainActivity?)?.callEditFragment(sub)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProviders.of(this).get(AllSubscriptionViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 
     private fun updateUI(allNotesRe: List<AllNotesModel>) {
         adapter?.let {

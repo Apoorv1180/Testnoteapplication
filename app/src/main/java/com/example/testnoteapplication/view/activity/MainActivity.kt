@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.minifab.*
 
 class MainActivity : AppCompatActivity() {
-    //var addedFragment: Boolean= false
+
     var isOpen = false
 
     companion object{
@@ -33,22 +33,20 @@ class MainActivity : AppCompatActivity() {
         setStateValues()
         initListener()
 
-        //Initialize All Notes View Model
     }
-//
 
     private fun showEditNoteDialogueFragment(notesModel: AllNotesModel) {
         // Creating the new Fragment with the name passed in.
         val editNotesFragment = EditNoteFragment.newInstance(notesModel)
         supportFragmentManager?.let {editNotesFragment.show(supportFragmentManager, "Edit Note")}
-            // loadFragment(editNotesFragment)
+
     }
 
     private fun showEditListDialogueFragment(notesModel: AllNotesModel) {
         // Creating the new Fragment with the name passed in.
         val editListFragment = EditListFragment.newInstance(notesModel)
         supportFragmentManager?.let {editListFragment.show(supportFragmentManager, "Edit Note")}
-        // loadFragment(editNotesFragment)
+
     }
 
     private fun showEditSubDialogueFragment(notesModel: AllNotesModel) {
@@ -80,14 +78,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDefaultFragment(fragment: Fragment) {
-        //currentFragment= fragment
+
         supportFragmentManager.beginTransaction().also { fragmentTransaction ->
             fragmentTransaction.replace(R.id.fragmentContainer, fragment)
             fragmentTransaction.addToBackStack("VIEW_ALL_TYPE_NOTES")
             fragmentTransaction.commit()
         }
     }
-    //UI Code
+    //Fab Animation
     private fun initListener() {
         fab.setOnClickListener {
             if (!isOpen) {
@@ -102,9 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
         //fab2= Add List
         fab2.setOnClickListener {
-           // loadFragment(AddListFragment())
             showAddListDialogFragment()
-            //showAddListDialogFragment()
         }
         //fab3=Add Subscription
         fab3.setOnClickListener {
@@ -165,8 +161,6 @@ class MainActivity : AppCompatActivity() {
                 if(isOpen)
                     closeMenu()
                 loadFragment(AllListFragment())
-                /*Toast.makeText(application, "View List Dialog fragment", Toast.LENGTH_SHORT)
-                    .show()*/
             }
         }
     }

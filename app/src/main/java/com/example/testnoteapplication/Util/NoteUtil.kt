@@ -15,7 +15,6 @@ class NoteUtil {
 
     companion object {
 
-        var cal = Calendar.getInstance()
         const val NOTE: String = "NOTE"
         const val LIST = "LIST"
         const val SUB: String = "SUB"

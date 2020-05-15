@@ -47,11 +47,11 @@ class AllListViewModel(application: Application) : AndroidViewModel(application)
         return data
     }
 
-    fun setValueDelete(thisRef: Boolean) {
+    /*fun setValueDelete(thisRef: Boolean) {
         databoolean.value = thisRef
     }
 
     fun getValueDelete(): MutableLiveData<Boolean> {
         return databoolean
-    }
+    }*/
 }

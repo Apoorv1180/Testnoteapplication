@@ -1,6 +1,8 @@
 package com.example.testnoteapplication.view.fragment
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.DialogFragment
@@ -8,26 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
+import com.example.testnoteapplication.Util.NotificationUtils
 import com.example.testnoteapplication.data.db.async.UpdateTaskSub
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.CustomAdapterSpinnerSub
 import com.example.testnoteapplication.viewmodel.EditSubscriptionViewModel
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.add_note_fragment.*
-import kotlinx.android.synthetic.main.add_subscription_fragment.*
 import kotlinx.android.synthetic.main.add_subscription_fragment.addSubscription
 import kotlinx.android.synthetic.main.add_subscription_fragment.expiryDate
 import kotlinx.android.synthetic.main.add_subscription_fragment.subDescription
-import kotlinx.android.synthetic.main.edit_subscription_fragment.*
-import kotlinx.android.synthetic.main.spinner_custom_subscription.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.properties.Delegates
+
 
 
 class EditSubscriptionFragment : DialogFragment() {
@@ -36,17 +35,16 @@ class EditSubscriptionFragment : DialogFragment() {
         fun newInstance(notesModel: AllNotesModel) : EditSubscriptionFragment{
             val fragment = EditSubscriptionFragment()
             val bundle = Bundle().apply {
-                putSerializable("notesModel", notesModel)
-            }
+                putSerializable("notesModel", notesModel) }
             fragment.arguments = bundle
             return fragment
         }
     }
     //Var declaration
+    private var mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
     private lateinit var viewModel: EditSubscriptionViewModel
     lateinit var dateTextView: TextView
-    var cal = Calendar.getInstance()
-    lateinit var model :AllNotesModel
+    lateinit var model : AllNotesModel
     lateinit var subName : String
     var subicon : Int = 0
     val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
@@ -80,13 +78,14 @@ class EditSubscriptionFragment : DialogFragment() {
     }
 
     private fun observeEditSubscriptionViewModel() {
-
-        viewModel.getValue().observe(viewLifecycleOwner, Observer { value ->
+        viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean> { value ->
             if (value) {
-                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
-                closeCurrentFragment()
+                Toast.makeText(context, "Updated", Toast.LENGTH_LONG).show()
+                if(NoteUtil.checkInput(model.createdOn))
+                    NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
+                    closeCurrentFragment()
             } else
-                Log.e("NO ", "No");
+                Log.e("NO ", "No")
         })
     }
     private fun initViewModel() {
@@ -96,7 +95,7 @@ class EditSubscriptionFragment : DialogFragment() {
     private fun initListener() {
         expiryDate.setOnClickListener { v ->
             when (v?.id) {
-                R.id.expiryDate -> openDatePicker(v)
+                R.id.expiryDate -> pickDateTime()
             }
         }
 
@@ -127,8 +126,6 @@ class EditSubscriptionFragment : DialogFragment() {
         val spin = view.findViewById<View>(R.id.subTitle) as Spinner
         //getting Subscription array list from string resource
         var subscriptions_array = view.context.resources.getStringArray(R.array.subscription_array)
-        //getting subscription icons array list from string resource
-
         val customAdapter = CustomAdapterSpinnerSub(view.context,icons_array,subscriptions_array)
         spin.adapter = customAdapter
         //select listener on spinner
@@ -148,38 +145,36 @@ class EditSubscriptionFragment : DialogFragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                Toast.makeText(
-                        view.context,
-                        "Please select subscription name  ",
-                        Toast.LENGTH_SHORT
-                ).show()
+
             }
         }
     }
-
-    private fun openDatePicker(v: View?) {
-
-        val dateSetListener =
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    cal.set(Calendar.YEAR, year)
-                    cal.set(Calendar.MONTH, monthOfYear)
-                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    updateDateInView()
-                }
-        DatePickerDialog(
-                v?.context!!,
-                dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
+    private fun pickDateTime() {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+        val imm =
+                context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            val imm =
+                    context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day, hour, minute)
+                Log.i("TIME", pickedDateTime.toString())
+                dateTextView.text = NoteUtil.convertDateToString(pickedDateTime)
+                mNotificationTime = NoteUtil.convertDateToTimeInMilli(pickedDateTime)
+                // NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
+                // doSomethingWith(pickedDateTime)
+            }, startHour, startMinute, false).show()
+        }, startYear, startMonth, startDay).show()
     }
-    private fun updateDateInView() {
-        val myFormat = "MM/dd/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        val format = sdf.format(cal.time)
-        dateTextView.text = format
-    }
+
     override fun onResume() {
         super.onResume()
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes

@@ -13,7 +13,6 @@ class InsertTask(var context: Context?, var viewModel: AddNoteViewModel, var all
     }
     override fun onPostExecute(bool: Boolean?) {
         if (bool!!) {
-            // Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
             viewModel.setValue(bool)
 
         }

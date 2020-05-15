@@ -2,6 +2,7 @@ package com.example.testnoteapplication.view.fragment
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,7 +34,7 @@ class AddSubscriptionFragment : DialogFragment() {
             AddSubscriptionFragment()
     }
 
-    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
 
     //Var declaration
     private lateinit var viewModel: AddSubscriptionViewModel
@@ -55,7 +56,7 @@ class AddSubscriptionFragment : DialogFragment() {
     private fun observeAddSubscriptionViewModel() {
         viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean> { value ->
             if (value) {
-                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Added", Toast.LENGTH_LONG).show()
                 NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             } else
@@ -70,7 +71,7 @@ class AddSubscriptionFragment : DialogFragment() {
     private fun initListener() {
         expiryDate.setOnClickListener { v ->
             when (v?.id) {
-                R.id.expiryDate -> openDatePicker(v)
+                R.id.expiryDate -> pickDateTime()
             }
         }
 
@@ -148,29 +149,30 @@ class AddSubscriptionFragment : DialogFragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.add_subscription_fragment, container, false)
     }
-
-    private fun openDatePicker(v: View?) {
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
-        DatePickerDialog(
-            v?.context!!,
-            dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun updateDateInView() {
-        val myFormat = "MM/dd/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        val format = sdf.format(cal.time)
-        dateTextView.text = format
+    private fun pickDateTime() {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+        val imm =
+                context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            val imm =
+                    context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day, hour, minute)
+                Log.i("TIME", pickedDateTime.toString())
+                dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
+                mNotificationTime = NoteUtil.convertDateToTimeInMilli(pickedDateTime)
+                // NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
+                // doSomethingWith(pickedDateTime)
+            }, startHour, startMinute, false).show()
+        }, startYear, startMonth, startDay).show()
     }
 
     private fun observeValidateInputs(view: View) {

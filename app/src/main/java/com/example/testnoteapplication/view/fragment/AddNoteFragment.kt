@@ -72,9 +72,9 @@ class AddNoteFragment : DialogFragment() {
     private fun observeAddNoteViewModel() {
         viewModel.getValue().observe(viewLifecycleOwner,Observer<Boolean>{ value ->
             if(value){
-                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Added", Toast.LENGTH_LONG).show()
                 //if(NoteUtil.checkInput(model.createdOn))
-                    NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
+                NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             }else
                 Log.e("NO ","No");
@@ -118,24 +118,6 @@ class AddNoteFragment : DialogFragment() {
         //closeCurrentFragment()
     }
 
-    private fun openDatePicker(v: View?) {
-
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
-        DatePickerDialog(
-            v?.context!!,
-            dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
     private fun pickDateTime() {
         val currentDateTime = Calendar.getInstance()
         val startYear = currentDateTime.get(Calendar.YEAR)
@@ -156,16 +138,8 @@ class AddNoteFragment : DialogFragment() {
                 Log.i("TIME", pickedDateTime.toString())
                 dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
                 mNotificationTime = NoteUtil.convertDateToTimeInMilli(pickedDateTime)
-               // NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
-               // doSomethingWith(pickedDateTime)
-            }, startHour, startMinute, false).show()
+                }, startHour, startMinute, false).show()
         }, startYear, startMonth, startDay).show()
-    }
-    private fun updateDateInView() {
-        val myFormat = "MM/dd/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        val format = sdf.format(cal.time)
-        dateTextView.text = format
     }
 
     private fun validateInputs(view: View): Boolean {

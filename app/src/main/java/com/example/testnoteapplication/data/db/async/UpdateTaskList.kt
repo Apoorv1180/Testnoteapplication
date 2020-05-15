@@ -17,7 +17,6 @@ class UpdateTaskList(var context: Context?, var viewModel: EditListViewModel, va
 
     override fun onPostExecute(bool: Boolean?) {
         if (bool!!) {
-            //Toast.makeText(context, "Updated to Database", Toast.LENGTH_LONG).show()
             viewModel.setValue(bool)
         }
     }

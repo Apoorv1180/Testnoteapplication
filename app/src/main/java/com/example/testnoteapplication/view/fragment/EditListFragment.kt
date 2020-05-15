@@ -1,24 +1,20 @@
 package com.example.testnoteapplication.view.fragment
 
-import android.content.Context
+
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.Util.NoteUtil
-import com.example.testnoteapplication.data.db.async.InsertListTask
 import com.example.testnoteapplication.data.db.async.UpdateTaskList
 import com.example.testnoteapplication.data.model.AllNotesModel
-import com.example.testnoteapplication.viewmodel.AddListViewModel
 import com.example.testnoteapplication.viewmodel.EditListViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.add_list_fragment.*
@@ -70,7 +66,7 @@ class EditListFragment : DialogFragment() {
     private fun observeAddListModel() {
         viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean>{ value ->
             if(value){
-                Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Updated", Toast.LENGTH_LONG).show()
                 closeCurrentFragment()
             }else
                 Log.e("NO ","No");
@@ -105,7 +101,7 @@ class EditListFragment : DialogFragment() {
         }
 
         listView.setOnItemClickListener { adapterView, view, i, l ->
-            Toast.makeText(context, "You Selected the item --> "+ itemlist.get(i), Toast.LENGTH_LONG).show()
+
         }
         addList.setOnClickListener{
             if (view?.let { it1 ->  validateInputs(it1) }!!) {
@@ -139,7 +135,6 @@ class EditListFragment : DialogFragment() {
     private fun convertHashMapToGson(makeListHashMap: HashMap<String, Boolean>): String {
         val gson = Gson()
         var jsonString: String = gson.toJson(makeListHashMap)
-       Toast.makeText(context,"string"+ jsonString,Toast.LENGTH_SHORT).show()
         return jsonString
     }
 

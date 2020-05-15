@@ -37,7 +37,7 @@ class EditNoteFragment : DialogFragment() {
     companion object {
         fun newInstance(notesModel: AllNotesModel): EditNoteFragment {
             val fragment = EditNoteFragment()
-            var model:AllNotesModel
+           // var model:AllNotesModel
             val bundle = Bundle().apply {
                 putSerializable("notesModel", notesModel)
             }
@@ -47,8 +47,8 @@ class EditNoteFragment : DialogFragment() {
     }
 
     private var mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
-    lateinit var model :AllNotesModel
-    var cal = Calendar.getInstance()
+    lateinit var model : AllNotesModel
+
     lateinit var dateTextView: TextView
     private lateinit var viewModel: EditNoteViewModel
 
@@ -89,8 +89,8 @@ class EditNoteFragment : DialogFragment() {
     private fun observeEditNoteViewModel() {
         viewModel.getValue().observe(viewLifecycleOwner, Observer<Boolean> { value ->
             if (value) {
-                Toast.makeText(context, "Updated to Database", Toast.LENGTH_LONG).show()
-                if(NoteUtil.checkInput(model.createdOn))
+                Toast.makeText(context, "Updated", Toast.LENGTH_LONG).show()
+                //if(NoteUtil.checkInput(model.createdOn))
                     NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
                 closeCurrentFragment()
             } else
@@ -138,8 +138,6 @@ class EditNoteFragment : DialogFragment() {
                 Log.i("TIME", pickedDateTime.toString())
                 dateTextView.setText(NoteUtil.convertDateToString(pickedDateTime))
                 mNotificationTime = NoteUtil.convertDateToTimeInMilli(pickedDateTime)
-                // NotificationUtils().setNotification(model,mNotificationTime, this.requireActivity())
-                // doSomethingWith(pickedDateTime)
             }, startHour, startMinute, false).show()
         }, startYear, startMonth, startDay).show()
     }
@@ -151,35 +149,10 @@ class EditNoteFragment : DialogFragment() {
                 noteDescription.text.toString(),
                 NoteUtil.NOTE,
                 dateTextView.text.toString(), "", 1,0)
-        //viewModel.updateNoteVm(notesModel)
         model = notesModel
         UpdateTask(this.context, viewModel, notesModel).execute()
     }
 
-    private fun openDatePicker(v: View?) {
-
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
-        DatePickerDialog(
-            v?.context!!,
-            dateSetListener,
-            cal.get(Calendar.YEAR),
-            cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun updateDateInView() {
-        val myFormat = "MM/dd/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        val format = sdf.format(cal.time)
-        dateTextView.text = format
-    }
 
     private fun validateInputs(view: View): Boolean {
         //Form Validation
