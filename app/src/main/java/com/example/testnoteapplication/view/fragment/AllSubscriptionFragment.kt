@@ -50,7 +50,7 @@ class AllSubscriptionFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.all_subscription_fragment, container, false)
 
-        val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
+      //  val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
         allSubscriptionRecyclerView =
             view.findViewById(R.id.subAllRecycler) as RecyclerView
         allSubscriptionRecyclerView.layoutManager =

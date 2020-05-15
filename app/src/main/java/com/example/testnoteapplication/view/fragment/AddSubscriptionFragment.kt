@@ -104,15 +104,15 @@ class AddSubscriptionFragment : DialogFragment() {
         val spin = view.findViewById<View>(R.id.subTitle) as Spinner
         //getting Subscription array list from string resource
         var subscriptions_array = view.context.resources.getStringArray(R.array.subscription_array)
-        //getting subscription icons array list from string resource
+        //getting subscription icons array list
         val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
         val customAdapter = CustomAdapterSpinnerSub(view.context, icons_array, subscriptions_array)
         spin.adapter = customAdapter
-        
-        //select listener on spinner
+
         val imm =
             context!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        //select listener on spinner
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -125,7 +125,7 @@ class AddSubscriptionFragment : DialogFragment() {
                 if (subscriptions_array[position] == "Add Custom") {
                     Toast.makeText(
                         view.context,
-                        "Other subsription ",
+                        "You can add custom subscription in future",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

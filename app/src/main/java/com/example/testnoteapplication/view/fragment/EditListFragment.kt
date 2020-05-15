@@ -48,7 +48,7 @@ class EditListFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.add_list_fragment, container, false)
+        return inflater.inflate(R.layout.edit_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -162,7 +162,7 @@ class EditListFragment : DialogFragment() {
                 android.R.layout.simple_list_item_multiple_choice
                 , itemlist )
         listView.adapter = adapter
-        listTitle.setText(allNotesModel.noteTitle.toString())
+        listTitle.setText(allNotesModel.noteTitle)
     }
 
 

@@ -17,8 +17,14 @@ import com.example.testnoteapplication.data.db.async.UpdateTaskSub
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.adapter.CustomAdapterSpinnerSub
 import com.example.testnoteapplication.viewmodel.EditSubscriptionViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.add_note_fragment.*
 import kotlinx.android.synthetic.main.add_subscription_fragment.*
+import kotlinx.android.synthetic.main.add_subscription_fragment.addSubscription
+import kotlinx.android.synthetic.main.add_subscription_fragment.expiryDate
+import kotlinx.android.synthetic.main.add_subscription_fragment.subDescription
+import kotlinx.android.synthetic.main.edit_subscription_fragment.*
+import kotlinx.android.synthetic.main.spinner_custom_subscription.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
@@ -29,7 +35,6 @@ class EditSubscriptionFragment : DialogFragment() {
     companion object {
         fun newInstance(notesModel: AllNotesModel) : EditSubscriptionFragment{
             val fragment = EditSubscriptionFragment()
-            var model:AllNotesModel
             val bundle = Bundle().apply {
                 putSerializable("notesModel", notesModel)
             }
@@ -41,9 +46,11 @@ class EditSubscriptionFragment : DialogFragment() {
     private lateinit var viewModel: EditSubscriptionViewModel
     lateinit var dateTextView: TextView
     var cal = Calendar.getInstance()
+    lateinit var model :AllNotesModel
     lateinit var subName : String
-    var subicons by Delegates.notNull<Int>()
     var subicon : Int = 0
+    val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.edit_subscription_fragment, container, false)
@@ -61,8 +68,7 @@ class EditSubscriptionFragment : DialogFragment() {
     }
 
     private fun setAllValues() {
-        var subname=allNotesModel.noteTitle
-        //subTitle.prompt()
+        var subname =allNotesModel.noteTitle
         subDescription.setText(allNotesModel.noteDescription)
         expiryDate.text = allNotesModel.expiryDate
     }
@@ -74,7 +80,7 @@ class EditSubscriptionFragment : DialogFragment() {
     }
 
     private fun observeEditSubscriptionViewModel() {
-        //todo temp : wirte seter and complete
+
         viewModel.getValue().observe(viewLifecycleOwner, Observer { value ->
             if (value) {
                 Toast.makeText(context, "Added to Database", Toast.LENGTH_LONG).show()
@@ -103,13 +109,12 @@ class EditSubscriptionFragment : DialogFragment() {
     private fun saveNote() {
         var notesModel =
                 AllNotesModel(
-                        0,
+                        allNotesModel.noteId,
                         subName,
                         subDescription.text.toString(),
                         NoteUtil.SUB,"",
                         dateTextView.text.toString(),2,subicon)
-        //update task call
-        //viewModel.addSubscriptionVm(notesModel)
+                model=notesModel
         UpdateTaskSub(this.context, viewModel, notesModel).execute()
 
     }
@@ -123,15 +128,16 @@ class EditSubscriptionFragment : DialogFragment() {
         //getting Subscription array list from string resource
         var subscriptions_array = view.context.resources.getStringArray(R.array.subscription_array)
         //getting subscription icons array list from string resource
-        val icons_array = intArrayOf(R.drawable.disney, R.drawable.googleplay, R.drawable.hbo, R.drawable.hulu, R.drawable.netflix, R.drawable.primevideo, R.drawable.ic_add)
+
         val customAdapter = CustomAdapterSpinnerSub(view.context,icons_array,subscriptions_array)
         spin.adapter = customAdapter
         //select listener on spinner
         spin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 subName=subscriptions_array[position]
-                subicons =icons_array[position]
+                subicon =icons_array[position]
                 subicon =position
+
                 if(subscriptions_array[position]=="Add Custom"){
                     Toast.makeText(
                             view.context,

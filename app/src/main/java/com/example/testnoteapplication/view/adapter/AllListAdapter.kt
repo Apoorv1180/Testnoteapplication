@@ -51,13 +51,7 @@ class AllListAdapter(
         removedNote = allLists[position]
         removedPosition = position
         DeleteListTask(context, viewModel, removedNote).execute()
-        /*notifyItemRemoved(position)
 
-        Snackbar.make(viewHolder.itemView, "$removedNote removed", Snackbar.LENGTH_LONG)
-            .setAction("UNDO") {
-                UndoListTask(context, viewModel, removedNote).execute()
-                notifyItemInserted(removedPosition)
-            }.show()*/
     }
 
     inner class AllListsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -86,11 +80,6 @@ class AllListAdapter(
                 listener(allTypeNotes)
             }
 
-            itemView.setOnLongClickListener {
-                Toast.makeText(itemView?.context, "Note Long Press clicked!", Toast.LENGTH_SHORT)
-                    .show()
-                true
-            }
         }
     }
 }
