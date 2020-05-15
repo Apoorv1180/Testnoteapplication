@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         fab3.animate().translationY(-resources.getDimension(R.dimen.stan_155))
     }
 
-    private fun closeMenu() {
+    fun closeMenu() {
         isOpen = false
         fab1.animate().translationY(0f)
         fab2.animate().translationY(0f)

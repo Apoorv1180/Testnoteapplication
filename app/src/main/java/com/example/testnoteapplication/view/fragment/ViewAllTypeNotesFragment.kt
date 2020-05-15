@@ -1,17 +1,16 @@
 package com.example.testnoteapplication.view.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.testnoteapplication.R
 import com.example.testnoteapplication.data.model.AllNotesModel
 import com.example.testnoteapplication.view.activity.MainActivity
@@ -72,6 +71,14 @@ class ViewAllTypeNotesFragment : Fragment() {
             openEditSubDialogueFragment(it)
         }
         allNotesRecyclerView.adapter = adapter
+
+
+        allNotesRecyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                (activity as MainActivity?)?.closeMenu()
+            }
+        })
     }
 
     override fun onStart() {
