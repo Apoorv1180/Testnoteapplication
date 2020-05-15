@@ -66,11 +66,15 @@ class AddListFragment : DialogFragment() {
 
     private fun initListener() {
         add.setOnClickListener {
-            itemlist.add(editText.text.toString())
-            listView.adapter = adapter
-            adapter.notifyDataSetChanged()
-            // This is because every time when you add the item the input space or the eidt text space will be cleared
-            editText.text.clear()
+            if(NoteUtil.checkInput(editText)) {
+                itemlist.add(editText.text.toString())
+                listView.adapter = adapter
+                adapter.notifyDataSetChanged()
+                // This is because every time when you add the item the input space or the eidt text space will be cleared
+                editText.text.clear()
+            } else {
+                editText.error = "Can't add empty item!"
+            }
         }
 
         delete.setOnClickListener {
